@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/gowtroopcreator/static/css/main.2cce8147.chunk.css",
+    "main.js": "/gowtroopcreator/static/js/main.dc7ed896.chunk.js",
+    "main.js.map": "/gowtroopcreator/static/js/main.dc7ed896.chunk.js.map",
+    "runtime~main.js": "/gowtroopcreator/static/js/runtime~main.a221f47e.js",
+    "runtime~main.js.map": "/gowtroopcreator/static/js/runtime~main.a221f47e.js.map",
+    "static/js/2.08ae7633.chunk.js": "/gowtroopcreator/static/js/2.08ae7633.chunk.js",
+    "static/js/2.08ae7633.chunk.js.map": "/gowtroopcreator/static/js/2.08ae7633.chunk.js.map",
+    "index.html": "/gowtroopcreator/index.html",
+    "precache-manifest.797c333a7447340d5ce8a367d10e38c9.js": "/gowtroopcreator/precache-manifest.797c333a7447340d5ce8a367d10e38c9.js",
+    "service-worker.js": "/gowtroopcreator/service-worker.js",
+    "static/css/main.2cce8147.chunk.css.map": "/gowtroopcreator/static/css/main.2cce8147.chunk.css.map",
+    "static/media/logo.svg": "/gowtroopcreator/static/media/logo.5d5d9eef.svg"
+  }
+}
