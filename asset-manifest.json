@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/gowtroopcreator/static/css/main.48e6297b.chunk.css",
-    "main.js": "/gowtroopcreator/static/js/main.04db4d56.chunk.js",
-    "main.js.map": "/gowtroopcreator/static/js/main.04db4d56.chunk.js.map",
-    "runtime~main.js": "/gowtroopcreator/static/js/runtime~main.a221f47e.js",
-    "runtime~main.js.map": "/gowtroopcreator/static/js/runtime~main.a221f47e.js.map",
-    "static/js/2.7e53402e.chunk.js": "/gowtroopcreator/static/js/2.7e53402e.chunk.js",
-    "static/js/2.7e53402e.chunk.js.map": "/gowtroopcreator/static/js/2.7e53402e.chunk.js.map",
-    "index.html": "/gowtroopcreator/index.html",
-    "precache-manifest.6103bb952ebb948c428bd894765f4c17.js": "/gowtroopcreator/precache-manifest.6103bb952ebb948c428bd894765f4c17.js",
-    "service-worker.js": "/gowtroopcreator/service-worker.js",
-    "static/css/main.48e6297b.chunk.css.map": "/gowtroopcreator/static/css/main.48e6297b.chunk.css.map",
-    "static/media/nerd-fonts.min.css": "/gowtroopcreator/static/media/NerdFontsRoboto.cadeccb2.ttf"
+    "main.css": "/gow-troop-creator/static/css/main.64cf1978.chunk.css",
+    "main.js": "/gow-troop-creator/static/js/main.04db4d56.chunk.js",
+    "main.js.map": "/gow-troop-creator/static/js/main.04db4d56.chunk.js.map",
+    "runtime~main.js": "/gow-troop-creator/static/js/runtime~main.f96a3612.js",
+    "runtime~main.js.map": "/gow-troop-creator/static/js/runtime~main.f96a3612.js.map",
+    "static/js/2.7e53402e.chunk.js": "/gow-troop-creator/static/js/2.7e53402e.chunk.js",
+    "static/js/2.7e53402e.chunk.js.map": "/gow-troop-creator/static/js/2.7e53402e.chunk.js.map",
+    "index.html": "/gow-troop-creator/index.html",
+    "precache-manifest.05edf01950624e3b284eeac558202125.js": "/gow-troop-creator/precache-manifest.05edf01950624e3b284eeac558202125.js",
+    "service-worker.js": "/gow-troop-creator/service-worker.js",
+    "static/css/main.64cf1978.chunk.css.map": "/gow-troop-creator/static/css/main.64cf1978.chunk.css.map",
+    "static/media/nerd-fonts.min.css": "/gow-troop-creator/static/media/NerdFontsRoboto.cadeccb2.ttf"
   }
 }
