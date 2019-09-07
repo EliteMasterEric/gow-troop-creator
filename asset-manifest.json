@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/gowtroopcreator/static/css/main.2cce8147.chunk.css",
-    "main.js": "/gowtroopcreator/static/js/main.dc7ed896.chunk.js",
-    "main.js.map": "/gowtroopcreator/static/js/main.dc7ed896.chunk.js.map",
+    "main.css": "/gowtroopcreator/static/css/main.48e6297b.chunk.css",
+    "main.js": "/gowtroopcreator/static/js/main.04db4d56.chunk.js",
+    "main.js.map": "/gowtroopcreator/static/js/main.04db4d56.chunk.js.map",
     "runtime~main.js": "/gowtroopcreator/static/js/runtime~main.a221f47e.js",
     "runtime~main.js.map": "/gowtroopcreator/static/js/runtime~main.a221f47e.js.map",
-    "static/js/2.08ae7633.chunk.js": "/gowtroopcreator/static/js/2.08ae7633.chunk.js",
-    "static/js/2.08ae7633.chunk.js.map": "/gowtroopcreator/static/js/2.08ae7633.chunk.js.map",
+    "static/js/2.7e53402e.chunk.js": "/gowtroopcreator/static/js/2.7e53402e.chunk.js",
+    "static/js/2.7e53402e.chunk.js.map": "/gowtroopcreator/static/js/2.7e53402e.chunk.js.map",
     "index.html": "/gowtroopcreator/index.html",
-    "precache-manifest.797c333a7447340d5ce8a367d10e38c9.js": "/gowtroopcreator/precache-manifest.797c333a7447340d5ce8a367d10e38c9.js",
+    "precache-manifest.6103bb952ebb948c428bd894765f4c17.js": "/gowtroopcreator/precache-manifest.6103bb952ebb948c428bd894765f4c17.js",
     "service-worker.js": "/gowtroopcreator/service-worker.js",
-    "static/css/main.2cce8147.chunk.css.map": "/gowtroopcreator/static/css/main.2cce8147.chunk.css.map",
-    "static/media/logo.svg": "/gowtroopcreator/static/media/logo.5d5d9eef.svg"
+    "static/css/main.48e6297b.chunk.css.map": "/gowtroopcreator/static/css/main.48e6297b.chunk.css.map",
+    "static/media/nerd-fonts.min.css": "/gowtroopcreator/static/media/NerdFontsRoboto.cadeccb2.ttf"
   }
 }

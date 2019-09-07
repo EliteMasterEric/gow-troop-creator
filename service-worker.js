@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/gowtroopcreator/precache-manifest.797c333a7447340d5ce8a367d10e38c9.js"
+  "/gowtroopcreator/precache-manifest.6103bb952ebb948c428bd894765f4c17.js"
 );
 
 self.addEventListener('message', (event) => {
