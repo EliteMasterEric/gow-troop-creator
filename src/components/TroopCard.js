@@ -35,7 +35,7 @@ const rarities = {
 }
 
 // Ensure all images are loaded before rendering the canvas itself.
-function loadImages(canvas, temp, troop, troop_sources, callback) {
+function loadImages(canvas, temp, troop, troop_sources, callback, setDownloadUrl) {
   var images = {};
   var loadedImages = 0;
   var countImages = core_sources.length + troop_sources.length;
@@ -43,7 +43,7 @@ function loadImages(canvas, temp, troop, troop_sources, callback) {
       images[src] = new Image();
       images[src].onload = function() {
         if (++loadedImages >= countImages) {
-          callback(canvas, temp, troop, images);
+          callback(canvas, temp, troop, images, setDownloadUrl);
         }
       };
       images[src].src = core_sources[src];
@@ -53,7 +53,7 @@ function loadImages(canvas, temp, troop, troop_sources, callback) {
     images[index] = new Image();
     images[index].onload = function() {
       if (++loadedImages >= countImages) {
-        callback(canvas, temp, troop, images);
+        callback(canvas, temp, troop, images, setDownloadUrl);
       }
     };
     images[index].src = troop_sources[src];
@@ -61,7 +61,7 @@ function loadImages(canvas, temp, troop, troop_sources, callback) {
 };
 
 // Render the canvas itself.
-function draw(canvas, temp, troop, images) {
+function draw(canvas, temp, troop, images, setDownloadUrl) {
   // Set the canvas size.
   canvas.width = 491;
   canvas.height = 746;
@@ -197,11 +197,11 @@ function draw(canvas, temp, troop, images) {
   ctx.fillStyle = "#FFF";
   ctx.textAlign = 'left';
   // Attack Value
-  ctx.fillText("40", 104, 667);
+  ctx.fillText(troop.attack, 104, 667);
   // Armor Value
-  ctx.fillText("40", 268, 667);
+  ctx.fillText(troop.armor, 268, 667);
   // Life Value
-  ctx.fillText("40", 423, 667);
+  ctx.fillText(troop.life, 423, 667);
 
   // Troop Name
   ctx.font = '500 57px "Raleway"';
@@ -260,6 +260,7 @@ function draw(canvas, temp, troop, images) {
   ctemp.globalCompositeOperation = "source-in";
   ctemp.fillStyle = rarities['Epic'].color;
   ctemp.fillRect(0, 0, temp.width, temp.height);
+  ctx.globalAlpha = 1;
   ctx.drawImage(temp, 0, 0, temp.width, temp.height);
   ctemp.clearRect(0, 0, temp.width, temp.height)
   ctemp.restore();
@@ -287,6 +288,9 @@ function draw(canvas, temp, troop, images) {
   ctx.drawImage(temp, 0, 0, temp.width, temp.height);
   ctemp.clearRect(0, 0, temp.width, temp.height)
   ctemp.restore();
+
+  // Set download URL.
+  setDownloadUrl(canvas.toDataURL("image/png"));
 }
 
 const drawInactive = (canvas) => {
@@ -296,7 +300,7 @@ const drawInactive = (canvas) => {
 }
 
 // Render a troop as a full-size card (like in the troop list).
-export const TroopCard = ({troop}) => {
+export const TroopCard = ({troop, setDownloadUrl}) => {
   const classes = useStyles();
 
   const troopCard = React.useRef(null);
@@ -317,7 +321,6 @@ export const TroopCard = ({troop}) => {
   // Perform when troop changes.
   useEffect(() => {
     // Draw the canvas.
-    console.log("Effect");
     if (isFontReady) {
       loadImages(troopCard.current, temp.current, troop, [
         `./assets/graphics/troopcard/infernus.png`, // 10 - Troop Image
@@ -326,11 +329,11 @@ export const TroopCard = ({troop}) => {
         `./assets/graphics/troopcard/traits/${troop.trait2}.png`, // 13 - Trait Icon 2
         `./assets/graphics/troopcard/traits/${troop.trait3}.png`, // 14 - Trait Icon 3
         `./assets/graphics/troopcard/colors/${troop.colors}.png`, // 15 - Mana Colors
-      ], draw);
+      ], draw, setDownloadUrl);
     } else {
       drawInactive(troopCard.current);
     }
-  }, [troop, isFontReady]);
+  }, [troop, isFontReady, setDownloadUrl]);
 
   return (
     <Box height={1}>

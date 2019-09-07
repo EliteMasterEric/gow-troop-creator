@@ -1,23 +1,31 @@
 import React from 'react'
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+  image: {
+    width: 'auto',
+    height: '24px',
+    paddingRight: '4px'
+  }
+}));
 
 /*
   Renders font icons. Great for buttons!
   Powered by Nerd Fonts. Find class names on https://www.nerdfonts.com/cheat-sheet
   Example: <Icon icon="nf-mdi-login" />
  */
-export const Icon = (props) => {
-  var classString = "nf";
-  classString += " " + (props.icon || "nf-fa-amazon");
+export const Icon = ({icon, className}) => {
   return (
-      <div>
-          <i className={classString}/>
-      </div>
+    <div>
+      <i className={`nf ${(icon || "nf-fa-amazon")} ${className || ''}`}/>
+    </div>
   );
 };
 
 // Render a troop as a full-size card (like in the troop list).
-export const Image = ({source, style}) => {
+export const Image = ({source, className}) => {
+  const classes = useStyles();
   return (
-    <img alt="" src={source} style={style || {width: 'auto', height: '24px', paddingRight: '4px'}}></img>
+    <img alt="" src={source} className={className || classes.image}></img>
   );
 }

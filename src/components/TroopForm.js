@@ -73,12 +73,16 @@ const useStyles = makeStyles(theme => {
         width: '33%',
         padding: '4px'
       }
-    },
+    }
   };
  });
 
 export const TroopForm = ({className, troop, setTroop}) => {
   const classes = useStyles();
+
+  const handleChange = name => event => {
+    setTroop({ ...troop, [name]: event.target.value });
+  };
 
   return (
     <Grid xs={12} lg={8} spacing={3} container item direction="row" className={className}>
@@ -89,7 +93,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
             <TextField
               id="form-name"
               value={troop.name}
-              onChange={setTroop('name')}
+              onChange={handleChange('name')}
               margin="normal"
               type="text"
               label="Name"
@@ -105,7 +109,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
             <TextField
               id="form-kingdom"
               value={troop.kingdom}
-              onChange={setTroop('kingdom')}
+              onChange={handleChange('kingdom')}
               margin="normal"
               type="text"
               label="Kingdom"
@@ -123,7 +127,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               value={troop.rarity}
               select
               label="Rarity"
-              onChange={setTroop('rarity')}
+              onChange={handleChange('rarity')}
               margin="normal"
               style={{width: '100%'}}
               variant="outlined">
@@ -144,7 +148,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               id="form-level"
               value={troop.level}
               type="number"
-              onChange={setTroop('level')}
+              onChange={handleChange('level')}
               margin="normal"
               label="Level"
               style={{width: '100%'}}
@@ -161,7 +165,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               value={troop.role}
               select
               label="Role"
-              onChange={setTroop('role')}
+              onChange={handleChange('role')}
               margin="normal"
               style={{width: '100%'}}
               variant="outlined">
@@ -183,7 +187,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               value={troop.cost}
               type="number"
               label="Cost"
-              onChange={setTroop('cost')}
+              onChange={handleChange('cost')}
               margin="normal"
               className={classes.manaCost}
               variant="outlined" />
@@ -192,7 +196,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               value={troop.colors}
               select
               label="Colors"
-              onChange={setTroop('colors')}
+              onChange={handleChange('colors')}
               SelectProps={{
                 MenuProps: {
                   className: classes.menuColor,
@@ -219,7 +223,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               value={troop.attack}
               type="number"
               label="Attack"
-              onChange={setTroop('attack')}
+              onChange={handleChange('attack')}
               margin="normal"
               className={classes.skill}
               InputProps={{
@@ -235,7 +239,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               value={troop.armor}
               type="number"
               label="Armor"
-              onChange={setTroop('armor')}
+              onChange={handleChange('armor')}
               margin="normal"
               className={classes.skill}
               InputProps={{
@@ -251,7 +255,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               value={troop.life}
               type="number"
               label="Life"
-              onChange={setTroop('life')}
+              onChange={handleChange('life')}
               margin="normal"
               className={classes.skill}
               InputProps={{
@@ -272,7 +276,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
             <TextField
               id="form-type1"
               value={troop.type1}
-              onChange={setTroop('type1')}
+              onChange={handleChange('type1')}
               margin="normal"
               type="text"
               label="Type 1"
@@ -281,7 +285,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
             <TextField
               id="form-type2"
               value={troop.type2}
-              onChange={setTroop('type2')}
+              onChange={handleChange('type2')}
               margin="normal"
               type="text"
               label="Type 2 (Optional)"
@@ -299,7 +303,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               value={troop.trait1}
               select
               label="Trait 1"
-              onChange={setTroop('trait1')}
+              onChange={handleChange('trait1')}
               margin="normal"
               className={classes.trait}
 
@@ -315,7 +319,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               value={troop.trait2}
               select
               label="Trait 2"
-              onChange={setTroop('trait2')}
+              onChange={handleChange('trait2')}
               margin="normal"
               className={classes.trait}
               variant="outlined">
@@ -330,7 +334,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
               value={troop.trait3}
               select
               label="Trait 3"
-              onChange={setTroop('trait3')}
+              onChange={handleChange('trait3')}
               margin="normal"
               className={classes.trait}
               variant="outlined">
@@ -349,7 +353,7 @@ export const TroopForm = ({className, troop, setTroop}) => {
             <Typography variant="h4" gutterBottom>Image</Typography>
             <DropzoneArea
               className={{ backgroundColor: "#1f1f1f" }}
-              onChange={setTroop('files')} />
+              onChange={handleChange('files')} />
           </CardContent>
         </Card>
       </Grid>

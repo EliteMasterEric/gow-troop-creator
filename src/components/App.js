@@ -1,9 +1,9 @@
 import React from "react";
-import { CssBaseline, Typography, CardContent, Grid, Card, Container, Toolbar } from '@material-ui/core';
+import { CssBaseline, Grid, Container, Toolbar } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 
 import { NavBar } from "./NavBar";
-import { TroopCard } from "./TroopCard";
+import { TroopPreview } from "./TroopPreview";
 import { TroopForm } from "./TroopForm";
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +36,7 @@ export const App = () => {
 
     role: "Mage",
     cost: 24,
-    colors: "RedYellowPurple",
+    colors: "BlueRed",
     attack: 40,
     armor: 40,
     life: 40,
@@ -51,9 +51,7 @@ export const App = () => {
     files: []
   });
 
-  const handleChange = name => event => {
-    setTroop({ ...troop, [name]: event.target.value });
-  };
+  const [downloadUrl, setDownloadUrl] = React.useState('');
 
   return (
     <CssBaseline>
@@ -61,15 +59,15 @@ export const App = () => {
       <Toolbar />
       <Container maxWidth="xl" className={classes.content}>
         <Grid container spacing={3} direction="row" className={classes.formGridItem}>
-          <TroopForm troop={troop} className={classes.formGridItem} setTroop={handleChange} />
-          <Grid item xs={12} lg={4} className={classes.troopCardGridItem}>
-            <Card className={classes.card}>
-              <CardContent>
-                <Typography align="center" variant="h2">Preview</Typography>
-                <TroopCard troop={troop} />
-              </CardContent>
-            </Card>
-          </Grid>
+          <TroopForm
+            troop={troop}
+            className={classes.formGridItem}
+            setTroop={setTroop} />
+          <TroopPreview
+            troop={troop}
+            downloadUrl={downloadUrl}
+            setDownloadUrl={setDownloadUrl}
+            className={classes.troopCardGridItem} />
         </Grid>
       </Container>
     </CssBaseline>
