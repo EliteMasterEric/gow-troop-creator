@@ -84,14 +84,6 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
     setTroop({ ...troop, [name]: event.target.value });
   };
 
-  const handleNestedChange = name => event => {
-    setTroop({ ...troop, [name]: {
-      ...troop[name],
-      code: event.target.value,
-      name: event.target.label
-    }});
-  };
-
   return (
     <Grid xs={12} lg={8} spacing={3} container item direction="row" {...other}>
         <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>

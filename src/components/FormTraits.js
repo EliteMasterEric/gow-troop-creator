@@ -1,9 +1,8 @@
 import React from 'react'
-import { Typography, CardContent, Grid, Card, TextField, MenuItem, InputAdornment } from '@material-ui/core';
-import { DropzoneArea } from 'material-ui-dropzone'
+import { Typography, CardContent, Grid, Card, TextField, MenuItem } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 
-import { colors, roles, trait_codes, rarities } from "./Values";
+import { trait_codes } from "./Values";
 import { Image } from "./Icon";
 
 const useStyles = makeStyles(theme => {
@@ -90,7 +89,7 @@ export const FormTraits = ({troop, setTroop, ...other}) => {
   const classes = useStyles();
 
   const handleChange = name => event => {
-    setTroop({ ...troop, [name]: event.target.value });
+    
   };
 
   return (
@@ -115,24 +114,24 @@ export const FormTraits = ({troop, setTroop, ...other}) => {
               ))}
             </TextField>
             <TextField
-                id="form-trait1name"
-                value={troop.trait1name}
-                onChange={handleChange('trait1name')}
-                margin="normal"
-                type="text"
-                label="Trait Name"
-                className={classes.traitname}
-                variant="outlined" />
+              id="form-trait1name"
+              value={troop.trait1name}
+              onChange={handleChange('trait1name')}
+              margin="normal"
+              type="text"
+              label="Trait Name"
+              className={classes.traitname}
+              variant="outlined" />
             <TextField
-                id="form-trait1desc"
-                value={troop.trait1desc}
-                onChange={handleChange('trait1desc')}
-                margin="normal"
-                type="text"
-                multiline
-                label="Trait Description"
-                style={{width: '100%'}}
-                variant="outlined" />
+              id="form-trait1desc"
+              value={troop.trait1desc}
+              onChange={handleChange('trait1desc')}
+              margin="normal"
+              type="text"
+              multiline
+              label="Trait Description"
+              style={{width: '100%'}}
+              variant="outlined" />
           </CardContent>
         </Card>
       </Grid>

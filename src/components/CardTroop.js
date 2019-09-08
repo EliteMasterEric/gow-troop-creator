@@ -4,8 +4,11 @@ import Box from "@material-ui/core/Box";
 import WebFontLoader from "webfontloader";
 
 const useStyles = makeStyles(theme => ({
+  cardBox: {
+    padding: theme.spacing(3)
+  },
   card: {
-    width: 'auto',
+    width: '100%',
     margin: '0px auto',
     display: 'table'
   }
@@ -63,7 +66,7 @@ function loadImages(canvas, temp, troop, troop_sources, callback, setDownloadUrl
 // Render the canvas itself.
 function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
   // Set the canvas size.
-  canvas.width = 491;
+  canvas.width = 490;
   canvas.height = 746;
   var ctx = canvas.getContext('2d');
   temp.width = canvas.width;
@@ -189,11 +192,11 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
   // Attack Icon
   ctx.drawImage(images[2], 49, 630, 50, 50);
   // Armor Icon
-  ctx.drawImage(images[3], 213, 630, 50, 50);
+  ctx.drawImage(images[3], 216, 630, 44, 50);
   // Life Icon
   ctx.drawImage(images[4], 368, 630, 50, 50);
 
-  ctx.font = '700 40px "Open Sans"';
+  ctx.font = '600 40px "Open Sans"';
   ctx.fillStyle = "#FFF";
   ctx.textAlign = 'left';
   // Attack Value
@@ -291,8 +294,8 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
 
   // Add the troop to the results.
   const cresult = canvasResult.getContext('2d');
-  cresult.clearRect(460 + 5, 0, ctx.width, ctx.height);
-  cresult.drawImage(canvas, 460 + 5, 0, ctx.width, ctx.height);
+  cresult.clearRect(475, 0, canvas.width, canvas.height);
+  cresult.drawImage(canvas, 475, 0, canvas.width, canvas.height);
 
   // Set the download URL.
   setDownloadUrl(canvas.toDataURL("image/png"));
@@ -317,7 +320,7 @@ export const CardTroop = ({troop, canvasResult, setDownloadUrl}) => {
     // Fetch necessary fonts.
     WebFontLoader.load({
       google: {
-        families: [ 'Open Sans', 'Roboto', 'Raleway'],
+        families: [ 'Open Sans:400,600,700', 'Roboto', 'Raleway'],
       },
       fontactive: () => { setFontReady(true) },
     })
@@ -341,7 +344,7 @@ export const CardTroop = ({troop, canvasResult, setDownloadUrl}) => {
   }, [troop, isFontReady]);
 
   return (
-    <Box height={1}>
+    <Box height={1} className={classes.cardBox}>
         <canvas ref={troopCard} className={classes.card} />
         <canvas ref={temp} style={{display: 'none'}} />
     </Box>

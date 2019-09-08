@@ -53,14 +53,15 @@ export const App = () => {
     name: "Infernus",
     kingdom: "Broken Spire",
     rarity: "Mythic",
-    level: 20,
+    level: "20",
 
     role: "Mage",
-    cost: 24,
+    cost: "24",
     colors: "RedYellowPurple",
-    attack: 40,
-    armor: 40,
-    life: 40,
+    attack: "40",
+    armor: "40",
+    life: "40",
+    magic: "25",
 
     type1: "Divine",
     type2: "Elemental",
@@ -75,11 +76,17 @@ export const App = () => {
     trait3desc: 'Burn all enemies on 4 or 5 Gem matches.',
     trait3code: 'molten',
 
+    spellname: "Eruption",
+    spelldesc: "Deal {magic} damage to 2 random enemies, and half of that damage to adjacent enemies. Explode 5 random Gems.",
+    spellmult: "1",
+    spellbase: "10",
+    spellrange: false,
+
     file_base: "Troop_K00_10",
     files: []
   });
 
-  const [currentTab, setCurrentTab] = React.useState(2);
+  const [currentTab, setCurrentTab] = React.useState(1);
 
   const handleTabEvent = (event, newValue) => {
     setCurrentTab(newValue);
@@ -98,8 +105,8 @@ export const App = () => {
           indicatorColor="primary"
           textColor="primary"
           centered>
-          <Tab label="Troop" {...a11yProps(0)} />
-          <Tab label="Spell" {...a11yProps(1)} />
+          <Tab label="Spell" {...a11yProps(0)} />
+          <Tab label="Troop" {...a11yProps(1)} />
           <Tab label="Traits" {...a11yProps(2)} />
           <Tab label="Result" {...a11yProps(3)} />
         </Tabs>
@@ -108,10 +115,10 @@ export const App = () => {
           index={currentTab}
           onChangeIndex={setCurrentTab}>
           <TabPanel value={currentTab} index={0} dir={theme.direction}>
-            <TabTroop className={classes.tabView} canvasResult={canvasResult} troop={troop} setTroop={setTroop} />
+            <TabSpell className={classes.tabView} canvasResult={canvasResult} troop={troop} setTroop={setTroop} />
           </TabPanel>
           <TabPanel value={currentTab} index={1} dir={theme.direction}>
-
+            <TabTroop className={classes.tabView} canvasResult={canvasResult} troop={troop} setTroop={setTroop} />
           </TabPanel>
           <TabPanel value={currentTab} index={2} dir={theme.direction}>
             <TabTraits className={classes.tabView} canvasResult={canvasResult} troop={troop} setTroop={setTroop} />
@@ -124,4 +131,3 @@ export const App = () => {
     </CssBaseline>
   );  
 };
-            //<TabSpell canvasResult={canvasResult} troop={troop} setTroop={setTroop} />

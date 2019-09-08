@@ -4,8 +4,11 @@ import Box from "@material-ui/core/Box";
 import WebFontLoader from "webfontloader";
 
 const useStyles = makeStyles(theme => ({
+  cardBox: {
+    padding: theme.spacing(3)
+  },
   card: {
-    width: 'auto',
+    width: '100%',
     margin: '0px auto',
     display: 'table'
   }
@@ -76,11 +79,9 @@ function writeLines(context, x, y, maxWidth, lineHeight, text) {
 
   const newY = y - (lines.length * lineHeight / 2);
 
-  for (var i = 0; i < lines.length; i++) {
-    context.fillText(lines[i], x, newY + lineHeight * i);
+  for (var j = 0; j < lines.length; j++) {
+    context.fillText(lines[j], x, newY + lineHeight * j);
   }
-  
-  
 }
 
 // Render the canvas itself.
@@ -175,19 +176,21 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
 
   // TraitName1
   ctx.font = '600 32px "Open Sans"';
-  ctx.fillStyle = "#FFF";
   ctx.textAlign = 'left';
+  ctx.fillStyle = rarities['Epic'].color;
   ctx.fillText(troop.trait1name, 60, 104 + 30);
 
   // TraitName2
+  ctx.fillStyle = rarities['Legendary'].color;
   ctx.fillText(troop.trait2name, 60, 310 + 30);
 
   // TraitName3
+  ctx.fillStyle = rarities['Mythic'].color;
   ctx.fillText(troop.trait3name, 60, 516 + 30);
 
   // TraitDesc1
   ctx.font = '600 32px "Open Sans"';
-  ctx.fillStyle = "#646464";
+  ctx.fillStyle = "#000";
   ctx.textAlign = 'center';
   writeLines(ctx, 230, 246, 400, 32, troop.trait1desc);
 
@@ -199,8 +202,8 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
 
   // Add the traits to the results.
   const cresult = canvasResult.getContext('2d');
-  cresult.clearRect(460 + 5 + 490, 0, ctx.width, ctx.height);
-  cresult.drawImage(canvas, 460 + 5 + 490, 0, ctx.width, ctx.height);
+  cresult.clearRect(975, 10, canvas.width, canvas.height);
+  cresult.drawImage(canvas, 975, 10, canvas.width, canvas.height);
 
   // Set the download URL.
   setDownloadUrl(canvas.toDataURL("image/png"));
@@ -208,8 +211,8 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
 
 const drawInactive = (canvas) => {
   // Set the canvas size.
-  canvas.width = 491;
-  canvas.height = 746;
+  canvas.width = 460;
+  canvas.height = 727;
 }
 
 // Render a troop as a full-size card (like in the troop list).
@@ -225,7 +228,7 @@ export const CardTraits = ({troop, canvasResult, setDownloadUrl}) => {
     // Fetch necessary fonts.
     WebFontLoader.load({
       google: {
-        families: [ 'Open Sans', 'Roboto', 'Raleway'],
+        families: [ 'Open Sans:400,600,700', 'Roboto', 'Raleway'],
       },
       fontactive: () => { setFontReady(true) },
     })
@@ -246,7 +249,7 @@ export const CardTraits = ({troop, canvasResult, setDownloadUrl}) => {
   }, [troop, isFontReady]);
 
   return (
-    <Box height={1}>
+    <Box height={1} className={classes.cardBox}>
         <canvas ref={troopCard} className={classes.card} />
         <canvas ref={temp} style={{display: 'none'}} />
     </Box>

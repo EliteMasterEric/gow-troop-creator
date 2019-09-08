@@ -11,6 +11,9 @@ const useStyles = makeStyles(theme => ({
   },
   buttonIcon: {
     fontSize: '2em'
+  },
+  card: {
+    padding: theme.spacing(3)
   }
 }));
 
@@ -21,7 +24,7 @@ export const PreviewTraits = ({troop, canvasResult, ...other}) => {
 
   return (
     <Grid item xs={12} lg={4} {...other}>
-      <Card>
+      <Card className={classes.card}>
         <CardContent>
           <Typography align="center" variant="h2">Preview</Typography>
           <CardTraits troop={troop} canvasResult={canvasResult} setDownloadUrl={setDownloadUrl} />

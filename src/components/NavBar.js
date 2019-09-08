@@ -4,6 +4,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from "@material-ui/core/styles";
 
+import { Image } from './Icon';
+
 const useStyles = makeStyles(theme => {
   return {
     appbar: {
@@ -21,6 +23,13 @@ const useStyles = makeStyles(theme => {
     input: {
       marginLeft: "auto"
     },
+    image: {
+      width: 'auto',
+      height: '36px',
+      paddingRight: '8px',
+      borderRadius: '24px',
+      overflow: 'hidden'
+    }
   };
  });
 
@@ -30,6 +39,7 @@ export const NavBar = () => {
   return (
     <AppBar color="primary" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
+        <Image source={'./logo256.png'} className={classes.image} />
         <Typography className={classes.appbarText} variant="h4" color="inherit">
           Gems of War Troop Creator
         </Typography>

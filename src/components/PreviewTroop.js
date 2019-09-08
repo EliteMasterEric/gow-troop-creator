@@ -11,6 +11,9 @@ const useStyles = makeStyles(theme => ({
   },
   buttonIcon: {
     fontSize: '2em'
+  },
+  card: {
+    padding: theme.spacing(3)
   }
 }));
 
@@ -21,25 +24,25 @@ export const PreviewTroop = ({troop, canvasResult, ...other}) => {
 
   return (
     <Grid item xs={12} lg={4} {...other}>
-        <Card>
-          <CardContent>
-            <Typography align="center" variant="h2">Preview</Typography>
-            <CardTroop troop={troop} canvasResult={canvasResult} setDownloadUrl={setDownloadUrl} />
-            <Grid container justify="center" className={classes.buttonGrid} spacing={3}>
-              <Grid item>
-                <Tooltip title="Download" aria-label="download">
-                  <Button
-                    variant="outlined"
-                    size="large"
-                    href={downloadUrl}
-                    download={`${troop.name}.png`}>
-                    <Icon className={classes.buttonIcon} icon={"nf-mdi-download"}/>
-                  </Button>
-                </Tooltip>
-              </Grid>
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography align="center" variant="h2">Preview</Typography>
+          <CardTroop troop={troop} canvasResult={canvasResult} setDownloadUrl={setDownloadUrl} />
+          <Grid container justify="center" className={classes.buttonGrid} spacing={3}>
+            <Grid item>
+              <Tooltip title="Download" aria-label="download">
+                <Button
+                  variant="outlined"
+                  size="large"
+                  href={downloadUrl}
+                  download={`${troop.name}.png`}>
+                  <Icon className={classes.buttonIcon} icon={"nf-mdi-download"}/>
+                </Button>
+              </Tooltip>
             </Grid>
-          </CardContent>
-        </Card>
+          </Grid>
+        </CardContent>
+      </Card>
     </Grid>
   )
 }
