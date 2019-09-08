@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, CardContent, Grid, Card, Button, Tooltip} from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 
-import { TroopCard } from "./TroopCard";
+import { CardSpell } from "./CardSpell";
 import { Icon } from './Icon';
 
 const useStyles = makeStyles(theme => ({
@@ -14,23 +14,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const TroopPreview = ({className, troop, downloadUrl, setDownloadUrl}) => {
+export const PreviewSpell = ({troop, canvasResult, ...other}) => {
   const classes = useStyles();
 
+  const [downloadUrl, setDownloadUrl] = React.useState("");
+
   return (
-    <Grid item xs={12} lg={4} className={className}>
+    <Grid item xs={12} lg={4} {...other}>
       <Card>
         <CardContent>
           <Typography align="center" variant="h2">Preview</Typography>
-          <TroopCard troop={troop} setDownloadUrl={setDownloadUrl} />
-          <Grid container className={classes.buttonGrid} spacing={3}>
+          <CardSpell troop={troop} canvasResult={canvasResult} setDownloadUrl={setDownloadUrl} />
+          <Grid container justify="center" className={classes.buttonGrid} spacing={3}>
             <Grid item>
               <Tooltip title="Download" aria-label="download">
                 <Button
                   variant="outlined"
                   size="large"
                   href={downloadUrl}
-                  download>
+                  download={`${troop.name}.png`}>
                   <Icon className={classes.buttonIcon} icon={"nf-mdi-download"}/>
                 </Button>
               </Tooltip>

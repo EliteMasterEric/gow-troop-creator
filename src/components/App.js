@@ -1,32 +1,53 @@
 import React from "react";
-import { CssBaseline, Grid, Container, Toolbar } from '@material-ui/core';
-import { makeStyles } from "@material-ui/core/styles";
+import { CssBaseline, Container, Toolbar, Tabs, Tab, Typography, Box } from '@material-ui/core';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import SwipeableViews from 'react-swipeable-views';
 
 import { NavBar } from "./NavBar";
-import { TroopPreview } from "./TroopPreview";
-import { TroopForm } from "./TroopForm";
+import { TabResult } from "./TabResult";
+import { TabSpell } from "./TabSpell";
+import { TabTraits } from "./TabTraits";
+import { TabTroop } from "./TabTroop";
 
 const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
     width: `calc(100vw - 240px)`,
     maxHeight: `calc(100vh - 64px)`,
   },
   grid: {
     display: 'flex'
   },
-  troopCardGridItem: {
-    order: 2,
-    width: `calc(75vh)`
-  },
-  formGridItem: {
-    order: 1
+  tabView: {
   }
 }));
 
+
+const TabPanel = ({ children, value, index, ...other }) => {
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      <Box p={3}>{children}</Box>
+    </Typography>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 export const App = () => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const [troop, setTroop] = React.useState({
     name: "Infernus",
@@ -36,40 +57,71 @@ export const App = () => {
 
     role: "Mage",
     cost: 24,
-    colors: "BlueRed",
+    colors: "RedYellowPurple",
     attack: 40,
     armor: 40,
     life: 40,
 
     type1: "Divine",
     type2: "Elemental",
-    trait1: "nagabond",
-    trait2: "indigestible",
-    trait3: "molten",
+
+    trait1name: 'Elemental Shield',
+    trait1desc: 'Allied Elementals gain 2 Armor.',
+    trait1code: 'elementalbond',
+    trait2name: 'Fiery Death',
+    trait2desc: 'Summon a Firestorm when an enemy dies.',
+    trait2code: 'firebrand',
+    trait3name: 'Conflagration',
+    trait3desc: 'Burn all enemies on 4 or 5 Gem matches.',
+    trait3code: 'molten',
 
     file_base: "Troop_K00_10",
     files: []
   });
 
-  const [downloadUrl, setDownloadUrl] = React.useState('');
+  const [currentTab, setCurrentTab] = React.useState(2);
+
+  const handleTabEvent = (event, newValue) => {
+    setCurrentTab(newValue);
+  }
+
+  const canvasResult = React.createRef();
 
   return (
     <CssBaseline>
       <NavBar />
       <Toolbar />
       <Container maxWidth="xl" className={classes.content}>
-        <Grid container spacing={3} direction="row" className={classes.formGridItem}>
-          <TroopForm
-            troop={troop}
-            className={classes.formGridItem}
-            setTroop={setTroop} />
-          <TroopPreview
-            troop={troop}
-            downloadUrl={downloadUrl}
-            setDownloadUrl={setDownloadUrl}
-            className={classes.troopCardGridItem} />
-        </Grid>
+        <Tabs
+          value={currentTab}
+          onChange={handleTabEvent}
+          indicatorColor="primary"
+          textColor="primary"
+          centered>
+          <Tab label="Troop" {...a11yProps(0)} />
+          <Tab label="Spell" {...a11yProps(1)} />
+          <Tab label="Traits" {...a11yProps(2)} />
+          <Tab label="Result" {...a11yProps(3)} />
+        </Tabs>
+        <SwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={currentTab}
+          onChangeIndex={setCurrentTab}>
+          <TabPanel value={currentTab} index={0} dir={theme.direction}>
+            <TabTroop className={classes.tabView} canvasResult={canvasResult} troop={troop} setTroop={setTroop} />
+          </TabPanel>
+          <TabPanel value={currentTab} index={1} dir={theme.direction}>
+
+          </TabPanel>
+          <TabPanel value={currentTab} index={2} dir={theme.direction}>
+            <TabTraits className={classes.tabView} canvasResult={canvasResult} troop={troop} setTroop={setTroop} />
+          </TabPanel>
+          <TabPanel value={currentTab} index={3} dir={theme.direction}>
+            <TabResult className={classes.tabView} canvasResult={canvasResult} troop={troop} />
+          </TabPanel>
+        </SwipeableViews>
       </Container>
     </CssBaseline>
   );  
 };
+            //<TabSpell canvasResult={canvasResult} troop={troop} setTroop={setTroop} />
