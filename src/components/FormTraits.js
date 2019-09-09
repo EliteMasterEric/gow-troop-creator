@@ -81,26 +81,29 @@ const useStyles = makeStyles(theme => {
         width: `calc(100% - 80px)`,
         padding: '4px'
       }
+    },
+    formElement: {
+      margin: '12px 0'
     }
   };
  });
 
-export const FormTraits = ({troop, setTroop, ...other}) => {
+export const FormTraits = ({traitData, setTraitData, ...other}) => {
   const classes = useStyles();
 
   const handleChange = name => event => {
-    
+    setTraitData({ ...traitData, [name]: event.target.value });
   };
 
   return (
-    <Grid xs={12} lg={8} spacing={3} container item direction="row" {...other}>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+    <Grid xs={12} lg={8} container item direction="row" {...other}>
+      <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4} xl={4}>
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Trait 1</Typography>
             <TextField
               id="form-trait1code"
-              value={troop.trait1code}
+              value={traitData.trait1code}
               select
               label="Trait Icon"
               onChange={handleChange("trait1code")}
@@ -115,7 +118,7 @@ export const FormTraits = ({troop, setTroop, ...other}) => {
             </TextField>
             <TextField
               id="form-trait1name"
-              value={troop.trait1name}
+              value={traitData.trait1name}
               onChange={handleChange('trait1name')}
               margin="normal"
               type="text"
@@ -124,7 +127,7 @@ export const FormTraits = ({troop, setTroop, ...other}) => {
               variant="outlined" />
             <TextField
               id="form-trait1desc"
-              value={troop.trait1desc}
+              value={traitData.trait1desc}
               onChange={handleChange('trait1desc')}
               margin="normal"
               type="text"
@@ -135,13 +138,13 @@ export const FormTraits = ({troop, setTroop, ...other}) => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+      <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4} xl={4}>
         <Card>
           <CardContent>
             <Typography variant="h4">Trait 2</Typography>
             <TextField
               id="form-trait2code"
-              value={troop.trait2code}
+              value={traitData.trait2code}
               select
               label="Trait Icon"
               onChange={handleChange("trait2code")}
@@ -156,7 +159,7 @@ export const FormTraits = ({troop, setTroop, ...other}) => {
             </TextField>
             <TextField
                 id="form-trait2name"
-                value={troop.trait2name}
+                value={traitData.trait2name}
                 onChange={handleChange('trait2name')}
                 margin="normal"
                 type="text"
@@ -165,7 +168,7 @@ export const FormTraits = ({troop, setTroop, ...other}) => {
                 variant="outlined" />
             <TextField
                 id="form-trait2desc"
-                value={troop.trait2desc}
+                value={traitData.trait2desc}
                 onChange={handleChange('trait2desc')}
                 margin="normal"
                 type="text"
@@ -176,13 +179,13 @@ export const FormTraits = ({troop, setTroop, ...other}) => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+      <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4} xl={4}>
         <Card>
           <CardContent>
             <Typography variant="h4">Trait 3</Typography>
             <TextField
               id="form-trait3code"
-              value={troop.trait3code}
+              value={traitData.trait3code}
               select
               label="Trait Icon"
               onChange={handleChange("trait3code")}
@@ -197,7 +200,7 @@ export const FormTraits = ({troop, setTroop, ...other}) => {
             </TextField>
             <TextField
                 id="form-trait3name"
-                value={troop.trait3name}
+                value={traitData.trait3name}
                 onChange={handleChange('trait3name')}
                 margin="normal"
                 type="text"
@@ -206,7 +209,7 @@ export const FormTraits = ({troop, setTroop, ...other}) => {
                 variant="outlined" />
             <TextField
                 id="form-trait3desc"
-                value={troop.trait3desc}
+                value={traitData.trait3desc}
                 onChange={handleChange('trait3desc')}
                 margin="normal"
                 type="text"

@@ -7,25 +7,36 @@ import { PreviewSpell } from "./PreviewSpell";
 
 const useStyles = makeStyles(theme => ({
   cardGridItem: {
+    [theme.breakpoints.up('xs')]: {
+      order: 1,
+    },
+    [theme.breakpoints.up('lg')]: {
+      order: 2,
+    },
     order: 2,
     width: `calc(75vh)`
   },
   formGridItem: {
-    order: 1
+    [theme.breakpoints.up('xs')]: {
+      order: 2,
+    },
+    [theme.breakpoints.up('lg')]: {
+      order: 1,
+    }
   }
 }));
 
-export const TabSpell = ({troop, setTroop, canvasResult, ...other}) => {
+export const TabSpell = ({spellData, debouncedTroop, setSpellData, canvasResult, ...other}) => {
   const classes = useStyles();
 
   return (
-    <Grid container spacing={3} direction="row" {...other}>
+    <Grid container direction="row" {...other}>
       <FormSpell
-        troop={troop}
+        spellData={spellData}
         className={classes.formGridItem}
-        setTroop={setTroop} />
+        setSpellData={setSpellData} />
       <PreviewSpell
-        troop={troop}
+        troop={debouncedTroop}
         canvasResult={canvasResult} 
         className={classes.cardGridItem} />
     </Grid>

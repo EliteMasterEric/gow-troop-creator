@@ -1,7 +1,7 @@
 import React from 'react'
-import { Typography, CardContent, Grid, Card, TextField, MenuItem, InputAdornment } from '@material-ui/core';
+import { Typography, CardContent, Grid, Card, TextField, MenuItem, InputAdornment, useMediaQuery } from '@material-ui/core';
 import { DropzoneArea } from 'material-ui-dropzone'
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import { colors, roles, rarities } from "./Values";
 import { Image } from "./Icon";
@@ -73,26 +73,43 @@ const useStyles = makeStyles(theme => {
         width: '33%',
         padding: '4px'
       }
+    },
+    dropzone: {
+      backgroundColor: "#1f1f1f"
+    },
+    formElement: {
+      margin: '12px 0'
     }
   };
  });
 
-export const FormTroop = ({troop, setTroop, ...other}) => {
+export const FormTroop = ({troopData, setTroopData, ...other}) => {
   const classes = useStyles();
+  const theme = useTheme();
+
+  const mediaQueryLg = useMediaQuery(theme.breakpoints.up('lg'));
 
   const handleChange = name => event => {
-    setTroop({ ...troop, [name]: event.target.value });
+    setTroopData({ ...troopData, [name]: event.target.value });
+  };
+
+  const handleChangeFiles = files => {
+    if (files.length === 0) {
+      setTroopData({ ...troopData, troopimage: null });
+    } else {
+      setTroopData({ ...troopData, troopimage: files[0] });
+    }
   };
 
   return (
-    <Grid xs={12} lg={8} spacing={3} container item direction="row" {...other}>
-        <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+    <Grid xs={12} lg={8} spacing={mediaQueryLg ? 3 : 0} container item direction="row" {...other}>
+        <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4} xl={3}>
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h4">Name</Typography>
               <TextField
                 id="form-name"
-                value={troop.name}
+                value={troopData.name}
                 onChange={handleChange('name')}
                 margin="normal"
                 type="text"
@@ -102,13 +119,13 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+        <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4} xl={3}>
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h4">Kingdom</Typography>
               <TextField
                 id="form-kingdom"
-                value={troop.kingdom}
+                value={troopData.kingdom}
                 onChange={handleChange('kingdom')}
                 margin="normal"
                 type="text"
@@ -118,13 +135,13 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+        <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4} xl={3}>
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h4">Rarity</Typography>
               <TextField
                 id="form-rarity"
-                value={troop.rarity}
+                value={troopData.rarity}
                 select
                 label="Rarity"
                 onChange={handleChange('rarity')}
@@ -140,13 +157,13 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+        <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={3} xl={3}>
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h4">Level</Typography>
               <TextField
                 id="form-level"
-                value={troop.level}
+                value={troopData.level}
                 type="number"
                 onChange={handleChange('level')}
                 margin="normal"
@@ -156,13 +173,13 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+        <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={3} xl={3}>
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h4">Role</Typography>
               <TextField
                 id="form-role"
-                value={troop.role}
+                value={troopData.role}
                 select
                 label="Role"
                 onChange={handleChange('role')}
@@ -178,13 +195,13 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={5}>
+        <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={6} xl={5}>
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h4">Mana Cost</Typography>
               <TextField
                 id="form-cost"
-                value={troop.cost}
+                value={troopData.cost}
                 type="number"
                 label="Cost"
                 onChange={handleChange('cost')}
@@ -193,7 +210,7 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
                 variant="outlined" />
               <TextField
                 id="form-colors"
-                value={troop.colors}
+                value={troopData.colors}
                 select
                 label="Colors"
                 onChange={handleChange('colors')}
@@ -214,13 +231,13 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={4}>
+        <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4}>
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h4">Types</Typography>
               <TextField
                 id="form-type1"
-                value={troop.type1}
+                value={troopData.type1}
                 onChange={handleChange('type1')}
                 margin="normal"
                 type="text"
@@ -229,7 +246,7 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
                 variant="outlined" />
               <TextField
                 id="form-type2"
-                value={troop.type2}
+                value={troopData.type2}
                 onChange={handleChange('type2')}
                 margin="normal"
                 type="text"
@@ -239,13 +256,13 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={5} xl={5}>
+        <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={5} xl={5}>
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h4">Skills</Typography>
               <TextField
                 id="form-attack"
-                value={troop.attack}
+                value={troopData.attack}
                 type="number"
                 label="Attack"
                 onChange={handleChange('attack')}
@@ -261,7 +278,7 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
                 variant="outlined" />
               <TextField
                 id="form-armor"
-                value={troop.armor}
+                value={troopData.armor}
                 type="number"
                 label="Armor"
                 onChange={handleChange('armor')}
@@ -277,7 +294,7 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
                 variant="outlined" />
               <TextField
                 id="form-life"
-                value={troop.life}
+                value={troopData.life}
                 type="number"
                 label="Life"
                 onChange={handleChange('life')}
@@ -294,13 +311,17 @@ export const FormTroop = ({troop, setTroop, ...other}) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item className={classes.formElement} xs={12}>
           <Card className={classes.card}>
             <CardContent>
-              <Typography variant="h4" gutterBottom>Image</Typography>
+              <Typography variant="h4">Image</Typography>
+              <Typography variant="subtitle2" gutterBottom>Preferred Size: 460x652</Typography>
               <DropzoneArea
-                className={{ backgroundColor: "#1f1f1f" }}
-                onChange={handleChange('files')} />
+                dropzoneClass={classes.dropzone}
+                acceptedFiles={['image/*']}
+                filesLimit={1}
+                showAlerts
+                onChange={handleChangeFiles} />
             </CardContent>
           </Card>
         </Grid>

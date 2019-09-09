@@ -5,7 +5,7 @@ import WebFontLoader from "webfontloader";
 
 const useStyles = makeStyles(theme => ({
   cardBox: {
-    padding: theme.spacing(3)
+    padding: (theme.spacing(3) + 'px 0')
   },
   card: {
     width: '100%',
@@ -99,8 +99,8 @@ const writeSpellDescriptionLines = (context, x, y, maxWidth, maxHeight, baseLine
       var word = words[i];
       if (word === "{magic}") {
         magicFillWordIndex = i;
-        const magicDamage = parseInt(troop.spellbase) + (parseInt(troop.spellmult) * parseInt(troop.magic));
-        if (troop.spellrange) {
+        const magicDamage = parseInt(troop.spell.spellbase) + (parseInt(troop.spell.spellmult) * parseInt(troop.spell.magic));
+        if (troop.spell.spellrange) {
           word = Math.floor(magicDamage/2) + " - " + (magicDamage);
         } else {
           word = magicDamage;
@@ -134,13 +134,13 @@ const writeSpellDescriptionLines = (context, x, y, maxWidth, maxHeight, baseLine
           const magicFillWordLocalIndex = magicFillWordIndex - lineIndexes[j];
 
           const lineWords = lines[j].split(" ");
-          const magicWords = lineWords.splice(magicFillWordLocalIndex, troop.spellrange ? 3 : 1);
+          const magicWords = lineWords.splice(magicFillWordLocalIndex, troop.spell.spellrange ? 3 : 1);
 
           const lineFirstPart = lines[j].split(magicWords.join(' '))[0];
           const lineLastPart = lines[j].split(magicWords.join(' '))[1];
           var textParts = []
           const boldFont = 'bold {}px "Open Sans"'.replace("{}", lineHeight);
-          if (troop.spellrange) {
+          if (troop.spell.spellrange) {
             textParts = [
               { text: lineFirstPart, fillStyle: fillStyle    },
               { text: magicWords[0] + ' ', fillStyle: altFillStyle, font: boldFont },
@@ -177,7 +177,7 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
   temp.height = canvas.height;
   var ctemp = temp.getContext('2d');
 
-  const rarity_color = rarities[troop.rarity].color;
+  const rarity_color = rarities[troop.troop.rarity].color;
   
   // CardTop and CardBottom, TraitDivider1, 2, and 3
   // To color by rarity, we draw on a hidden canvas, color it,
@@ -206,7 +206,7 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
   ctx.font = '600 50px "Open Sans"';
   ctx.fillStyle = "#FFF";
   ctx.textAlign = 'center';
-  ctx.fillText(troop.spellname, 215, 66);
+  ctx.fillText(troop.spell.spellname, 215, 66);
 
   // Spell Image
   ctx.drawImage(images[5], 0, 87, 460, 340);
@@ -221,10 +221,10 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
   ctx.font = '600 40px "Open Sans"';
   ctx.fillStyle = "#FFF";
   ctx.textAlign = 'left';
-  ctx.fillText(troop.magic, 235, 488);
+  ctx.fillText(troop.spell.magic, 235, 488);
 
   // SpellDesc
-  writeSpellDescriptionLines(ctx, 230, 623, 430, 150, 36, troop, troop.spelldesc);
+  writeSpellDescriptionLines(ctx, 230, 623, 430, 150, 36, troop, troop.spell.spelldesc);
 
   // Add the spell to the results.
   const cresult = canvasResult.getContext('2d');
@@ -239,6 +239,15 @@ const drawInactive = (canvas) => {
   // Set the canvas size.
   canvas.width = 491;
   canvas.height = 727;
+}
+
+const getImageURL = (troop) => {
+  if (troop.spell.spellimage !== null) {
+    return URL.createObjectURL(troop.spell.spellimage);
+  } else {
+    // Else, use the default.
+    return `./assets/graphics/troopcard/eruption.png`;
+  }
 }
 
 // Render a troop as a full-size card (like in the troop list).
@@ -265,7 +274,7 @@ export const CardSpell = ({troop, canvasResult, setDownloadUrl}) => {
     // Draw the canvas.
     if (isFontReady) {
       loadImages(troopCard.current, temp.current, troop, [
-        `./assets/graphics/troopcard/eruption.png`, // 5 - Spell Icon
+        getImageURL(troop), // 5 - Spell icon
       ], draw, setDownloadUrl, canvasResult.current);
     } else {
       drawInactive(troopCard.current);

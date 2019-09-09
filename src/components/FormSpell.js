@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, CardContent, Grid, Card, TextField, InputAdornment, FormControlLabel, Checkbox } from '@material-ui/core';
 import { DropzoneArea } from 'material-ui-dropzone'
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import { Image } from "./Icon";
 
@@ -36,30 +36,45 @@ const useStyles = makeStyles(theme => {
         width: '50%',
         padding: '4px'
       }
+    },
+    dropzone: {
+      backgroundColor: "#1f1f1f"
+    },
+    formElement: {
+      margin: '12px 0'
     }
   };
  });
 
-export const FormSpell = ({troop, setTroop, ...other}) => {
+export const FormSpell = ({spellData, setSpellData, ...other}) => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const handleChange = name => event => {
-    setTroop({ ...troop, [name]: event.target.value });
+    setSpellData({ ...spellData, [name]: event.target.value });
   };
 
   const handleChangeCheckbox = name => event => {
-    setTroop({ ...troop, [name]: event.target.checked });
+    setSpellData({ ...spellData, [name]: event.target.checked });
+  };
+
+  const handleChangeFiles = files => {
+    if (files.length === 0) {
+      setSpellData({ ...spellData, spellimage: null });
+    } else {
+      setSpellData({ ...spellData, spellimage: files[0] });
+    }
   };
 
   return (
-    <Grid xs={12} lg={8} spacing={3} container item direction="row" {...other}>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+    <Grid xs={12} lg={8} container item direction="row" {...other}>
+      <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4} xl={4}>
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Spell Name</Typography>
             <TextField
               id="form-spellname"
-              value={troop.spellname}
+              value={spellData.spellname}
               onChange={handleChange('spellname')}
               margin="normal"
               type="text"
@@ -69,13 +84,13 @@ export const FormSpell = ({troop, setTroop, ...other}) => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+      <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4} xl={4}>
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Spell Description</Typography>
             <TextField
               id="form-spelldesc"
-              value={troop.spelldesc}
+              value={spellData.spelldesc}
               onChange={handleChange('spelldesc')}
               margin="normal"
               type="text"
@@ -87,13 +102,13 @@ export const FormSpell = ({troop, setTroop, ...other}) => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+      <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4} xl={4}>
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Magic</Typography>
             <TextField
                 id="form-magic"
-                value={troop.magic}
+                value={spellData.magic}
                 type="number"
                 label="Magic"
                 onChange={handleChange('magic')}
@@ -110,13 +125,13 @@ export const FormSpell = ({troop, setTroop, ...other}) => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+      <Grid item className={classes.formElement} xs={12} sm={12} md={6} lg={4} xl={4}>
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Spell Power</Typography>
             <TextField
               id="form-spellmult"
-              value={troop.spellmult}
+              value={spellData.spellmult}
               type="number"
               label="Multiplier"
               onChange={handleChange('spellmult')}
@@ -125,7 +140,7 @@ export const FormSpell = ({troop, setTroop, ...other}) => {
               variant="outlined" />
             <TextField
               id="form-spellbase"
-              value={troop.spellbase}
+              value={spellData.spellbase}
               type="number"
               label="Base"
               onChange={handleChange('spellbase')}
@@ -134,19 +149,23 @@ export const FormSpell = ({troop, setTroop, ...other}) => {
               variant="outlined" />
             <FormControlLabel
               control={
-                <Checkbox checked={troop.spellrange} onChange={handleChangeCheckbox('spellrange')} value="spellrange" />
+                <Checkbox checked={spellData.spellrange} onChange={handleChangeCheckbox('spellrange')} value="spellrange" />
               }
               label="Range?" />
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item className={classes.formElement} xs={12}>
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="h4" gutterBottom>Image</Typography>
+            <Typography variant="h4">Image</Typography>
+            <Typography variant="subtitle2" gutterBottom>Preferred Size: 460x340</Typography>
             <DropzoneArea
-              className={{ backgroundColor: "#1f1f1f" }}
-              onChange={handleChange('files')} />
+                dropzoneClass={classes.dropzone}
+                acceptedFiles={['image/*']}
+                filesLimit={1}
+                showAlerts
+                onChange={handleChangeFiles} />
           </CardContent>
         </Card>
       </Grid>

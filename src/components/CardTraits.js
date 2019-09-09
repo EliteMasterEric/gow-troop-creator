@@ -5,7 +5,7 @@ import WebFontLoader from "webfontloader";
 
 const useStyles = makeStyles(theme => ({
   cardBox: {
-    padding: theme.spacing(3)
+    padding: (theme.spacing(3) + 'px 0')
   },
   card: {
     width: '100%',
@@ -94,7 +94,7 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
   temp.height = canvas.height;
   var ctemp = temp.getContext('2d');
 
-  const rarity_color = rarities[troop.rarity].color;
+  const rarity_color = rarities[troop.troop.rarity].color;
   
   // CardTop and CardBottom, TraitDivider1, 2, and 3
   // To color by rarity, we draw on a hidden canvas, color it,
@@ -178,27 +178,27 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
   ctx.font = '600 32px "Open Sans"';
   ctx.textAlign = 'left';
   ctx.fillStyle = rarities['Epic'].color;
-  ctx.fillText(troop.trait1name, 60, 104 + 30);
+  ctx.fillText(troop.trait.trait1name, 60, 104 + 30);
 
   // TraitName2
   ctx.fillStyle = rarities['Legendary'].color;
-  ctx.fillText(troop.trait2name, 60, 310 + 30);
+  ctx.fillText(troop.trait.trait2name, 60, 310 + 30);
 
   // TraitName3
   ctx.fillStyle = rarities['Mythic'].color;
-  ctx.fillText(troop.trait3name, 60, 516 + 30);
+  ctx.fillText(troop.trait.trait3name, 60, 516 + 30);
 
   // TraitDesc1
   ctx.font = '600 32px "Open Sans"';
   ctx.fillStyle = "#000";
   ctx.textAlign = 'center';
-  writeLines(ctx, 230, 246, 400, 32, troop.trait1desc);
+  writeLines(ctx, 230, 246, 400, 32, troop.trait.trait1desc);
 
   // TraitDesc2
-  writeLines(ctx, 230, 452, 400, 32, troop.trait2desc);
+  writeLines(ctx, 230, 452, 400, 32, troop.trait.trait2desc);
 
   // TraitDesc3
-  writeLines(ctx, 230, 658, 400, 32, troop.trait3desc);
+  writeLines(ctx, 230, 658, 400, 32, troop.trait.trait3desc);
 
   // Add the traits to the results.
   const cresult = canvasResult.getContext('2d');
@@ -239,9 +239,9 @@ export const CardTraits = ({troop, canvasResult, setDownloadUrl}) => {
     // Draw the canvas.
     if (isFontReady) {
       loadImages(troopCard.current, temp.current, troop, [
-        `./assets/graphics/troopcard/traits/${troop.trait1code}.png`, // 5 - Trait Icon 1
-        `./assets/graphics/troopcard/traits/${troop.trait2code}.png`, // 6 - Trait Icon 2
-        `./assets/graphics/troopcard/traits/${troop.trait3code}.png`, // 7 - Trait Icon 3
+        `./assets/graphics/troopcard/traits/${troop.trait.trait1code}.png`, // 5 - Trait Icon 1
+        `./assets/graphics/troopcard/traits/${troop.trait.trait2code}.png`, // 6 - Trait Icon 2
+        `./assets/graphics/troopcard/traits/${troop.trait.trait3code}.png`, // 7 - Trait Icon 3
       ], draw, setDownloadUrl, canvasResult.current);
     } else {
       drawInactive(troopCard.current);

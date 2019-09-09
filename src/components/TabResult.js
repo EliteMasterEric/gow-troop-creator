@@ -48,7 +48,7 @@ export const TabResult = ({troop, canvasResult}) => {
                   variant="outlined"
                   size="large"
                   href={downloadUrl}
-                  download={`${troop.name}.png`}>
+                  download={`${troop.troop.name}.png`}>
                   <Icon className={classes.buttonIcon} icon={"nf-mdi-download"}/>
                 </Button>
               </Tooltip>

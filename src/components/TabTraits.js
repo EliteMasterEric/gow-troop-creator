@@ -7,25 +7,36 @@ import { PreviewTraits } from "./PreviewTraits";
 
 const useStyles = makeStyles(theme => ({
   cardGridItem: {
+    [theme.breakpoints.up('xs')]: {
+      order: 1,
+    },
+    [theme.breakpoints.up('lg')]: {
+      order: 2,
+    },
     order: 2,
     width: `calc(75vh)`
   },
   formGridItem: {
-    order: 1
+    [theme.breakpoints.up('xs')]: {
+      order: 2,
+    },
+    [theme.breakpoints.up('lg')]: {
+      order: 1,
+    }
   }
 }));
 
-export const TabTraits = ({troop, setTroop, canvasResult, ...other}) => {
+export const TabTraits = ({traitData, debouncedTroop, setTraitData, canvasResult, ...other}) => {
   const classes = useStyles();
 
   return (
-    <Grid container spacing={3} direction="row" {...other}>
+    <Grid container direction="row" {...other}>
       <FormTraits
-        troop={troop}
+        traitData={traitData}
         className={classes.formGridItem}
-        setTroop={setTroop} />
+        setTraitData={setTraitData} />
       <PreviewTraits
-        troop={troop}
+        troop={debouncedTroop}
         canvasResult={canvasResult} 
         className={classes.cardGridItem} />
     </Grid>
