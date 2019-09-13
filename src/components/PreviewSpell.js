@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, CardContent, Grid, Card, Button, Tooltip} from '@material-ui/core';
+import { Typography, CardContent, Grid, Card, Button, Tooltip } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 
 import { CardSpell } from "./CardSpell";
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const PreviewSpell = ({troop, canvasResult, ...other}) => {
+export const PreviewSpell = ({ troop, canvasResult, ...other }) => {
   const classes = useStyles();
 
   const [downloadUrl, setDownloadUrl] = React.useState("");
@@ -36,7 +36,7 @@ export const PreviewSpell = ({troop, canvasResult, ...other}) => {
                   size="large"
                   href={downloadUrl}
                   download={`${troop.troop.name}.png`}>
-                  <Icon className={classes.buttonIcon} icon={"nf-mdi-download"}/>
+                  <Icon className={classes.buttonIcon} icon={"nf-mdi-download"} />
                 </Button>
               </Tooltip>
             </Grid>

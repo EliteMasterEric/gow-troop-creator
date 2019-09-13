@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => {
   return {
     appbar: {
       elevation: 0,
-      position: "fixed" 
+      position: "fixed"
     },
     toolbar: {
       paddingLeft: "8px",
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => {
       overflow: 'hidden'
     }
   };
- });
+});
 
 export const NavBar = () => {
   const classes = useStyles();
@@ -42,7 +42,7 @@ export const NavBar = () => {
       <Toolbar className={classes.toolbar}>
         <Image source={'./logo256.png'} className={classes.image} />
         <Typography className={classes.appbarText} variant="h4" color="inherit">
-          { mediaQueryLg ? 'Gems of War Troop Creator' : 'Troop Creator' }
+          {mediaQueryLg ? 'Gems of War Troop Creator' : 'Troop Creator'}
         </Typography>
       </Toolbar>
     </AppBar>

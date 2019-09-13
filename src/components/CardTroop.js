@@ -28,13 +28,13 @@ const core_sources = [
 ]
 
 const rarities = {
-  "Common":     { color: "#FEFEFE", pips: 1 },
-  "Rare":       { color: "#54A721", pips: 2 },
+  "Common": { color: "#FEFEFE", pips: 1 },
+  "Rare": { color: "#54A721", pips: 2 },
   "Ultra-Rare": { color: "#1D71FF", pips: 3 },
-  "Epic":       { color: "#9635E7", pips: 4 },
-  "Legendary":  { color: "#F3A120", pips: 5 },
-  "Mythic":     { color: "#13E3F6", pips: 6 },
-  "Doomed":     { color: "#B90000", pips: 6 },
+  "Epic": { color: "#9635E7", pips: 4 },
+  "Legendary": { color: "#F3A120", pips: 5 },
+  "Mythic": { color: "#13E3F6", pips: 6 },
+  "Doomed": { color: "#B90000", pips: 6 },
 }
 
 // Ensure all images are loaded before rendering the canvas itself.
@@ -43,18 +43,18 @@ function loadImages(canvas, temp, troop, troop_sources, callback, setDownloadUrl
   var loadedImages = 0;
   var countImages = core_sources.length + troop_sources.length;
   for (var src in core_sources) {
-      images[src] = new Image();
-      images[src].onload = function() {
-        if (++loadedImages >= countImages) {
-          callback(canvas, temp, troop, images, setDownloadUrl, canvasResult);
-        }
-      };
-      images[src].src = core_sources[src];
+    images[src] = new Image();
+    images[src].onload = function () {
+      if (++loadedImages >= countImages) {
+        callback(canvas, temp, troop, images, setDownloadUrl, canvasResult);
+      }
+    };
+    images[src].src = core_sources[src];
   }
   for (src in troop_sources) {
     var index = parseInt(src) + core_sources.length;
     images[index] = new Image();
-    images[index].onload = function() {
+    images[index].onload = function () {
       if (++loadedImages >= countImages) {
         callback(canvas, temp, troop, images, setDownloadUrl, canvasResult);
       }
@@ -135,7 +135,7 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
   ctx.scale(-1, 1);
   ctx.drawImage(images[8], -30, 45, 195, 107);
   ctx.restore();
-  
+
   // CardTop and CardBottom
   // To color by rarity, we draw on a hidden canvas, color it,
   // then copy it to the full canvas.
@@ -333,7 +333,7 @@ const drawInactive = (canvas) => {
   var ctx = canvas.getContext('2d');
 
   var loadingImage = new Image();
-  loadingImage.onload = function() {
+  loadingImage.onload = function () {
     ctx.drawImage(loadingImage, 180, 308, 100, 100);
   };
   loadingImage.src = './assets/graphics/troopcard/loading.png'
@@ -349,7 +349,7 @@ const getImageURL = (troop) => {
 }
 
 // Render a troop as a full-size card (like in the troop list).
-export const CardTroop = ({troop, canvasResult, setDownloadUrl}) => {
+export const CardTroop = ({ troop, canvasResult, setDownloadUrl }) => {
   const classes = useStyles();
 
   const troopCard = React.useRef(null);
@@ -361,7 +361,7 @@ export const CardTroop = ({troop, canvasResult, setDownloadUrl}) => {
     // Fetch necessary fonts.
     WebFontLoader.load({
       google: {
-        families: [ 'Open Sans:400,600,700', 'Roboto', 'Raleway'],
+        families: ['Open Sans:400,600,700', 'Roboto', 'Raleway'],
       },
       fontactive: () => { setFontReady(true) },
     });
@@ -387,8 +387,8 @@ export const CardTroop = ({troop, canvasResult, setDownloadUrl}) => {
 
   return (
     <Box height={1} className={classes.cardBox}>
-        <canvas ref={troopCard} className={classes.card} />
-        <canvas ref={temp} style={{display: 'none'}} />
+      <canvas ref={troopCard} className={classes.card} />
+      <canvas ref={temp} style={{ display: 'none' }} />
     </Box>
   );
 }

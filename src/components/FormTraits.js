@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => {
   return {
     appbar: {
       elevation: 0,
-      position: "fixed" 
+      position: "fixed"
     },
     toolbar: {
       paddingLeft: "8px",
@@ -86,9 +86,9 @@ const useStyles = makeStyles(theme => {
       margin: '12px 0'
     }
   };
- });
+});
 
-export const FormTraits = ({traitData, setTraitData, ...other}) => {
+export const FormTraits = ({ traitData, setTraitData, ...other }) => {
   const classes = useStyles();
 
   const handleChange = name => event => {
@@ -112,7 +112,7 @@ export const FormTraits = ({traitData, setTraitData, ...other}) => {
               variant="outlined">
               {trait_codes.map(code => (
                 <MenuItem key={code} value={code}>
-                  <Image source={`./assets/graphics/troopcard/traits/${code}.png`}/>
+                  <Image source={`./assets/graphics/troopcard/traits/${code}.png`} />
                 </MenuItem>
               ))}
             </TextField>
@@ -133,7 +133,7 @@ export const FormTraits = ({traitData, setTraitData, ...other}) => {
               type="text"
               multiline
               label="Trait Description"
-              style={{width: '100%'}}
+              style={{ width: '100%' }}
               variant="outlined" />
           </CardContent>
         </Card>
@@ -153,29 +153,29 @@ export const FormTraits = ({traitData, setTraitData, ...other}) => {
               variant="outlined">
               {trait_codes.map(code => (
                 <MenuItem key={code} value={code}>
-                  <Image source={`./assets/graphics/troopcard/traits/${code}.png`}/>
+                  <Image source={`./assets/graphics/troopcard/traits/${code}.png`} />
                 </MenuItem>
               ))}
             </TextField>
             <TextField
-                id="form-trait2name"
-                value={traitData.trait2name}
-                onChange={handleChange('trait2name')}
-                margin="normal"
-                type="text"
-                label="Trait Name"
-                className={classes.traitname}
-                variant="outlined" />
+              id="form-trait2name"
+              value={traitData.trait2name}
+              onChange={handleChange('trait2name')}
+              margin="normal"
+              type="text"
+              label="Trait Name"
+              className={classes.traitname}
+              variant="outlined" />
             <TextField
-                id="form-trait2desc"
-                value={traitData.trait2desc}
-                onChange={handleChange('trait2desc')}
-                margin="normal"
-                type="text"
-                multiline
-                label="Trait Description"
-                style={{width: '100%'}}
-                variant="outlined" />
+              id="form-trait2desc"
+              value={traitData.trait2desc}
+              onChange={handleChange('trait2desc')}
+              margin="normal"
+              type="text"
+              multiline
+              label="Trait Description"
+              style={{ width: '100%' }}
+              variant="outlined" />
           </CardContent>
         </Card>
       </Grid>
@@ -194,29 +194,29 @@ export const FormTraits = ({traitData, setTraitData, ...other}) => {
               variant="outlined">
               {trait_codes.map(code => (
                 <MenuItem key={code} value={code}>
-                  <Image source={`./assets/graphics/troopcard/traits/${code}.png`}/>
+                  <Image source={`./assets/graphics/troopcard/traits/${code}.png`} />
                 </MenuItem>
               ))}
             </TextField>
             <TextField
-                id="form-trait3name"
-                value={traitData.trait3name}
-                onChange={handleChange('trait3name')}
-                margin="normal"
-                type="text"
-                label="Trait Name"
-                className={classes.traitname}
-                variant="outlined" />
+              id="form-trait3name"
+              value={traitData.trait3name}
+              onChange={handleChange('trait3name')}
+              margin="normal"
+              type="text"
+              label="Trait Name"
+              className={classes.traitname}
+              variant="outlined" />
             <TextField
-                id="form-trait3desc"
-                value={traitData.trait3desc}
-                onChange={handleChange('trait3desc')}
-                margin="normal"
-                type="text"
-                multiline
-                label="Trait Description"
-                style={{width: '100%'}}
-                variant="outlined" />
+              id="form-trait3desc"
+              value={traitData.trait3desc}
+              onChange={handleChange('trait3desc')}
+              margin="normal"
+              type="text"
+              multiline
+              label="Trait Description"
+              style={{ width: '100%' }}
+              variant="outlined" />
           </CardContent>
         </Card>
       </Grid>

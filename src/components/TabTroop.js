@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const TabTroop = ({troopData, debouncedTroop, setTroopData, canvasResult, ...other}) => {
+export const TabTroop = ({ troopData, debouncedTroop, setTroopData, canvasResult, ...other }) => {
   const classes = useStyles();
 
   return (
@@ -37,7 +37,7 @@ export const TabTroop = ({troopData, debouncedTroop, setTroopData, canvasResult,
         setTroopData={setTroopData} />
       <PreviewTroop
         troop={debouncedTroop}
-        canvasResult={canvasResult} 
+        canvasResult={canvasResult}
         className={classes.cardGridItem} />
     </Grid>
   )

@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const TabResult = ({troop, canvasResult}) => {
+export const TabResult = ({ troop, canvasResult }) => {
   const classes = useStyles();
 
   const [downloadUrl, setDownloadUrl] = React.useState("");
@@ -49,7 +49,7 @@ export const TabResult = ({troop, canvasResult}) => {
                   size="large"
                   href={downloadUrl}
                   download={`${troop.troop.name}.png`}>
-                  <Icon className={classes.buttonIcon} icon={"nf-mdi-download"}/>
+                  <Icon className={classes.buttonIcon} icon={"nf-mdi-download"} />
                 </Button>
               </Tooltip>
             </Grid>

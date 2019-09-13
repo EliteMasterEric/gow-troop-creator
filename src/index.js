@@ -12,14 +12,14 @@ import './css/google-fonts.css'
 import './css/nerd-fonts.min.css'
 
 const theme = createMuiTheme({
-    palette: {
-      type: 'dark',
-      primary: blueGrey,
-      secondary: orange,
-    },
-    zIndex: {
-        appBar: 1
-    }
+  palette: {
+    type: 'dark',
+    primary: blueGrey,
+    secondary: orange,
+  },
+  zIndex: {
+    appBar: 1
+  }
 });
 
 function Index() {

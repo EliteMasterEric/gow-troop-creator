@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => {
   return {
     appbar: {
       elevation: 0,
-      position: "fixed" 
+      position: "fixed"
     },
     toolbar: {
       paddingLeft: "8px",
@@ -44,9 +44,9 @@ const useStyles = makeStyles(theme => {
       margin: '12px 0'
     }
   };
- });
+});
 
-export const FormSpell = ({spellData, setSpellData, ...other}) => {
+export const FormSpell = ({ spellData, setSpellData, ...other }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -79,7 +79,7 @@ export const FormSpell = ({spellData, setSpellData, ...other}) => {
               margin="normal"
               type="text"
               label="Spell Name"
-              style={{width: '100%'}}
+              style={{ width: '100%' }}
               variant="outlined" />
           </CardContent>
         </Card>
@@ -97,7 +97,7 @@ export const FormSpell = ({spellData, setSpellData, ...other}) => {
               multiline
               helperText="{magic} specifies spell power"
               label="Spell Description"
-              style={{width: '100%'}}
+              style={{ width: '100%' }}
               variant="outlined" />
           </CardContent>
         </Card>
@@ -107,21 +107,21 @@ export const FormSpell = ({spellData, setSpellData, ...other}) => {
           <CardContent>
             <Typography variant="h4">Magic</Typography>
             <TextField
-                id="form-magic"
-                value={spellData.magic}
-                type="number"
-                label="Magic"
-                onChange={handleChange('magic')}
-                margin="normal"
-                style={{width: '100%'}}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Image source={`./assets/graphics/troopcard/magic.png`}/>
-                    </InputAdornment>
-                  ),
-                }}
-                variant="outlined" />
+              id="form-magic"
+              value={spellData.magic}
+              type="number"
+              label="Magic"
+              onChange={handleChange('magic')}
+              margin="normal"
+              style={{ width: '100%' }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Image source={`./assets/graphics/troopcard/magic.png`} />
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined" />
           </CardContent>
         </Card>
       </Grid>
@@ -161,11 +161,11 @@ export const FormSpell = ({spellData, setSpellData, ...other}) => {
             <Typography variant="h4">Image</Typography>
             <Typography variant="subtitle2" gutterBottom>Preferred Size: 460x340</Typography>
             <DropzoneArea
-                dropzoneClass={classes.dropzone}
-                acceptedFiles={['image/*']}
-                filesLimit={1}
-                showAlerts
-                onChange={handleChangeFiles} />
+              dropzoneClass={classes.dropzone}
+              acceptedFiles={['image/*']}
+              filesLimit={1}
+              showAlerts
+              onChange={handleChangeFiles} />
           </CardContent>
         </Card>
       </Grid>

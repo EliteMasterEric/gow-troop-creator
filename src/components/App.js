@@ -70,7 +70,7 @@ function useDebounce(value, delay) {
     // Only re-call effect if value changes
     // You could also add the "delay" var to inputs array if you ...
     // ... need to be able to change that dynamically.
-    [value] 
+    [value]
   );
 
   return debouncedValue;
@@ -86,14 +86,14 @@ export const App = () => {
       kingdom: "Broken Spire",
       rarity: "Mythic",
       level: "20",
-  
+
       role: "Mage",
       cost: "24",
       colors: "RedYellowPurple",
-  
+
       type1: "Divine",
       type2: "Elemental",
-  
+
       attack: "40",
       armor: "40",
       life: "40",
@@ -174,7 +174,7 @@ export const App = () => {
               className={classes.tabView}
               canvasResult={canvasResult}
               spellData={troop.spell}
-              setSpellData={setSpellData} 
+              setSpellData={setSpellData}
               debouncedTroop={debouncedTroop} />
           </TabPanel>
           <TabPanel value={currentTab} index={1} dir={theme.direction}>
@@ -182,7 +182,7 @@ export const App = () => {
               className={classes.tabView}
               canvasResult={canvasResult}
               troopData={troop.troop}
-              setTroopData={setTroopData} 
+              setTroopData={setTroopData}
               debouncedTroop={debouncedTroop} />
           </TabPanel>
           <TabPanel value={currentTab} index={2} dir={theme.direction}>
@@ -190,7 +190,7 @@ export const App = () => {
               className={classes.tabView}
               canvasResult={canvasResult}
               traitData={troop.trait}
-              setTraitData={setTraitData} 
+              setTraitData={setTraitData}
               debouncedTroop={debouncedTroop} />
           </TabPanel>
           <TabPanel value={currentTab} index={3} dir={theme.direction}>
@@ -202,5 +202,5 @@ export const App = () => {
         </SwipeableViews>
       </Container>
     </CssBaseline>
-  );  
+  );
 };

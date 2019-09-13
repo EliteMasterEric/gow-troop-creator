@@ -14,16 +14,16 @@ const useStyles = makeStyles(theme => ({
   Powered by Nerd Fonts. Find class names on https://www.nerdfonts.com/cheat-sheet
   Example: <Icon icon="nf-mdi-login" />
  */
-export const Icon = ({icon, className}) => {
+export const Icon = ({ icon, className }) => {
   return (
     <div>
-      <i className={`nf ${(icon || "nf-fa-amazon")} ${className || ''}`}/>
+      <i className={`nf ${(icon || "nf-fa-amazon")} ${className || ''}`} />
     </div>
   );
 };
 
 // Render a troop as a full-size card (like in the troop list).
-export const Image = ({source, className}) => {
+export const Image = ({ source, className }) => {
   const classes = useStyles();
   return (
     <img alt="" src={source} className={className || classes.image}></img>

@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const TabSpell = ({spellData, debouncedTroop, setSpellData, canvasResult, ...other}) => {
+export const TabSpell = ({ spellData, debouncedTroop, setSpellData, canvasResult, ...other }) => {
   const classes = useStyles();
 
   return (
@@ -37,7 +37,7 @@ export const TabSpell = ({spellData, debouncedTroop, setSpellData, canvasResult,
         setSpellData={setSpellData} />
       <PreviewSpell
         troop={debouncedTroop}
-        canvasResult={canvasResult} 
+        canvasResult={canvasResult}
         className={classes.cardGridItem} />
     </Grid>
   )

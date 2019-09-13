@@ -23,13 +23,13 @@ const core_sources = [
 ]
 
 const rarities = {
-  "Common":     { color: "#FEFEFE", pips: 1 },
-  "Rare":       { color: "#54A721", pips: 2 },
+  "Common": { color: "#FEFEFE", pips: 1 },
+  "Rare": { color: "#54A721", pips: 2 },
   "Ultra-Rare": { color: "#1D71FF", pips: 3 },
-  "Epic":       { color: "#9635E7", pips: 4 },
-  "Legendary":  { color: "#F3A120", pips: 5 },
-  "Mythic":     { color: "#13E3F6", pips: 6 },
-  "Doomed":     { color: "#B90000", pips: 6 },
+  "Epic": { color: "#9635E7", pips: 4 },
+  "Legendary": { color: "#F3A120", pips: 5 },
+  "Mythic": { color: "#13E3F6", pips: 6 },
+  "Doomed": { color: "#B90000", pips: 6 },
 }
 
 // Ensure all images are loaded before rendering the canvas itself.
@@ -38,24 +38,24 @@ function loadImages(canvas, temp, troop, troop_sources, callback, setDownloadUrl
   var loadedImages = 0;
   var countImages = core_sources.length + troop_sources.length;
   for (var src in core_sources) {
-      images[src] = new Image();
-      images[src].onload = function() {
-        if (++loadedImages >= countImages) {
-          callback(canvas, temp, troop, images, setDownloadUrl, canvasResult);
-        }
-      };
-      images[src].src = core_sources[src];
+    images[src] = new Image();
+    images[src].onload = function () {
+      if (++loadedImages >= countImages) {
+        callback(canvas, temp, troop, images, setDownloadUrl, canvasResult);
+      }
+    };
+    images[src].src = core_sources[src];
   }
   for (src in troop_sources) {
     var index = parseInt(src) + core_sources.length;
     images[index] = new Image();
-    images[index].onload = function() {
+    images[index].onload = function () {
       if (++loadedImages >= countImages) {
         callback(canvas, temp, troop, images, setDownloadUrl, canvasResult);
       }
     };
     images[index].src = troop_sources[src];
-}
+  }
 };
 
 // https://gist.github.com/mrcoles/0dfaab93a1c899e5f46690676c8c29e5
@@ -85,7 +85,7 @@ const writeSpellDescriptionLines = (context, x, y, maxWidth, maxHeight, baseLine
   const fillStyle = "#000000";
   const altFillStyle = "#680b7c";
 
-  while(lineHeight > 0) {
+  while (lineHeight > 0) {
     var words = text.split(" ");
     var lines = [];
     var lineIndexes = [0]
@@ -101,7 +101,7 @@ const writeSpellDescriptionLines = (context, x, y, maxWidth, maxHeight, baseLine
         magicFillWordIndex = i;
         const magicDamage = parseInt(troop.spell.spellbase) + (parseInt(troop.spell.spellmult) * parseInt(troop.spell.magic));
         if (troop.spell.spellrange) {
-          word = Math.floor(magicDamage/2) + " - " + (magicDamage);
+          word = Math.floor(magicDamage / 2) + " - " + (magicDamage);
         } else {
           word = magicDamage;
         }
@@ -127,7 +127,7 @@ const writeSpellDescriptionLines = (context, x, y, maxWidth, maxHeight, baseLine
 
       for (var j = 0; j < lines.length; j++) {
         if (magicFillWordIndex !== -1 &&
-          (magicFillWordIndex <= lineIndexes[j+1] && (lineIndexes[j] < magicFillWordIndex))) {
+          (magicFillWordIndex <= lineIndexes[j + 1] && (lineIndexes[j] < magicFillWordIndex))) {
           context.textAlign = 'left';
           var newX = x - (context.measureText(lines[j]).width / 2);
           context.fillStyle = altFillStyle;
@@ -142,17 +142,17 @@ const writeSpellDescriptionLines = (context, x, y, maxWidth, maxHeight, baseLine
           const boldFont = 'bold {}px "Open Sans"'.replace("{}", lineHeight);
           if (troop.spell.spellrange) {
             textParts = [
-              { text: lineFirstPart, fillStyle: fillStyle    },
+              { text: lineFirstPart, fillStyle: fillStyle },
               { text: magicWords[0] + ' ', fillStyle: altFillStyle, font: boldFont },
-              { text: magicWords[1], fillStyle: fillStyle    },
+              { text: magicWords[1], fillStyle: fillStyle },
               { text: ' ' + magicWords[2], fillStyle: altFillStyle, font: boldFont },
-              { text: lineLastPart,  fillStyle: fillStyle    }
+              { text: lineLastPart, fillStyle: fillStyle }
             ]
           } else {
             textParts = [
-              { text: lineFirstPart, fillStyle: fillStyle    },
+              { text: lineFirstPart, fillStyle: fillStyle },
               { text: magicWords[0], fillStyle: altFillStyle, font: boldFont },
-              { text: lineLastPart,  fillStyle: fillStyle    }
+              { text: lineLastPart, fillStyle: fillStyle }
             ]
           }
           fillMixedText(context, textParts, newX, newY + lineHeight * j);
@@ -178,7 +178,7 @@ function draw(canvas, temp, troop, images, setDownloadUrl, canvasResult) {
   var ctemp = temp.getContext('2d');
 
   const rarity_color = rarities[troop.troop.rarity].color;
-  
+
   // CardTop and CardBottom, TraitDivider1, 2, and 3
   // To color by rarity, we draw on a hidden canvas, color it,
   // then copy it to the full canvas.
@@ -251,7 +251,7 @@ const getImageURL = (troop) => {
 }
 
 // Render a troop as a full-size card (like in the troop list).
-export const CardSpell = ({troop, canvasResult, setDownloadUrl}) => {
+export const CardSpell = ({ troop, canvasResult, setDownloadUrl }) => {
   const classes = useStyles();
 
   const troopCard = React.useRef(null);
@@ -263,7 +263,7 @@ export const CardSpell = ({troop, canvasResult, setDownloadUrl}) => {
     // Fetch necessary fonts.
     WebFontLoader.load({
       google: {
-        families: [ 'Open Sans:400,600,700', 'Roboto', 'Raleway'],
+        families: ['Open Sans:400,600,700', 'Roboto', 'Raleway'],
       },
       fontactive: () => { setFontReady(true) },
     })
@@ -283,8 +283,8 @@ export const CardSpell = ({troop, canvasResult, setDownloadUrl}) => {
 
   return (
     <Box height={1} className={classes.cardBox}>
-        <canvas ref={troopCard} className={classes.card} />
-        <canvas ref={temp} style={{display: 'none'}} />
+      <canvas ref={troopCard} className={classes.card} />
+      <canvas ref={temp} style={{ display: 'none' }} />
     </Box>
   );
 }
