@@ -1,21 +1,33 @@
 import React, { useEffect } from "react";
-import { Typography, CardContent, Grid, Card, Button, Tooltip, Box } from '@material-ui/core';
+import {
+  Typography,
+  CardContent,
+  Grid,
+  Card,
+  Button,
+  Tooltip,
+  Box
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Icon } from './Icon';
+import { Icon } from "../Icon";
 
 const useStyles = makeStyles(theme => ({
   buttonIcon: {
-    fontSize: '2em'
+    fontSize: "2em"
   },
   canvas: {
-    width: '100%',
-    margin: '0px auto',
-    display: 'table'
+    width: "100%",
+    margin: "0px auto",
+    display: "table"
+  },
+  mainCard: {
+    margin: theme.spacing(3),
+    padding: theme.spacing(3)
   }
 }));
 
-export const TabResult = ({ troop, canvasResult }) => {
+const TabResult = ({ troop, canvasResult }) => {
   const classes = useStyles();
 
   const [downloadUrl, setDownloadUrl] = React.useState("");
@@ -30,9 +42,11 @@ export const TabResult = ({ troop, canvasResult }) => {
   useEffect(updateDownloadURL, [troop]);
 
   return (
-    <Card>
+    <Card className={classes.mainCard}>
       <CardContent>
-        <Typography align="center" variant="h2">Result</Typography>
+        <Typography align="center" variant="h2">
+          Result
+        </Typography>
         <Grid container>
           <Grid item container justify="center" xs={12}>
             <Grid item>
@@ -48,8 +62,9 @@ export const TabResult = ({ troop, canvasResult }) => {
                   variant="outlined"
                   size="large"
                   href={downloadUrl}
-                  download={`${troop.troop.name}.png`}>
-                  <Icon className={classes.buttonIcon} icon={"nf-mdi-download"} />
+                  download={`${troop.name}.png`}
+                >
+                  <Icon className={classes.buttonIcon} icon="nf-mdi-download" />
                 </Button>
               </Tooltip>
             </Grid>
@@ -58,4 +73,6 @@ export const TabResult = ({ troop, canvasResult }) => {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default TabResult;

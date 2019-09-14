@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   image: {
-    width: 'auto',
-    height: '24px',
-    paddingRight: '4px'
+    width: "auto",
+    height: theme.spacing(3),
+    paddingRight: "4px"
   }
 }));
 
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 export const Icon = ({ icon, className }) => {
   return (
     <div>
-      <i className={`nf ${(icon || "nf-fa-amazon")} ${className || ''}`} />
+      <i className={`nf ${icon || "nf-fa-amazon"} ${className || ""}`} />
     </div>
   );
 };
@@ -25,7 +25,5 @@ export const Icon = ({ icon, className }) => {
 // Render a troop as a full-size card (like in the troop list).
 export const Image = ({ source, className }) => {
   const classes = useStyles();
-  return (
-    <img alt="" src={source} className={className || classes.image}></img>
-  );
-}
+  return <img alt="" src={source} className={className || classes.image} />;
+};

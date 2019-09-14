@@ -3,19 +3,20 @@ import ReactDOM from "react-dom";
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
-import { App } from "./components/App";
 import { orange, blueGrey } from "@material-ui/core/colors";
+import { CssBaseline } from "@material-ui/core";
+import App from "./components/App";
 
 // CSS
-import './css/style.css'
-import './css/google-fonts.css'
-import './css/nerd-fonts.min.css'
+import "./css/style.css";
+import "./css/google-fonts.css";
+import "./css/nerd-fonts.min.css";
 
 const theme = createMuiTheme({
   palette: {
-    type: 'dark',
+    type: "dark",
     primary: blueGrey,
-    secondary: orange,
+    secondary: orange
   },
   zIndex: {
     appBar: 1
@@ -25,9 +26,11 @@ const theme = createMuiTheme({
 function Index() {
   return (
     <MuiThemeProvider theme={theme}>
-      <App />
+      <CssBaseline>
+        <App />
+      </CssBaseline>
     </MuiThemeProvider>
   );
 }
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+ReactDOM.render(<Index />, document.getElementById("root"));
