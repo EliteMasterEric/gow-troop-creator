@@ -6,6 +6,9 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
   formElement: {
     margin: "12px 0"
+  },
+  dropzone: {
+    backgroundColor: "#1f1f1f"
   }
 }));
 

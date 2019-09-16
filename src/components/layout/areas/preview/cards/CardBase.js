@@ -67,7 +67,15 @@ export const fillMixedText = (ctx, args, x, y) => {
   ctx.restore();
 };
 
-export const writeLines = (context, x, y, maxWidth, lineHeight, text, centerVertical) => {
+export const writeLines = (
+  context,
+  x,
+  y,
+  maxWidth,
+  lineHeight,
+  text,
+  centerVertical
+) => {
   const words = text.split(" ");
   const lines = [];
   let currentLine = words[0];
@@ -86,7 +94,7 @@ export const writeLines = (context, x, y, maxWidth, lineHeight, text, centerVert
   // Finish up.
   lines.push(currentLine);
 
-  const newY = y - (lines.length * lineHeight / (centerVertical ? 2 : 1));
+  const newY = y - (lines.length * lineHeight) / (centerVertical ? 2 : 1);
 
   for (let j = 0; j < lines.length; j += 1) {
     context.fillText(lines[j], x, newY + lineHeight * j);

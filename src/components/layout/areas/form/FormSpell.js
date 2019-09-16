@@ -47,9 +47,6 @@ const useStyles = makeStyles(theme => {
         padding: "4px"
       }
     },
-    dropzone: {
-      backgroundColor: "#1f1f1f"
-    },
     formElement: {
       margin: "12px 0"
     }
