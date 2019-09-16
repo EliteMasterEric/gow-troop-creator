@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => {
     image: {
       width: "auto",
       height: "36px",
-      paddingRight: theme.spacing(1),
+      marginRight: theme.spacing(1),
       borderRadius: theme.spacing(3),
       overflow: "hidden"
     }
@@ -35,7 +35,7 @@ const NavBar = () => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const mediaQueryLg = useMediaQuery(theme.breakpoints.up("lg"));
+  const mediaQueryLg = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
     <AppBar color="primary" className={classes.appbar}>

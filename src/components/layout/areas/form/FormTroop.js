@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => {
         width: "100%"
       },
       [theme.breakpoints.up(1400)]: {
-        width: "33%",
+        width: "25%",
         padding: "4px"
       }
     },
@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => {
         width: "100%"
       },
       [theme.breakpoints.up(1400)]: {
-        width: "66%",
+        width: "75%",
         padding: "4px"
       }
     },
@@ -84,7 +84,7 @@ const useStyles = makeStyles(theme => {
       }
     },
     formElement: {
-      margin: "12px 0"
+      margin: `${theme.spacing(1.5)}px 0`
     },
     iconSelector: {
       display: "flex",
@@ -97,7 +97,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const mediaQueryLg = useMediaQuery(theme.breakpoints.up("lg"));
+  const mediaQueryLg = useMediaQuery(theme.breakpoints.up("md"));
 
   const handleChange = name => event => {
     setTroop({ ...troop, [name]: event.target.value });
@@ -337,7 +337,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
         xs={12}
         sm={12}
         md={6}
-        lg={5}
+        lg={6}
         xl={5}
       >
         <Card className={classes.card}>

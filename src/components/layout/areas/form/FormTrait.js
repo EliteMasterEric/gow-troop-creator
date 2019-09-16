@@ -20,8 +20,8 @@ const useStyles = makeStyles(theme => {
       position: "fixed"
     },
     toolbar: {
-      paddingLeft: "8px",
-      paddingRight: "8px"
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1)
     },
     appbarText: {
       alignSelf: "center",
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => {
       },
       [theme.breakpoints.up(1200)]: {
         width: "33%",
-        padding: "4px"
+        padding: `${theme.spacing(0.5)}px`
       }
     },
     manaCost: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => {
       },
       [theme.breakpoints.up(1400)]: {
         width: "33%",
-        padding: "4px"
+        padding: `${theme.spacing(0.5)}px`
       }
     },
     manaColors: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => {
       },
       [theme.breakpoints.up(1400)]: {
         width: "66%",
-        padding: "4px"
+        padding: `${theme.spacing(0.5)}px`
       }
     },
     typeField: {
@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => {
       },
       [theme.breakpoints.up(1400)]: {
         width: "50%",
-        padding: "4px"
+        padding: `${theme.spacing(0.5)}px`
       }
     },
     traitcode: {
@@ -78,7 +78,7 @@ const useStyles = makeStyles(theme => {
       },
       [theme.breakpoints.up("md")]: {
         width: "80px",
-        padding: "4px"
+        padding: `${theme.spacing(0.5)}px`
       }
     },
     traitname: {
@@ -87,11 +87,11 @@ const useStyles = makeStyles(theme => {
       },
       [theme.breakpoints.up("md")]: {
         width: `calc(100% - 80px)`,
-        padding: "4px"
+        padding: `${theme.spacing(0.5)}px`
       }
     },
     formElement: {
-      margin: "12px 0"
+      margin: `${theme.spacing(1.5)}px 0`
     }
   };
 });
@@ -115,13 +115,13 @@ const FormTrait = ({ index, troop, setTroop }) => {
     >
       <Card className={classes.card}>
         <CardContent>
-          <Typography variant="h4">Trait 1</Typography>
+          <Typography variant="h4">{`Trait ${index}`}</Typography>
           <TextField
-            id="form-trait1code"
+            id={`form-trait${index}code`}
             value={troop[`trait${index}code`]}
             select
             label="Trait Icon"
-            onChange={handleChange("trait1code")}
+            onChange={handleChange(`trait${index}code`)}
             margin="normal"
             className={classes.traitcode}
             variant="outlined"
@@ -135,9 +135,9 @@ const FormTrait = ({ index, troop, setTroop }) => {
             ))}
           </TextField>
           <TextField
-            id="form-trait1name"
-            value={troop.trait1name}
-            onChange={handleChange("trait1name")}
+            id={`form-trait${index}name`}
+            value={troop[`trait${index}name`]}
+            onChange={handleChange(`trait${index}name`)}
             margin="normal"
             type="text"
             label="Trait Name"
@@ -145,9 +145,9 @@ const FormTrait = ({ index, troop, setTroop }) => {
             variant="outlined"
           />
           <TextField
-            id="form-trait1desc"
-            value={troop.trait1desc}
-            onChange={handleChange("trait1desc")}
+            id={`form-trait${index}desc`}
+            value={troop[`trait${index}desc`]}
+            onChange={handleChange(`trait${index}desc`)}
             margin="normal"
             type="text"
             multiline

@@ -1,10 +1,7 @@
 import React from "react";
 import { Typography, Grid } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
 
 const TabBase = ({ children, value, index, dir }) => {
-  const theme = useTheme();
-
   return (
     <Typography
       component="div"
@@ -14,10 +11,7 @@ const TabBase = ({ children, value, index, dir }) => {
       aria-labelledby={`full-width-tab-${index}`}
       dir={dir}
     >
-      <Grid
-        container
-        direction="row"
-      >
+      <Grid container direction="row">
         {children}
       </Grid>
     </Typography>

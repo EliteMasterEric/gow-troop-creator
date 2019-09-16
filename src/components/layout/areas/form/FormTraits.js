@@ -7,7 +7,7 @@ import FormTrait from "./FormTrait";
 const FormTraits = ({ troop, setTroop, className }) => {
   const theme = useTheme();
 
-  const mediaQueryLg = useMediaQuery(theme.breakpoints.up("lg"));
+  const mediaQueryLg = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
     <Grid

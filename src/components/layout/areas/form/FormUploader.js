@@ -3,9 +3,9 @@ import { DropzoneArea } from "material-ui-dropzone";
 import { Typography, CardContent, Grid, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   formElement: {
-    margin: "12px 0"
+    margin: `${theme.spacing(1.5)}px 0`
   },
   dropzone: {
     backgroundColor: "#1f1f1f"

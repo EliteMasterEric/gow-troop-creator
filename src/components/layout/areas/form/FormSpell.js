@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => {
       }
     },
     formElement: {
-      margin: "12px 0"
+      margin: `${theme.spacing(1.5)}px 0 0 0`
     }
   };
 });
@@ -65,7 +65,7 @@ const FormSpell = ({ troop, setTroop, className }) => {
     setTroop({ ...troop, [name]: event.target.checked });
   };
 
-  const mediaQueryLg = useMediaQuery(theme.breakpoints.up("lg"));
+  const mediaQueryLg = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
     <Grid

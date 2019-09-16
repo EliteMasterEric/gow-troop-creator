@@ -6,7 +6,12 @@ import PreviewButtonBar from "./PreviewButtonBar";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    padding: theme.spacing(3)
+    [theme.breakpoints.up("xs")]: {
+      padding: 0
+    },
+    [theme.breakpoints.up("md")]: {
+      padding: theme.spacing(1.5)
+    }
   }
 }));
 

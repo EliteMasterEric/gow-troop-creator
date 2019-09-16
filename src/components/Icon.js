@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
   image: {
     width: "auto",
     height: theme.spacing(3),
-    paddingRight: "4px"
+    marginRight: theme.spacing(0.5)
   }
 }));
 

@@ -20,18 +20,26 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("xs")]: {
       width: "100%"
     },
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up("md")]: {
       width: `calc(100vw - 240px)`
     }
   },
   previewGridItem: {
     [theme.breakpoints.up("xs")]: {
-      order: 1
+      order: 1,
+      padding: 0,
+      paddingTop: theme.spacing(3),
+      margin: 0,
+      marginBottom: theme.spacing(1.5)
+    },
+    [theme.breakpoints.up("md")]: {
+      order: 1,
+      padding: theme.spacing(1.5)
     },
     [theme.breakpoints.up("lg")]: {
-      order: 2
+      order: 2,
+      padding: theme.spacing(3)
     },
-    padding: theme.spacing(3),
     width: `calc(75vh)`
   },
   formGridItem: {
@@ -40,7 +48,6 @@ const useStyles = makeStyles(theme => ({
       margin: "0"
     },
     [theme.breakpoints.up("lg")]: {
-      margin: "0 -12px",
       order: 1
     }
   },

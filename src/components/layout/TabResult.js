@@ -21,9 +21,12 @@ const useStyles = makeStyles(theme => ({
     margin: "0px auto",
     display: "table"
   },
+  cardBox: {
+    padding: `${theme.spacing(1.5)}px 0 ${theme.spacing(3)}px 0`
+  },
   mainCard: {
-    margin: theme.spacing(3),
-    padding: theme.spacing(3)
+    margin: `${theme.spacing(3)}px 0 0 0`,
+    padding: 0
   }
 }));
 
@@ -50,8 +53,13 @@ const TabResult = ({ troop, canvasResult }) => {
         <Grid container>
           <Grid item container justify="center" xs={12}>
             <Grid item>
-              <Box className={classes.canvas}>
-                <canvas ref={canvasResult} width={1440} height={757} />
+              <Box className={classes.cardBox}>
+                <canvas
+                  ref={canvasResult}
+                  className={classes.canvas}
+                  width={1440}
+                  height={757}
+                />
               </Box>
             </Grid>
           </Grid>

@@ -5,9 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Icon } from "../../../Icon";
 
 const useStyles = makeStyles(() => ({
-  buttonGrid: {
-    paddingTop: "6px"
-  },
+  buttonGrid: {},
   buttonIcon: {
     fontSize: "2em"
   }

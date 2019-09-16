@@ -5,7 +5,7 @@ import WebFontLoader from "webfontloader";
 
 const useStyles = makeStyles(theme => ({
   cardBox: {
-    padding: `${theme.spacing(3)}px 0`
+    padding: `${theme.spacing(1.5)}px 0 ${theme.spacing(3)}px 0`
   },
   card: {
     width: "100%",
