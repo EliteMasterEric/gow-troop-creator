@@ -17,27 +17,6 @@ import FormUploader from "./FormUploader";
 
 const useStyles = makeStyles(theme => {
   return {
-    appbar: {
-      elevation: 0,
-      position: "fixed"
-    },
-    toolbar: {
-      paddingLeft: "8px",
-      paddingRight: "8px"
-    },
-    appbarText: {
-      alignSelf: "center",
-      marginRight: "10px"
-    },
-    input: {
-      marginLeft: "auto"
-    },
-    menu: {
-      width: 200
-    },
-    menuColor: {
-      width: 400
-    },
     spellPower: {
       [theme.breakpoints.up("xs")]: {
         width: "100%"

@@ -4,74 +4,16 @@ import {
   CardContent,
   Grid,
   Card,
-  TextField,
-  MenuItem
+  TextField
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { traitCodes } from "../../../Values";
+import FormTraitAutosuggest from "./FormTraitAutosuggest";
 
 import { Image } from "../../../Icon";
 
 const useStyles = makeStyles(theme => {
   return {
-    appbar: {
-      elevation: 0,
-      position: "fixed"
-    },
-    toolbar: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1)
-    },
-    appbarText: {
-      alignSelf: "center",
-      marginRight: "10px"
-    },
-    input: {
-      marginLeft: "auto"
-    },
-    menu: {
-      width: 200
-    },
-    menuColor: {
-      width: 400
-    },
-    skill: {
-      [theme.breakpoints.up("xs")]: {
-        width: "100%"
-      },
-      [theme.breakpoints.up(1200)]: {
-        width: "33%",
-        padding: `${theme.spacing(0.5)}px`
-      }
-    },
-    manaCost: {
-      [theme.breakpoints.up("xs")]: {
-        width: "100%"
-      },
-      [theme.breakpoints.up(1400)]: {
-        width: "33%",
-        padding: `${theme.spacing(0.5)}px`
-      }
-    },
-    manaColors: {
-      [theme.breakpoints.up("xs")]: {
-        width: "100%"
-      },
-      [theme.breakpoints.up(1400)]: {
-        width: "66%",
-        padding: `${theme.spacing(0.5)}px`
-      }
-    },
-    typeField: {
-      [theme.breakpoints.up("xs")]: {
-        width: "100%"
-      },
-      [theme.breakpoints.up(1400)]: {
-        width: "50%",
-        padding: `${theme.spacing(0.5)}px`
-      }
-    },
     traitcode: {
       [theme.breakpoints.up("xs")]: {
         width: "100%"
@@ -90,8 +32,20 @@ const useStyles = makeStyles(theme => {
         padding: `${theme.spacing(0.5)}px`
       }
     },
+    traitIcon: {
+      width: "48px",
+      height: "48px",
+      marginRight: theme.spacing(0.5)
+    },
     formElement: {
       margin: `${theme.spacing(1.5)}px 0`
+    },
+    iconSelector: {
+      display: "flex",
+      alignItems: "center"
+    },
+    overflow: {
+      overflow: "visible"
     }
   };
 });
@@ -113,37 +67,27 @@ const FormTrait = ({ index, troop, setTroop }) => {
       lg={4}
       xl={4}
     >
-      <Card className={classes.card}>
+      <Card className={classes.overflow}>
         <CardContent>
           <Typography variant="h4">{`Trait ${index}`}</Typography>
-          <TextField
-            id={`form-trait${index}code`}
-            value={troop[`trait${index}code`]}
-            select
-            label="Trait Icon"
-            onChange={handleChange(`trait${index}code`)}
-            margin="normal"
-            className={classes.traitcode}
-            variant="outlined"
-          >
-            {traitCodes.map(code => (
-              <MenuItem key={code} value={code}>
-                <Image
-                  source={`./assets/graphics/troopcard/traits/${code}.png`}
-                />
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            id={`form-trait${index}name`}
-            value={troop[`trait${index}name`]}
-            onChange={handleChange(`trait${index}name`)}
-            margin="normal"
-            type="text"
-            label="Trait Name"
-            className={classes.traitname}
-            variant="outlined"
-          />
+          <div className={classes.iconSelector}>
+            <Image
+              className={classes.traitIcon}
+              source={`./assets/graphics/troopcard/traits/${
+                troop[`trait${index}code`]
+              }.png`}
+            />
+            <TextField
+              id={`form-trait${index}name`}
+              value={troop[`trait${index}name`]}
+              onChange={handleChange(`trait${index}name`)}
+              margin="normal"
+              type="text"
+              label="Trait Name"
+              className={classes.traitname}
+              variant="outlined"
+            />
+          </div>
           <TextField
             id={`form-trait${index}desc`}
             value={troop[`trait${index}desc`]}
@@ -154,6 +98,11 @@ const FormTrait = ({ index, troop, setTroop }) => {
             label="Trait Description"
             style={{ width: "100%" }}
             variant="outlined"
+          />
+          <FormTraitAutosuggest
+            index={index}
+            troop={troop}
+            setTroop={setTroop}
           />
         </CardContent>
       </Card>

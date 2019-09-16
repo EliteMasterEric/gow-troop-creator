@@ -17,24 +17,6 @@ import FormUploader from "./FormUploader";
 
 const useStyles = makeStyles(theme => {
   return {
-    appbar: {
-      elevation: 0,
-      position: "fixed"
-    },
-    toolbar: {
-      paddingLeft: "8px",
-      paddingRight: "8px"
-    },
-    appbarText: {
-      alignSelf: "center",
-      marginRight: "10px"
-    },
-    input: {
-      marginLeft: "auto"
-    },
-    menu: {
-      width: 200
-    },
     menuColor: {
       width: 400
     },
@@ -71,15 +53,6 @@ const useStyles = makeStyles(theme => {
       },
       [theme.breakpoints.up(1400)]: {
         width: "50%",
-        padding: "4px"
-      }
-    },
-    trait: {
-      [theme.breakpoints.up("xs")]: {
-        width: "100%"
-      },
-      [theme.breakpoints.up("xl")]: {
-        width: "33%",
         padding: "4px"
       }
     },

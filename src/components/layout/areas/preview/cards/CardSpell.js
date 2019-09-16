@@ -45,7 +45,8 @@ const writeSpellDescriptionLines = (
     let i = 1;
     for (i = 1; i < words.length; i += 1) {
       let word = words[i];
-      if (word === "{magic}") {
+      // If word matches any...
+      if (["{magic}", "{MAGIC}", "{Magic}"].indexOf(word) !== -1) {
         magicFillWordIndex = i;
         const magicDamage =
           parseInt(troop.spellbase, 10) +
