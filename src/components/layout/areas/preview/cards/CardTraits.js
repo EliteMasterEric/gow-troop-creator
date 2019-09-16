@@ -137,8 +137,8 @@ const renderTraits = (
 
   // Add the traits to the results.
   const cresult = canvasResult.getContext("2d");
-  cresult.clearRect(975, 10, canvas.width, canvas.height);
-  cresult.drawImage(canvas, 975, 10, canvas.width, canvas.height);
+  cresult.clearRect(1005, 10, canvas.width, canvas.height);
+  cresult.drawImage(canvas, 1005, 10, canvas.width, canvas.height);
 
   // Set the download URL.
   setDownloadUrl(canvas.toDataURL("image/png"));

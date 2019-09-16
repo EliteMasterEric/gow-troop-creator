@@ -57,7 +57,7 @@ const TabResult = ({ troop, canvasResult }) => {
                 <canvas
                   ref={canvasResult}
                   className={classes.canvas}
-                  width={1440}
+                  width={1470}
                   height={757}
                 />
               </Box>
