@@ -85,6 +85,10 @@ const useStyles = makeStyles(theme => {
     },
     formElement: {
       margin: "12px 0"
+    },
+    iconSelector: {
+      display: "flex",
+      alignItems: "center"
     }
   };
 });
@@ -236,6 +240,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
               margin="normal"
               style={{ width: "100%" }}
               variant="outlined"
+              inputProps={{ className: classes.iconSelector }}
             >
               {roles.map(option => (
                 <MenuItem key={option} value={option}>
@@ -282,6 +287,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
                   className: classes.menuColor
                 }
               }}
+              inputProps={{ className: classes.iconSelector }}
               margin="normal"
               className={classes.manaColors}
               variant="outlined"
