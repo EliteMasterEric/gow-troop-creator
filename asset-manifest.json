@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/gow-troop-creator/static/css/main.64cf1978.chunk.css",
-    "main.js": "/gow-troop-creator/static/js/main.54a9cd99.chunk.js",
-    "main.js.map": "/gow-troop-creator/static/js/main.54a9cd99.chunk.js.map",
+    "main.js": "/gow-troop-creator/static/js/main.9c06b5a2.chunk.js",
+    "main.js.map": "/gow-troop-creator/static/js/main.9c06b5a2.chunk.js.map",
     "runtime~main.js": "/gow-troop-creator/static/js/runtime~main.f96a3612.js",
     "runtime~main.js.map": "/gow-troop-creator/static/js/runtime~main.f96a3612.js.map",
     "static/js/2.b5b5fb98.chunk.js": "/gow-troop-creator/static/js/2.b5b5fb98.chunk.js",
     "static/js/2.b5b5fb98.chunk.js.map": "/gow-troop-creator/static/js/2.b5b5fb98.chunk.js.map",
     "index.html": "/gow-troop-creator/index.html",
-    "precache-manifest.333baf3b4ed2a1905748ffd69208a344.js": "/gow-troop-creator/precache-manifest.333baf3b4ed2a1905748ffd69208a344.js",
+    "precache-manifest.561d1d9102ba1a40938b6a2a9f0c6d93.js": "/gow-troop-creator/precache-manifest.561d1d9102ba1a40938b6a2a9f0c6d93.js",
     "service-worker.js": "/gow-troop-creator/service-worker.js",
     "static/css/main.64cf1978.chunk.css.map": "/gow-troop-creator/static/css/main.64cf1978.chunk.css.map",
     "static/media/nerd-fonts.min.css": "/gow-troop-creator/static/media/NerdFontsRoboto.cadeccb2.ttf"
