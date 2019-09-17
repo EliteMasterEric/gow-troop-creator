@@ -15,6 +15,8 @@ import { colors, roles, rarities } from "../../../Values";
 import { Image } from "../../../Icon";
 import FormUploader from "./FormUploader";
 
+import { validateFieldLength } from "../../../Util";
+
 const useStyles = makeStyles(theme => {
   return {
     menuColor: {
@@ -188,6 +190,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
               label="Level"
               style={{ width: "100%" }}
               variant="outlined"
+              onInput={validateFieldLength(5)}
             />
           </CardContent>
         </Card>
@@ -246,6 +249,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
               label="Cost"
               onChange={handleChange("cost")}
               margin="normal"
+              onInput={validateFieldLength(3)}
               className={classes.manaCost}
               variant="outlined"
             />
@@ -323,6 +327,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
               label="Attack"
               onChange={handleChange("attack")}
               margin="normal"
+              onInput={validateFieldLength(4)}
               className={classes.skill}
               InputProps={{
                 startAdornment: (
@@ -340,6 +345,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
               label="Armor"
               onChange={handleChange("armor")}
               margin="normal"
+              onInput={validateFieldLength(4)}
               className={classes.skill}
               InputProps={{
                 startAdornment: (
@@ -357,6 +363,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
               label="Life"
               onChange={handleChange("life")}
               margin="normal"
+              onInput={validateFieldLength(4)}
               className={classes.skill}
               InputProps={{
                 startAdornment: (
