@@ -143,7 +143,7 @@ const renderSpell = (
 ) => {
   // Set the canvas size.
   canvas.width = 460;
-  canvas.height = 727;
+  canvas.height = 723;
   const ctx = canvas.getContext("2d");
   temp.width = canvas.width;
   temp.height = canvas.height;
@@ -209,8 +209,14 @@ const renderSpell = (
 
   // Add the spell to the results.
   const cresult = canvasResult.getContext("2d");
-  cresult.clearRect(5, 15, canvas.width, canvas.height);
-  cresult.drawImage(canvas, 5, 15, canvas.width, canvas.height);
+  // Resize to match the trait card.
+  const baseHeight = 709;
+  const baseWidth = canvas.width / canvas.height * 709;
+  console.log(baseWidth);
+  cresult.clearRect(5, 30, baseWidth, baseHeight);
+  cresult.drawImage(canvas, 5, 30, baseWidth, baseHeight);
+  //cresult.clearRect(5, 17, canvas.width, canvas.height);
+  //cresult.drawImage(canvas, 5, 17, canvas.width, canvas.height);
 
   // Set the download URL.
   setDownloadUrl(canvas.toDataURL("image/png"));

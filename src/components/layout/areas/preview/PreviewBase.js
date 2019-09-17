@@ -22,9 +22,6 @@ const PreviewBase = ({ troopName, downloadUrl, children, className }) => {
     <Grid item xs={12} lg={4} className={className}>
       <Card className={classes.card}>
         <CardContent>
-          <Typography align="center" variant="h2">
-            Preview
-          </Typography>
           {children}
           <PreviewButtonBar troopName={troopName} downloadUrl={downloadUrl} />
         </CardContent>

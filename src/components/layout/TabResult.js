@@ -47,9 +47,6 @@ const TabResult = ({ troop, canvasResult }) => {
   return (
     <Card className={classes.mainCard}>
       <CardContent>
-        <Typography align="center" variant="h2">
-          Result
-        </Typography>
         <Grid container>
           <Grid item container justify="center" xs={12}>
             <Grid item>
@@ -58,7 +55,7 @@ const TabResult = ({ troop, canvasResult }) => {
                   ref={canvasResult}
                   className={classes.canvas}
                   width={1470}
-                  height={757}
+                  height={744}
                 />
               </Box>
             </Grid>
