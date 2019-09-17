@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "16222000466b65032b58717f6fa293ce",
+    "revision": "1224d9f4b1b9ee843dc37b57d0c75c2e",
     "url": "/gow-troop-creator/index.html"
   },
   {
-    "revision": "8fb9eb4020484eefc469",
+    "revision": "7dcd5b37e5c055037113",
     "url": "/gow-troop-creator/static/css/main.64cf1978.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/gow-troop-creator/static/js/2.b5b5fb98.chunk.js"
   },
   {
-    "revision": "8fb9eb4020484eefc469",
-    "url": "/gow-troop-creator/static/js/main.9c06b5a2.chunk.js"
+    "revision": "7dcd5b37e5c055037113",
+    "url": "/gow-troop-creator/static/js/main.e0397f41.chunk.js"
   },
   {
     "revision": "a10791f7b10a937df2e9",
