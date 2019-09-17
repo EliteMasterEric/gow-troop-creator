@@ -169,10 +169,9 @@ const renderTroop = (
   ctx.fillText(troop.life, 423, 667);
 
   // Troop Name
-  ctx.font = '500 57px "Raleway"';
   ctx.fillStyle = "#FFF";
   ctx.textAlign = "left";
-  writeLines(ctx, 50, 630, 380, 57, troop.name, false);
+  writeLines(ctx, 50, 570, 380, 57, 2, troop.name, '500 {}px "Raleway"', false);
 
   // Troop Kingdom
   ctx.font = '600 30px "Open Sans"';

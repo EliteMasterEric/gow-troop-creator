@@ -327,7 +327,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
               label="Attack"
               onChange={handleChange("attack")}
               margin="normal"
-              onInput={validateFieldLength(4)}
+              onInput={validateFieldLength(3)}
               className={classes.skill}
               InputProps={{
                 startAdornment: (
@@ -345,7 +345,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
               label="Armor"
               onChange={handleChange("armor")}
               margin="normal"
-              onInput={validateFieldLength(4)}
+              onInput={validateFieldLength(3)}
               className={classes.skill}
               InputProps={{
                 startAdornment: (
@@ -363,7 +363,7 @@ const FormTroop = ({ troop, setTroop, className }) => {
               label="Life"
               onChange={handleChange("life")}
               margin="normal"
-              onInput={validateFieldLength(4)}
+              onInput={validateFieldLength(3)}
               className={classes.skill}
               InputProps={{
                 startAdornment: (

@@ -124,22 +124,51 @@ const renderTraits = (
   ctx.fillText(troop.trait3name, 60, 516 + 30);
 
   // TraitDesc1
-  ctx.font = '600 32px "Open Sans"';
   ctx.fillStyle = "#000";
   ctx.textAlign = "center";
-  writeLines(ctx, 230, 246, 400, 32, troop.trait1desc, true);
+  writeLines(
+    ctx,
+    230,
+    246,
+    400,
+    32,
+    3,
+    troop.trait1desc,
+    '600 {}px "Open Sans"',
+    true
+  );
 
   // TraitDesc2
-  writeLines(ctx, 230, 452, 400, 32, troop.trait2desc, true);
+  writeLines(
+    ctx,
+    230,
+    452,
+    400,
+    32,
+    3,
+    troop.trait2desc,
+    '600 {}px "Open Sans"',
+    true
+  );
 
   // TraitDesc3
-  writeLines(ctx, 230, 658, 400, 32, troop.trait3desc, true);
+  writeLines(
+    ctx,
+    230,
+    658,
+    400,
+    32,
+    3,
+    troop.trait3desc,
+    '600 {}px "Open Sans"',
+    true
+  );
 
   // Add the traits to the results.
   const cresult = canvasResult.getContext("2d");
   // Resize to match the trait card.
   const baseHeight = 709;
-  const baseWidth = canvas.width / canvas.height * 709;
+  const baseWidth = (canvas.width / canvas.height) * 709;
   console.log(baseWidth);
   cresult.clearRect(1005, 30, baseWidth, baseHeight);
   cresult.drawImage(canvas, 1005, 30, baseWidth, baseHeight);

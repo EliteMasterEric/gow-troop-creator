@@ -13,6 +13,7 @@ import {
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import { Image } from "../../../Icon";
+import { validateFieldLength } from "../../../Util";
 import FormUploader from "./FormUploader";
 
 const useStyles = makeStyles(theme => {
@@ -126,6 +127,7 @@ const FormSpell = ({ troop, setTroop, className }) => {
               type="number"
               label="Magic"
               onChange={handleChange("magic")}
+              onInput={validateFieldLength(3)}
               margin="normal"
               style={{ width: "100%" }}
               InputProps={{

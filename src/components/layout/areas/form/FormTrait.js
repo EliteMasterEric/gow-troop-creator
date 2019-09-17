@@ -12,6 +12,8 @@ import FormTraitAutosuggest from "./FormTraitAutosuggest";
 
 import { Image } from "../../../Icon";
 
+import { validateFieldLength } from "../../../Util";
+
 const useStyles = makeStyles(theme => {
   return {
     traitcode: {
@@ -84,6 +86,7 @@ const FormTrait = ({ index, troop, setTroop }) => {
               margin="normal"
               type="text"
               label="Trait Name"
+              onInput={validateFieldLength(20)}
               className={classes.traitname}
               variant="outlined"
             />

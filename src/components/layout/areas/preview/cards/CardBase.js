@@ -72,32 +72,48 @@ export const writeLines = (
   x,
   y,
   maxWidth,
-  lineHeight,
+  baseLineHeight,
+  maxLineCount,
   text,
+  fontText,
   centerVertical
 ) => {
-  const words = text.split(" ");
-  const lines = [];
-  let currentLine = words[0];
+  let lineHeight = baseLineHeight;
 
-  // Build an array of lines, starting a new line if the current one is too long.
-  for (let i = 1; i < words.length; i += 1) {
-    const word = words[i];
-    const { width } = context.measureText(`${currentLine} ${word}`);
-    if (width < maxWidth) {
-      currentLine += ` ${word}`;
-    } else {
-      lines.push(currentLine);
-      currentLine = word;
+  while (lineHeight > 0) {
+    const words = text.split(" ");
+    const lines = [];
+    let currentLine = words[0];
+    context.font = fontText.replace("{}", lineHeight);
+
+    // Build an array of lines, starting a new line if the current one is too long.
+    for (let i = 1; i < words.length; i += 1) {
+      const word = words[i];
+      const { width } = context.measureText(`${currentLine} ${word}`);
+      if (width < maxWidth) {
+        currentLine += ` ${word}`;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
     }
-  }
-  // Finish up.
-  lines.push(currentLine);
+    // Finish up.
+    lines.push(currentLine);
 
-  const newY = y - (lines.length * lineHeight) / (centerVertical ? 2 : 1);
+    if (lines.length > maxLineCount) {
+      lineHeight -= 2;
+    } else {
+      // Write the actual text.
+      let newY = y - (lines.length - 1) * lineHeight;
+      if (centerVertical && lines.length === 1) newY -= lineHeight / 2;
 
-  for (let j = 0; j < lines.length; j += 1) {
-    context.fillText(lines[j], x, newY + lineHeight * j);
+      console.log("%f, %f, %f = %f", lines.length, lineHeight, y, newY);
+
+      for (let j = 0; j < lines.length; j += 1) {
+        context.fillText(lines[j], x, newY + lineHeight * j);
+      }
+      break;
+    }
   }
 };
 
