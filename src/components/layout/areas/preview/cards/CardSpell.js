@@ -11,6 +11,30 @@ const coreSources = [
   "./assets/graphics/troopcard/magic.png" // 4 - Magic
 ];
 
+const writeSpellNameLine = (context, x, y, maxWidth, baseLineHeight, text) => {
+  //
+  // DEATH TO ALL YE WHO ENTER HERE
+  // This function is a nightmare of confusing logic, combining word wrapping
+  // with the code that colors the magic formatting text.
+  //
+
+  let lineHeight = baseLineHeight;
+
+  while (lineHeight > 0) {
+    context.font = '600 {}px "Open Sans"'.replace("{}", lineHeight);
+
+    const { width } = context.measureText(text);
+    if (width < maxWidth) {
+      // Print the text.
+      context.fillText(text, x, y);
+      break;
+    } else {
+      // Shrink the text.
+      lineHeight -= 2;
+    }
+  }
+};
+
 const writeSpellDescriptionLines = (
   context,
   x,
@@ -175,10 +199,10 @@ const renderSpell = (
   ctx.fillRect(0, 16, 460, 71);
 
   // Spell Name
-  ctx.font = '600 50px "Open Sans"';
   ctx.fillStyle = "#FFF";
   ctx.textAlign = "center";
-  ctx.fillText(troop.spellname, 215, 66);
+  //ctx.fillText(troop.spellname, 215, 66);
+  writeSpellNameLine(ctx, 230, 66, 360, 50, troop.spellname);
 
   // Spell Image
   ctx.drawImage(images[5], 0, 87, 460, 340);
