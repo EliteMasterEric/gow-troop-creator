@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, CardContent, Grid, Card } from "@material-ui/core";
+import { CardContent, Grid, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import PreviewButtonBar from "./PreviewButtonBar";

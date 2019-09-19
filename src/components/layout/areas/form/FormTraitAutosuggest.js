@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useCallback } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, MenuItem, Paper } from "@material-ui/core";
@@ -8,7 +8,7 @@ import deburr from "lodash/deburr";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 
-import { Image } from "../../../Icon";
+import { Image } from "../../../Util";
 import { traits } from "../../../Values";
 
 const getSuggestions = value => {
@@ -19,16 +19,16 @@ const getSuggestions = value => {
   return inputLength === 0
     ? []
     : traits.filter(suggestion => {
-        const keep =
-          count < 5 &&
-          suggestion.name.slice(0, inputLength).toLowerCase() === inputValue;
+      const keep =
+        count < 5 &&
+        suggestion.name.slice(0, inputLength).toLowerCase() === inputValue;
 
-        if (keep) {
-          count += 1;
-        }
+      if (keep) {
+        count += 1;
+      }
 
-        return keep;
-      });
+      return keep;
+    });
 };
 
 const getSuggestionValue = suggestion => {
@@ -36,7 +36,7 @@ const getSuggestionValue = suggestion => {
 };
 
 const renderInputComponent = inputProps => {
-  const { classes, inputRef = () => {}, ref, ...other } = inputProps;
+  const { classes, inputRef = () => { }, ref, ...other } = inputProps;
 
   return (
     <TextField
@@ -104,19 +104,22 @@ const useStyles = makeStyles(theme => ({
   },
   divider: {
     height: theme.spacing(2)
+  },
+  traitIcon: {
+    width: "auto",
+    height: theme.spacing(3),
+    marginRight: theme.spacing(0.5)
   }
 }));
 
-export const FormTraitAutosuggest = ({ index, troop, setTroop }) => {
+export const FormTraitAutosuggest = memo(({ index, troop, setTroop }) => {
   const classes = useStyles();
 
   const [state, setState] = React.useState("");
 
   const [stateSuggestions, setSuggestions] = React.useState([]);
 
-  const handleChange = (event, { newValue }) => {
-    setState(newValue);
-  };
+  const handleChange = useCallback((event, { newValue }) => { setState(newValue); }, []);
 
   const handleSuggestionSelected = (event, { suggestion }) => {
     // Upon selecting a trait, clear out the autocomplete field and fill in the trait fields.
@@ -173,6 +176,6 @@ export const FormTraitAutosuggest = ({ index, troop, setTroop }) => {
       )}
     />
   );
-};
+});
 
 export default FormTraitAutosuggest;

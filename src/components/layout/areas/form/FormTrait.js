@@ -1,31 +1,19 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   Typography,
   CardContent,
   Grid,
-  Card,
-  TextField
+  Card
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import FormTraitAutosuggest from "./FormTraitAutosuggest";
 
-import { Image } from "../../../Icon";
-
-import { validateFieldLength } from "../../../Util";
+import { Image, FormText, validateFieldLength } from "../../../Util";
 
 const useStyles = makeStyles(theme => {
   return {
-    traitcode: {
-      [theme.breakpoints.up("xs")]: {
-        width: "100%"
-      },
-      [theme.breakpoints.up("md")]: {
-        width: "80px",
-        padding: `${theme.spacing(0.5)}px`
-      }
-    },
-    traitname: {
+    traitName: {
       [theme.breakpoints.up("xs")]: {
         width: "100%"
       },
@@ -33,6 +21,9 @@ const useStyles = makeStyles(theme => {
         width: `calc(100% - 80px)`,
         padding: `${theme.spacing(0.5)}px`
       }
+    },
+    traitDesc: {
+      width: "100%"
     },
     traitIcon: {
       width: "48px",
@@ -52,12 +43,8 @@ const useStyles = makeStyles(theme => {
   };
 });
 
-const FormTrait = ({ index, troop, setTroop }) => {
+const FormTrait = memo(({ index, troop, handleTroopChange }) => {
   const classes = useStyles();
-
-  const handleChange = name => event => {
-    setTroop({ ...troop, [name]: event.target.value });
-  };
 
   return (
     <Grid
@@ -77,40 +64,36 @@ const FormTrait = ({ index, troop, setTroop }) => {
               className={classes.traitIcon}
               source={`./assets/graphics/troopcard/traits/${
                 troop[`trait${index}code`]
-              }.png`}
+                }.png`}
             />
-            <TextField
+            <FormText
               id={`form-trait${index}name`}
+              fieldName={`trait${index}name`}
               value={troop[`trait${index}name`]}
-              onChange={handleChange(`trait${index}name`)}
-              margin="normal"
-              type="text"
+              onChange={handleTroopChange}
               label="Trait Name"
-              onInput={validateFieldLength(20)}
               className={classes.traitname}
-              variant="outlined"
+              onInput={validateFieldLength(20)}
             />
           </div>
-          <TextField
+          <FormText
             id={`form-trait${index}desc`}
+            fieldName={`trait${index}desc`}
             value={troop[`trait${index}desc`]}
-            onChange={handleChange(`trait${index}desc`)}
-            margin="normal"
-            type="text"
-            multiline
+            onChange={handleTroopChange}
             label="Trait Description"
-            style={{ width: "100%" }}
-            variant="outlined"
+            multiline
+            className={classes.traitDesc}
           />
           <FormTraitAutosuggest
             index={index}
             troop={troop}
-            setTroop={setTroop}
+            handleTroopChange={handleTroopChange}
           />
         </CardContent>
       </Card>
     </Grid>
   );
-};
+});
 
 export default FormTrait;

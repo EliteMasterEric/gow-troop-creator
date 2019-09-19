@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { Container, Toolbar, Tabs, Tab } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
@@ -12,6 +12,8 @@ import PreviewTroop from "./layout/areas/preview/PreviewTroop";
 import FormSpell from "./layout/areas/form/FormSpell";
 import FormTraits from "./layout/areas/form/FormTraits";
 import FormTroop from "./layout/areas/form/FormTroop";
+
+import { useDebounce } from "./Util";
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -59,78 +61,66 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// https://dev.to/gabe_ragland/debouncing-with-react-hooks-jci
-function useDebounce(value, delay) {
-  // State and setters for debounced value
-  const [debouncedValue, setDebouncedValue] = useState(value);
+// Default troop for the troop creator.
+const infernus = {
+  name: "Infernus",
+  kingdom: "Broken Spire",
+  rarity: "Mythic",
+  level: "20",
 
-  useEffect(
-    () => {
-      // Set debouncedValue to value (passed in) after the specified delay
-      const handler = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
+  role: "Mage",
+  cost: "24",
+  colors: "RedYellowPurple",
 
-      return () => {
-        clearTimeout(handler);
-      };
-    },
-    // Only re-call effect if value changes
-    // You could also add the "delay" var to inputs array if you ...
-    // ... need to be able to change that dynamically.
-    [value, delay]
-  );
+  type1: "Divine",
+  type2: "Elemental",
 
-  return debouncedValue;
+  attack: "40",
+  armor: "40",
+  life: "40",
+
+  troopimage: null,
+  magic: "25",
+
+  spellname: "Eruption",
+  spelldesc:
+    "Deal {magic} damage to 2 random enemies, and half of that damage to adjacent enemies. Explode 5 random Gems.",
+  spellmult: "1",
+  spellbase: "10",
+  spellrange: false,
+
+  spellimage: null,
+  trait1name: "Elemental Shield",
+  trait1desc: "Allied Elementals gain 2 Armor.",
+  trait1code: "elementalbond",
+  trait2name: "Fiery Death",
+  trait2desc: "Summon a Firestorm when an enemy dies.",
+  trait2code: "firebrand",
+  trait3name: "Conflagration",
+  trait3desc: "Burn all enemies on 4 or 5 Gem matches.",
+  trait3code: "molten"
 }
 
 const App = () => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [troop, setTroop] = React.useState({
-    name: "Infernus",
-    kingdom: "Broken Spire",
-    rarity: "Mythic",
-    level: "20",
+  // State of troop info, stored in the forms.
+  const [troop, setTroop] = React.useState(infernus);
 
-    role: "Mage",
-    cost: "24",
-    colors: "RedYellowPurple",
+  // Creates an onChange function by passing the setState function. Uses callbacks for performance.
+  const handleTroopChange = useCallback(
+    (field, value) => setTroop(oldState => ({...oldState, [field]: value})),
+    []
+  );
 
-    type1: "Divine",
-    type2: "Elemental",
+  // State of the troop, debounced by 300ms (used by the canvases).
+  const debouncedTroop = useDebounce(troop, 300);
 
-    attack: "40",
-    armor: "40",
-    life: "40",
-
-    troopimage: null,
-    magic: "25",
-
-    spellname: "Eruption",
-    spelldesc:
-      "Deal {magic} damage to 2 random enemies, and half of that damage to adjacent enemies. Explode 5 random Gems.",
-    spellmult: "1",
-    spellbase: "10",
-    spellrange: false,
-
-    spellimage: null,
-    trait1name: "Elemental Shield",
-    trait1desc: "Allied Elementals gain 2 Armor.",
-    trait1code: "elementalbond",
-    trait2name: "Fiery Death",
-    trait2desc: "Summon a Firestorm when an enemy dies.",
-    trait2code: "firebrand",
-    trait3name: "Conflagration",
-    trait3desc: "Burn all enemies on 4 or 5 Gem matches.",
-    trait3code: "molten"
-  });
-
+  // State of the currently selected tab number.
   const [currentTab, setCurrentTab] = React.useState(1);
 
-  const debouncedTroop = useDebounce(troop, 500);
-
+  // Handle a change in tab.
   const handleTabEvent = (event, newValue) => {
     setCurrentTab(newValue);
   };
@@ -175,7 +165,7 @@ const App = () => {
             <FormTroop
               troop={troop}
               className={classes.formGridItem}
-              setTroop={setTroop}
+              handleTroopChange={handleTroopChange}
             />
             <PreviewTroop
               troop={debouncedTroop}
@@ -187,7 +177,7 @@ const App = () => {
             <FormTraits
               troop={troop}
               className={classes.formGridItem}
-              setTroop={setTroop}
+              handleTroopChange={handleTroopChange}
             />
             <PreviewTraits
               troop={debouncedTroop}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import { DropzoneArea } from "material-ui-dropzone";
 import { Typography, CardContent, Grid, Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,15 +12,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const FormUploader = ({ troop, setTroop }) => {
+const FormUploader = memo(({ handleTroopChange }) => {
   const classes = useStyles();
 
   const handleChangeFiles = files => {
-    if (files.length === 0) {
-      setTroop({ ...troop, troopimage: null });
-    } else {
-      setTroop({ ...troop, troopimage: files[0] });
-    }
+    handleTroopChange("files", files.length !== 0 ? files[0] : null);
   };
 
   return (
@@ -42,6 +38,6 @@ const FormUploader = ({ troop, setTroop }) => {
       </Card>
     </Grid>
   );
-};
+});
 
 export default FormUploader;

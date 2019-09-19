@@ -4,7 +4,6 @@ import {
   CardContent,
   Grid,
   Card,
-  TextField,
   MenuItem,
   InputAdornment,
   useMediaQuery
@@ -12,10 +11,10 @@ import {
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import { colors, roles, rarities } from "../../../Values";
-import { Image } from "../../../Icon";
+import { Image } from "../../../Util";
 import FormUploader from "./FormUploader";
 
-import { validateFieldLength } from "../../../Util";
+import { FormText, FormSelect, validateFieldLength } from "../../../Util";
 
 const useStyles = makeStyles(theme => {
   return {
@@ -58,25 +57,29 @@ const useStyles = makeStyles(theme => {
         padding: "4px"
       }
     },
+    fieldIcon: {
+      width: "auto",
+      height: theme.spacing(3),
+      marginRight: theme.spacing(0.5)
+    },
     formElement: {
       margin: `${theme.spacing(1.5)}px 0`
     },
     iconSelector: {
       display: "flex",
       alignItems: "center"
+    },
+    fullField: {
+      width: "100%"
     }
   };
 });
 
-const FormTroop = ({ troop, setTroop, className }) => {
+const FormTroop = ({ troop, handleTroopChange, className }) => {
   const classes = useStyles();
   const theme = useTheme();
 
   const mediaQueryLg = useMediaQuery(theme.breakpoints.up("md"));
-
-  const handleChange = name => event => {
-    setTroop({ ...troop, [name]: event.target.value });
-  };
 
   return (
     <Grid
@@ -100,15 +103,13 @@ const FormTroop = ({ troop, setTroop, className }) => {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Name</Typography>
-            <TextField
+            <FormText
               id="form-name"
+              fieldName={"name"}
               value={troop.name}
-              onChange={handleChange("name")}
-              margin="normal"
-              type="text"
+              onChange={handleTroopChange}
               label="Name"
-              style={{ width: "100%" }}
-              variant="outlined"
+              className={classes.fullField}
             />
           </CardContent>
         </Card>
@@ -125,15 +126,13 @@ const FormTroop = ({ troop, setTroop, className }) => {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Kingdom</Typography>
-            <TextField
+            <FormText
               id="form-kingdom"
+              fieldName={"kingdom"}
               value={troop.kingdom}
-              onChange={handleChange("kingdom")}
-              margin="normal"
-              type="text"
+              onChange={handleTroopChange}
               label="Kingdom"
-              style={{ width: "100%" }}
-              variant="outlined"
+              className={classes.fullField}
             />
           </CardContent>
         </Card>
@@ -150,22 +149,20 @@ const FormTroop = ({ troop, setTroop, className }) => {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Rarity</Typography>
-            <TextField
+            <FormSelect
               id="form-rarity"
+              fieldName={"rarity"}
               value={troop.rarity}
-              select
+              onChange={handleTroopChange}
               label="Rarity"
-              onChange={handleChange("rarity")}
-              margin="normal"
-              style={{ width: "100%" }}
-              variant="outlined"
+              className={classes.fullField}
             >
               {Object.keys(rarities).map(option => (
                 <MenuItem key={option} value={option}>
                   {option}
                 </MenuItem>
               ))}
-            </TextField>
+            </FormSelect>
           </CardContent>
         </Card>
       </Grid>
@@ -181,15 +178,14 @@ const FormTroop = ({ troop, setTroop, className }) => {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Level</Typography>
-            <TextField
+            <FormText
               id="form-level"
+              fieldName={"level"}
               value={troop.level}
-              type="number"
-              onChange={handleChange("level")}
-              margin="normal"
+              onChange={handleTroopChange}
               label="Level"
-              style={{ width: "100%" }}
-              variant="outlined"
+              type="number"
+              className={classes.fullField}
               onInput={validateFieldLength(5)}
             />
           </CardContent>
@@ -207,26 +203,24 @@ const FormTroop = ({ troop, setTroop, className }) => {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Role</Typography>
-            <TextField
+            <FormSelect
               id="form-role"
+              fieldName={"role"}
               value={troop.role}
-              select
+              onChange={handleTroopChange}
               label="Role"
-              onChange={handleChange("role")}
-              margin="normal"
-              style={{ width: "100%" }}
-              variant="outlined"
-              inputProps={{ className: classes.iconSelector }}
+              className={classes.iconSelector}
             >
               {roles.map(option => (
                 <MenuItem key={option} value={option}>
                   <Image
                     source={`./assets/graphics/troopcard/roles/${option}.png`}
+                    className={classes.fieldIcon}
                   />
                   {option}
                 </MenuItem>
               ))}
-            </TextField>
+            </FormSelect>
           </CardContent>
         </Card>
       </Grid>
@@ -242,42 +236,40 @@ const FormTroop = ({ troop, setTroop, className }) => {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Mana Cost</Typography>
-            <TextField
+            <FormText
               id="form-cost"
+              fieldName={"cost"}
               value={troop.cost}
-              type="number"
+              onChange={handleTroopChange}
               label="Cost"
-              onChange={handleChange("cost")}
-              margin="normal"
-              onInput={validateFieldLength(3)}
+              type="number"
               className={classes.manaCost}
-              variant="outlined"
+              onInput={validateFieldLength(3)}
             />
-            <TextField
+            <FormSelect
               id="form-colors"
+              fieldName={"colors"}
               value={troop.colors}
-              select
+              onChange={handleTroopChange}
               label="Colors"
-              onChange={handleChange("colors")}
+              className={classes.manaColors}
               SelectProps={{
                 MenuProps: {
                   className: classes.menuColor
                 }
               }}
               inputProps={{ className: classes.iconSelector }}
-              margin="normal"
-              className={classes.manaColors}
-              variant="outlined"
             >
               {colors.map(option => (
                 <MenuItem key={option.value} value={option.value}>
-                  <Image
-                    source={`./assets/graphics/troopcard/colors/${option.value}.png`}
-                  />
-                  {option.label}
-                </MenuItem>
+                <Image
+                  source={`./assets/graphics/troopcard/colors/${option.value}.png`}
+                  className={classes.fieldIcon}
+                />
+                {option.label}
+              </MenuItem>
               ))}
-            </TextField>
+            </FormSelect>
           </CardContent>
         </Card>
       </Grid>
@@ -285,25 +277,23 @@ const FormTroop = ({ troop, setTroop, className }) => {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Types</Typography>
-            <TextField
+            <FormText
               id="form-type1"
+              fieldName={"type1"}
               value={troop.type1}
-              onChange={handleChange("type1")}
-              margin="normal"
-              type="text"
+              onChange={handleTroopChange}
               label="Type 1"
               className={classes.typeField}
-              variant="outlined"
+              onInput={validateFieldLength(10)}
             />
-            <TextField
+            <FormText
               id="form-type2"
+              fieldName={"type2"}
               value={troop.type2}
-              onChange={handleChange("type2")}
-              margin="normal"
-              type="text"
-              label="Type 2 (Optional)"
+              onChange={handleTroopChange}
+              label="Type 2"
               className={classes.typeField}
-              variant="outlined"
+              onInput={validateFieldLength(10)}
             />
           </CardContent>
         </Card>
@@ -320,64 +310,58 @@ const FormTroop = ({ troop, setTroop, className }) => {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h4">Skills</Typography>
-            <TextField
+            <FormText
               id="form-attack"
+              fieldName={"attack"}
               value={troop.attack}
-              type="number"
+              onChange={handleTroopChange}
               label="Attack"
-              onChange={handleChange("attack")}
-              margin="normal"
-              onInput={validateFieldLength(3)}
               className={classes.skill}
+              onInput={validateFieldLength(3)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Image source="./assets/graphics/troopcard/attack.png" />
+                    <Image source="./assets/graphics/troopcard/attack.png" className={classes.fieldIcon} />
                   </InputAdornment>
                 )
               }}
-              variant="outlined"
             />
-            <TextField
+            <FormText
               id="form-armor"
+              fieldName={"armor"}
               value={troop.armor}
-              type="number"
+              onChange={handleTroopChange}
               label="Armor"
-              onChange={handleChange("armor")}
-              margin="normal"
-              onInput={validateFieldLength(3)}
               className={classes.skill}
+              onInput={validateFieldLength(3)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Image source="./assets/graphics/troopcard/armor.png" />
+                    <Image source="./assets/graphics/troopcard/armor.png" className={classes.fieldIcon} />
                   </InputAdornment>
                 )
               }}
-              variant="outlined"
             />
-            <TextField
+            <FormText
               id="form-life"
+              fieldName={"life"}
               value={troop.life}
-              type="number"
+              onChange={handleTroopChange}
               label="Life"
-              onChange={handleChange("life")}
-              margin="normal"
-              onInput={validateFieldLength(3)}
               className={classes.skill}
+              onInput={validateFieldLength(3)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Image source="./assets/graphics/troopcard/life.png" />
+                    <Image source="./assets/graphics/troopcard/life.png" className={classes.fieldIcon} />
                   </InputAdornment>
                 )
               }}
-              variant="outlined"
             />
           </CardContent>
         </Card>
       </Grid>
-      <FormUploader troop={troop} setTroop={setTroop} />
+      <FormUploader handleTroopChange={handleTroopChange} />
     </Grid>
   );
 };

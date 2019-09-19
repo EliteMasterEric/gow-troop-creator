@@ -107,8 +107,6 @@ export const writeLines = (
       let newY = y - (lines.length - 1) * lineHeight;
       if (centerVertical && lines.length === 1) newY -= lineHeight / 2;
 
-      console.log("%f, %f, %f = %f", lines.length, lineHeight, y, newY);
-
       for (let j = 0; j < lines.length; j += 1) {
         context.fillText(lines[j], x, newY + lineHeight * j);
       }

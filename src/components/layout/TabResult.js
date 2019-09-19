@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  Typography,
   CardContent,
   Grid,
   Card,
@@ -10,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Icon } from "../Icon";
+import { Icon } from "../Util";
 
 const useStyles = makeStyles(theme => ({
   buttonIcon: {

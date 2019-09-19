@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Grid, Button, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Icon } from "../../../Icon";
+import { Icon } from "../../../Util";
 
 const useStyles = makeStyles(() => ({
   buttonGrid: {},
@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const PreviewButtonBar = ({ troopName, downloadUrl }) => {
+const PreviewButtonBar = memo(({ troopName, downloadUrl }) => {
   const classes = useStyles();
 
   return (
@@ -30,6 +30,6 @@ const PreviewButtonBar = ({ troopName, downloadUrl }) => {
       </Grid>
     </Grid>
   );
-};
+});
 
 export default PreviewButtonBar;

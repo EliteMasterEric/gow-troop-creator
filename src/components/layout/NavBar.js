@@ -2,7 +2,7 @@ import React from "react";
 import { AppBar, Toolbar, Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
-import { Image } from "../Icon";
+import { Image } from "../Util";
 
 const useStyles = makeStyles(theme => {
   return {
