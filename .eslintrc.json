@@ -5,7 +5,8 @@
     },
     "extends": [
         "airbnb",
-        "prettier"
+        "prettier",
+        "prettier/react"
     ],
     "globals": {
         "Atomics": "readonly",

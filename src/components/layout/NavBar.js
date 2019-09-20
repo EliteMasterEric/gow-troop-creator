@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { AppBar, Toolbar, Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => {
   };
 });
 
-const NavBar = () => {
+const NavBar = memo(() => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -47,6 +47,6 @@ const NavBar = () => {
       </Toolbar>
     </AppBar>
   );
-};
+});
 
 export default NavBar;

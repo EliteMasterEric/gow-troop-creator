@@ -19,9 +19,21 @@ const FormTraits = memo(({ troop, handleTroopChange, className }) => {
       direction="row"
       className={className}
     >
-      <FormTrait index={1} troop={troop} handleTroopChange={handleTroopChange} />
-      <FormTrait index={2} troop={troop} handleTroopChange={handleTroopChange} />
-      <FormTrait index={3} troop={troop} handleTroopChange={handleTroopChange} />
+      <FormTrait
+        index={1}
+        troop={troop}
+        handleTroopChange={handleTroopChange}
+      />
+      <FormTrait
+        index={2}
+        troop={troop}
+        handleTroopChange={handleTroopChange}
+      />
+      <FormTrait
+        index={3}
+        troop={troop}
+        handleTroopChange={handleTroopChange}
+      />
     </Grid>
   );
 });

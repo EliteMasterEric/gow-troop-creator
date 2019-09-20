@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { memo, useCallback } from "react";
 import { Container, Toolbar, Tabs, Tab } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
@@ -99,7 +99,29 @@ const infernus = {
   trait3name: "Conflagration",
   trait3desc: "Burn all enemies on 4 or 5 Gem matches.",
   trait3code: "molten"
-}
+};
+
+const TabList = memo(({ currentTab, setCurrentTab }) => {
+  // Handle a change in tab.
+  const handleTabEvent = (event, newValue) => {
+    setCurrentTab(newValue);
+  };
+
+  return (
+    <Tabs
+      value={currentTab}
+      onChange={handleTabEvent}
+      indicatorColor="primary"
+      textColor="primary"
+      centered
+    >
+      <Tab label="Spell" id="tab-0" />
+      <Tab label="Troop" id="tab-1" />
+      <Tab label="Traits" id="tab-2" />
+      <Tab label="Result" id="tab-3" />
+    </Tabs>
+  );
+});
 
 const App = () => {
   const classes = useStyles();
@@ -109,9 +131,8 @@ const App = () => {
   const [troop, setTroop] = React.useState(infernus);
 
   // Creates an onChange function by passing the setState function. Uses callbacks for performance.
-  const handleTroopChange = useCallback(
-    (field, value) => setTroop(oldState => ({...oldState, [field]: value})),
-    []
+  const handleTroopChange = useCallback((field, value) =>
+    setTroop(oldState => ({ ...oldState, [field]: value }))
   );
 
   // State of the troop, debounced by 300ms (used by the canvases).
@@ -120,11 +141,6 @@ const App = () => {
   // State of the currently selected tab number.
   const [currentTab, setCurrentTab] = React.useState(1);
 
-  // Handle a change in tab.
-  const handleTabEvent = (event, newValue) => {
-    setCurrentTab(newValue);
-  };
-
   const canvasResult = React.createRef();
 
   return (
@@ -132,18 +148,7 @@ const App = () => {
       <NavBar />
       <Toolbar />
       <Container maxWidth={false} className={classes.content}>
-        <Tabs
-          value={currentTab}
-          onChange={handleTabEvent}
-          indicatorColor="primary"
-          textColor="primary"
-          centered
-        >
-          <Tab label="Spell" id="tab-0" />
-          <Tab label="Troop" id="tab-1" />
-          <Tab label="Traits" id="tab-2" />
-          <Tab label="Result" id="tab-3" />
-        </Tabs>
+        <TabList currentTab={currentTab} setCurrentTab={setCurrentTab} />
         <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={currentTab}
@@ -153,7 +158,7 @@ const App = () => {
             <FormSpell
               troop={troop}
               className={classes.formGridItem}
-              setTroop={setTroop}
+              handleTroopChange={handleTroopChange}
             />
             <PreviewSpell
               troop={debouncedTroop}

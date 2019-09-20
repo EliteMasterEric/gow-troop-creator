@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { Typography, Grid } from "@material-ui/core";
 
-const TabBase = ({ children, value, index, dir }) => {
+const TabBase = memo(({ children, value, index, dir }) => {
   return (
     <Typography
       component="div"
@@ -16,6 +16,6 @@ const TabBase = ({ children, value, index, dir }) => {
       </Grid>
     </Typography>
   );
-};
+});
 
 export default TabBase;

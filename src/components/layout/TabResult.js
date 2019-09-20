@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import {
   CardContent,
   Grid,
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TabResult = ({ troop, canvasResult }) => {
+const TabResult = memo(({ troop, canvasResult }) => {
   const classes = useStyles();
 
   const [downloadUrl, setDownloadUrl] = React.useState("");
@@ -59,24 +59,20 @@ const TabResult = ({ troop, canvasResult }) => {
               </Box>
             </Grid>
           </Grid>
-          <Grid item container justify="center" xs={12}>
-            <Grid item>
-              <Tooltip title="Download" aria-label="download">
-                <Button
-                  variant="outlined"
-                  size="large"
-                  href={downloadUrl}
-                  download={`${troop.name}.png`}
-                >
-                  <Icon className={classes.buttonIcon} icon="nf-mdi-download" />
-                </Button>
-              </Tooltip>
-            </Grid>
-          </Grid>
+          <Tooltip title="Download" aria-label="download">
+            <Button
+              variant="outlined"
+              size="large"
+              href={downloadUrl}
+              download={`${troop.name}.png`}
+            >
+              <Icon className={classes.buttonIcon} icon="nf-mdi-download" />
+            </Button>
+          </Tooltip>
         </Grid>
       </CardContent>
     </Card>
   );
-};
+});
 
 export default TabResult;

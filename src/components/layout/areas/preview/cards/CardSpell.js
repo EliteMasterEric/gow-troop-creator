@@ -236,7 +236,6 @@ const renderSpell = (
   // Resize to match the trait card.
   const baseHeight = 709;
   const baseWidth = (canvas.width / canvas.height) * 709;
-  console.log(baseWidth);
   cresult.clearRect(5, 30, baseWidth, baseHeight);
   cresult.drawImage(canvas, 5, 30, baseWidth, baseHeight);
   //cresult.clearRect(5, 17, canvas.width, canvas.height);

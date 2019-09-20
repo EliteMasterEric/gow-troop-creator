@@ -1,8 +1,9 @@
-import React from "react";
-import { CardContent, Grid, Card } from "@material-ui/core";
+import React, { memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import PreviewButtonBar from "./PreviewButtonBar";
+
+import { GridCard } from "../../../Util";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -15,19 +16,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PreviewBase = ({ troopName, downloadUrl, children, className }) => {
+const PreviewBase = memo(({ troopName, downloadUrl, children, className }) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} lg={4} className={className}>
-      <Card className={classes.card}>
-        <CardContent>
-          {children}
-          <PreviewButtonBar troopName={troopName} downloadUrl={downloadUrl} />
-        </CardContent>
-      </Card>
-    </Grid>
+    <GridCard
+      gridClassName={className}
+      cardClassName={classes.card}
+      xs={12}
+      sm={12}
+      md={12}
+      lg={4}
+      xl={4}
+    >
+      {children}
+      <PreviewButtonBar troopName={troopName} downloadUrl={downloadUrl} />
+    </GridCard>
   );
-};
+});
 
 export default PreviewBase;

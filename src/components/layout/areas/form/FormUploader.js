@@ -1,7 +1,9 @@
-import React, {memo} from "react";
+import React, { memo, useCallback } from "react";
 import { DropzoneArea } from "material-ui-dropzone";
-import { Typography, CardContent, Grid, Card } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+import { GridCard } from "../../../Util";
 
 const useStyles = makeStyles(theme => ({
   formElement: {
@@ -15,28 +17,32 @@ const useStyles = makeStyles(theme => ({
 const FormUploader = memo(({ handleTroopChange }) => {
   const classes = useStyles();
 
-  const handleChangeFiles = files => {
+  const handleChangeFiles = useCallback(files => {
     handleTroopChange("files", files.length !== 0 ? files[0] : null);
-  };
+  });
 
   return (
-    <Grid item className={classes.formElement} xs={12}>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography variant="h4">Image</Typography>
-          <Typography variant="subtitle2" gutterBottom>
-            Preferred Size: 460x652
-          </Typography>
-          <DropzoneArea
-            dropzoneClass={classes.dropzone}
-            acceptedFiles={["image/*"]}
-            filesLimit={1}
-            showAlerts
-            onChange={handleChangeFiles}
-          />
-        </CardContent>
-      </Card>
-    </Grid>
+    <GridCard
+      gridClassName={classes.formElement}
+      cardClassName={classes.card}
+      xs={12}
+      sm={12}
+      md={12}
+      lg={12}
+      xl={12}
+    >
+      <Typography variant="h4">Image</Typography>
+      <Typography variant="subtitle2" gutterBottom>
+        Preferred Size: 460x652
+      </Typography>
+      <DropzoneArea
+        dropzoneClass={classes.dropzone}
+        acceptedFiles={["image/*"]}
+        filesLimit={1}
+        showAlerts
+        onChange={handleChangeFiles}
+      />
+    </GridCard>
   );
 });
 

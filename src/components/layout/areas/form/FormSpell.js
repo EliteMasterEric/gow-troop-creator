@@ -1,18 +1,19 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   Typography,
-  CardContent,
   Grid,
-  Card,
-  TextField,
-  FormControlLabel,
-  Checkbox,
   InputAdornment,
   useMediaQuery
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
-import { Image, validateFieldLength } from "../../../Util";
+import {
+  Image,
+  FormText,
+  FormCheckbox,
+  GridCard,
+  validateFieldLength
+} from "../../../Util";
 import FormUploader from "./FormUploader";
 
 const useStyles = makeStyles(theme => {
@@ -28,21 +29,21 @@ const useStyles = makeStyles(theme => {
     },
     formElement: {
       margin: `${theme.spacing(1.5)}px 0 0 0`
+    },
+    fullField: {
+      width: "100%"
+    },
+    fieldIcon: {
+      width: "auto",
+      height: theme.spacing(3),
+      marginRight: theme.spacing(0.5)
     }
   };
 });
 
-const FormSpell = ({ troop, setTroop, className }) => {
+const FormSpell = memo(({ troop, handleTroopChange, className }) => {
   const classes = useStyles();
   const theme = useTheme();
-
-  const handleChange = name => event => {
-    setTroop({ ...troop, [name]: event.target.value });
-  };
-
-  const handleChangeCheckbox = name => event => {
-    setTroop({ ...troop, [name]: event.target.checked });
-  };
 
   const mediaQueryLg = useMediaQuery(theme.breakpoints.up("md"));
 
@@ -56,139 +57,115 @@ const FormSpell = ({ troop, setTroop, className }) => {
       direction="row"
       className={className}
     >
-      <Grid
-        item
-        className={classes.formElement}
+      <GridCard
+        gridClassName={classes.formElement}
+        cardClassName={classes.card}
         xs={12}
         sm={12}
         md={6}
         lg={4}
         xl={4}
       >
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography variant="h4">Spell Name</Typography>
-            <TextField
-              id="form-spellname"
-              value={troop.spellname}
-              onChange={handleChange("spellname")}
-              margin="normal"
-              type="text"
-              label="Spell Name"
-              style={{ width: "100%" }}
-              variant="outlined"
-            />
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid
-        item
-        className={classes.formElement}
+        <Typography variant="h4">Spell Name</Typography>
+        <FormText
+          id="form-spellname"
+          fieldName="spellname"
+          value={troop.spellname}
+          onChange={handleTroopChange}
+          label="Spell Name"
+          className={classes.fullField}
+        />
+      </GridCard>
+      <GridCard
+        gridClassName={classes.formElement}
+        cardClassName={classes.card}
         xs={12}
         sm={12}
         md={6}
         lg={4}
         xl={4}
       >
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography variant="h4">Spell Description</Typography>
-            <TextField
-              id="form-spelldesc"
-              value={troop.spelldesc}
-              onChange={handleChange("spelldesc")}
-              margin="normal"
-              type="text"
-              multiline
-              helperText="{magic} specifies spell power"
-              label="Spell Description"
-              style={{ width: "100%" }}
-              variant="outlined"
-            />
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid
-        item
-        className={classes.formElement}
+        <Typography variant="h4">Spell Description</Typography>
+        <FormText
+          id="form-spelldesc"
+          fieldName="spelldesc"
+          value={troop.spelldesc}
+          onChange={handleTroopChange}
+          label="Spell Description"
+          multiline
+          helperText="{magic} specifies spell power"
+          className={classes.fullField}
+        />
+      </GridCard>
+      <GridCard
+        gridClassName={classes.formElement}
+        cardClassName={classes.card}
         xs={12}
         sm={12}
         md={6}
         lg={4}
         xl={4}
       >
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography variant="h4">Magic</Typography>
-            <TextField
-              id="form-magic"
-              value={troop.magic}
-              type="number"
-              label="Magic"
-              onChange={handleChange("magic")}
-              onInput={validateFieldLength(3)}
-              margin="normal"
-              style={{ width: "100%" }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Image source="./assets/graphics/troopcard/magic.png" className={classes.fieldIcon} />
-                  </InputAdornment>
-                )
-              }}
-              variant="outlined"
-            />
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid
-        item
-        className={classes.formElement}
-        xs={12}
-        sm={12}
-        md={6}
-        lg={4}
-        xl={4}
-      >
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography variant="h4">Spell Power</Typography>
-            <TextField
-              id="form-spellmult"
-              value={troop.spellmult}
-              type="number"
-              label="Multiplier"
-              onChange={handleChange("spellmult")}
-              margin="normal"
-              className={classes.spellPower}
-              variant="outlined"
-            />
-            <TextField
-              id="form-spellbase"
-              value={troop.spellbase}
-              type="number"
-              label="Base"
-              onChange={handleChange("spellbase")}
-              margin="normal"
-              className={classes.spellPower}
-              variant="outlined"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={troop.spellrange}
-                  onChange={handleChangeCheckbox("spellrange")}
-                  value="spellrange"
+        <Typography variant="h4">Magic</Typography>
+        <FormText
+          id="form-magic"
+          fieldName="magic"
+          value={troop.magic}
+          onChange={handleTroopChange}
+          label="Magic"
+          type="number"
+          className={classes.fullField}
+          onInput={validateFieldLength(3)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Image
+                  source="./assets/graphics/troopcard/magic.png"
+                  className={classes.fieldIcon}
                 />
-              }
-              label="Range?"
-            />
-          </CardContent>
-        </Card>
-      </Grid>
-      <FormUploader troop={troop} setTroop={setTroop} />
+              </InputAdornment>
+            )
+          }}
+        />
+      </GridCard>
+      <GridCard
+        gridClassName={classes.formElement}
+        cardClassName={classes.card}
+        xs={12}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={4}
+      >
+        <Typography variant="h4">Spell Power</Typography>
+        <FormText
+          id="form-spellmult"
+          fieldName="spellmult"
+          value={troop.spellmult}
+          onChange={handleTroopChange}
+          label="Multiplier"
+          type="number"
+          className={classes.spellPower}
+        />
+        <FormText
+          id="form-spellbase"
+          fieldName="spellbase"
+          value={troop.spellbase}
+          onChange={handleTroopChange}
+          label="Base"
+          type="number"
+          className={classes.spellPower}
+        />
+        <FormCheckbox
+          checked={troop.spellrange}
+          fieldName="spellrange"
+          onChange={handleTroopChange}
+          label="Range?"
+        />
+      </GridCard>
+      <FormUploader troop={troop} handleTroopChange={handleTroopChange} />
     </Grid>
   );
-};
+});
 
 export default FormSpell;

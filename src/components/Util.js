@@ -1,6 +1,15 @@
 import React, { useState, useEffect, memo } from "react";
 
-import { TextField } from "@material-ui/core";
+import isEqual from "lodash/isEqual";
+
+import {
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Grid,
+  Card,
+  CardContent
+} from "@material-ui/core";
 
 // Displays a NerdFonts font icon.
 export const Icon = memo(({ icon, className }) => {
@@ -12,8 +21,15 @@ export const Icon = memo(({ icon, className }) => {
 });
 
 // Displays an image file from its source.
-export const Image = memo(({ source, className }) => {
-  return <img alt="" src={source} className={className || null} />;
+export const Image = memo(({ source, className, style }) => {
+  return (
+    <img
+      alt=""
+      src={source}
+      className={className || null}
+      style={style || null}
+    />
+  );
 });
 
 // The code to validate the length of a text field when you type in it is standard.
@@ -48,12 +64,24 @@ export const useDebounce = (value, delay) => {
   );
 
   return debouncedValue;
-}
+};
 
 // The standard form field. Memoized for performance.
 // The className,
-export const FormText = memo(({ id, fieldName, value, onChange,
-  label, type, className, onInput, multiline, InputProps }) => (
+export const FormText = memo(
+  ({
+    id,
+    fieldName,
+    value,
+    onChange,
+    label,
+    type,
+    className,
+    onInput,
+    multiline,
+    helperText,
+    InputProps
+  }) => (
     <TextField
       // Required inputs.
       // Pass in an ID for React to identify the field.
@@ -76,13 +104,29 @@ export const FormText = memo(({ id, fieldName, value, onChange,
       className={className || null}
       // Specify an onInput function, optionally.
       onInput={onInput || null}
+      // Specify helper text below the field, optionally.
+      helperText={helperText || null}
       // Whether the field is multiline.
-      multiline={multiline || null}
+      multiline={multiline || false}
     />
-  ));
+  ),
+  (prevState, nextState) => {
+    isEqual(prevState.value, nextState.value);
+  }
+);
 
-export const FormSelect = memo(({ id, fieldName, value, onChange,
-  label, className, children, SelectProps, inputProps }) => (
+export const FormSelect = memo(
+  ({
+    id,
+    fieldName,
+    value,
+    onChange,
+    label,
+    className,
+    children,
+    SelectProps,
+    inputProps
+  }) => (
     <TextField
       // Required inputs.
       // Pass in an ID for React to identify the field.
@@ -105,5 +149,41 @@ export const FormSelect = memo(({ id, fieldName, value, onChange,
       SelectProps={SelectProps || null}
       // Props to put on the input.
       inputProps={inputProps || null}
-    > {children} </TextField>
-  ));
+    >
+      {children}
+    </TextField>
+  ),
+  (prevState, nextState) => {
+    isEqual(prevState.value, nextState.value);
+  }
+);
+
+export const FormCheckbox = memo(({ checked, fieldName, onChange, label }) => (
+  <FormControlLabel
+    control={
+      <Checkbox
+        checked={checked}
+        onChange={e => onChange(fieldName, e.target.checked)}
+      />
+    }
+    label={label}
+  />
+));
+
+export const GridCard = memo(
+  ({ gridClassName, cardClassName, children, xs, sm, md, lg, xl }) => (
+    <Grid
+      item
+      className={gridClassName}
+      xs={xs}
+      sm={sm}
+      md={md}
+      lg={lg}
+      xl={xl}
+    >
+      <Card className={cardClassName}>
+        <CardContent>{children}</CardContent>
+      </Card>
+    </Grid>
+  )
+);

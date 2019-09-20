@@ -169,7 +169,6 @@ const renderTraits = (
   // Resize to match the trait card.
   const baseHeight = 709;
   const baseWidth = (canvas.width / canvas.height) * 709;
-  console.log(baseWidth);
   cresult.clearRect(1005, 30, baseWidth, baseHeight);
   cresult.drawImage(canvas, 1005, 30, baseWidth, baseHeight);
   //cresult.clearRect(1005, 12, canvas.width, canvas.height);

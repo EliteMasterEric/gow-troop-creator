@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { memo, useCallback } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,16 +20,16 @@ const getSuggestions = value => {
   return inputLength === 0
     ? []
     : traits.filter(suggestion => {
-      const keep =
-        count < 5 &&
-        suggestion.name.slice(0, inputLength).toLowerCase() === inputValue;
+        const keep =
+          count < 5 &&
+          suggestion.name.slice(0, inputLength).toLowerCase() === inputValue;
 
-      if (keep) {
-        count += 1;
-      }
+        if (keep) {
+          count += 1;
+        }
 
-      return keep;
-    });
+        return keep;
+      });
 };
 
 const getSuggestionValue = suggestion => {
@@ -36,7 +37,7 @@ const getSuggestionValue = suggestion => {
 };
 
 const renderInputComponent = inputProps => {
-  const { classes, inputRef = () => { }, ref, ...other } = inputProps;
+  const { classes, inputRef = () => {}, ref, ...other } = inputProps;
 
   return (
     <TextField
@@ -65,6 +66,11 @@ const renderSuggestion = (suggestion, { query, isHighlighted }) => {
       <div>
         <Image
           source={`./assets/graphics/troopcard/traits/${suggestion.code}.png`}
+          style={{
+            width: "auto",
+            height: "24px",
+            marginRight: "4px"
+          }}
         />
         {parts.map(part => (
           <span
@@ -104,35 +110,33 @@ const useStyles = makeStyles(theme => ({
   },
   divider: {
     height: theme.spacing(2)
-  },
-  traitIcon: {
-    width: "auto",
-    height: theme.spacing(3),
-    marginRight: theme.spacing(0.5)
   }
 }));
 
-export const FormTraitAutosuggest = memo(({ index, troop, setTroop }) => {
+const FormTraitAutosuggest = memo(({ index, handleTroopChange }) => {
   const classes = useStyles();
 
   const [state, setState] = React.useState("");
 
   const [stateSuggestions, setSuggestions] = React.useState([]);
 
-  const handleChange = useCallback((event, { newValue }) => { setState(newValue); }, []);
+  const handleChange = useCallback(
+    (event, { newValue }) => {
+      setState(newValue);
+    },
+    [setState]
+  );
 
-  const handleSuggestionSelected = (event, { suggestion }) => {
-    // Upon selecting a trait, clear out the autocomplete field and fill in the trait fields.
-    console.log(suggestion);
-    console.log(`trait${index}code`);
-    setState("");
-    setTroop({
-      ...troop,
-      [`trait${index}code`]: suggestion.code,
-      [`trait${index}name`]: suggestion.name,
-      [`trait${index}desc`]: suggestion.description
-    });
-  };
+  const handleSuggestionSelected = useCallback(
+    (event, { suggestion }) => {
+      // Upon selecting a trait, clear out the autocomplete field and fill in the trait fields.
+      setState("");
+      handleTroopChange(`trait${index}code`, suggestion.code);
+      handleTroopChange(`trait${index}name`, suggestion.name);
+      handleTroopChange(`trait${index}desc`, suggestion.desc);
+    },
+    [handleTroopChange, index]
+  );
 
   const handleSuggestionsFetchRequested = ({ value }) => {
     setSuggestions(getSuggestions(value));
@@ -142,19 +146,15 @@ export const FormTraitAutosuggest = memo(({ index, troop, setTroop }) => {
     setSuggestions([]);
   };
 
-  const autosuggestProps = {
-    renderInputComponent,
-    suggestions: stateSuggestions,
-    onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
-    onSuggestionsClearRequested: handleSuggestionsClearRequested,
-    onSuggestionSelected: handleSuggestionSelected,
-    getSuggestionValue,
-    renderSuggestion
-  };
-
   return (
     <Autosuggest
-      {...autosuggestProps}
+      renderInputComponent={renderInputComponent}
+      suggestions={stateSuggestions}
+      onSuggestionsFetchRequested={handleSuggestionsFetchRequested}
+      onSuggestionsClearRequested={handleSuggestionsClearRequested}
+      onSuggestionSelected={handleSuggestionSelected}
+      getSuggestionValue={getSuggestionValue}
+      renderSuggestion={renderSuggestion}
       inputProps={{
         classes,
         id: `react-autosuggest-trait${index}`,
