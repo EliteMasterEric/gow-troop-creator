@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Grid, Button, Tooltip } from "@material-ui/core";
+import { Button, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Icon } from "../../../Util";

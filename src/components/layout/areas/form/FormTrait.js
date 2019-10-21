@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Typography, CardContent, Grid, Card } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import FormTraitAutosuggest from "./FormTraitAutosuggest";
@@ -55,9 +55,11 @@ const FormTrait = memo(({ index, troop, handleTroopChange }) => {
       <div className={classes.iconSelector}>
         <Image
           className={classes.traitIcon}
-          source={`./assets/graphics/troopcard/traits/${
-            troop[`trait${index}code`]
-          }.png`}
+          source={
+            troop[`trait${index}code`] !== null
+              ? `./assets/graphics/traiticons/${troop[`trait${index}code`]}.png`
+              : null
+          }
         />
         <FormText
           id={`form-trait${index}name`}

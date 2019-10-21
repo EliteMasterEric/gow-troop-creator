@@ -1,55 +1,26 @@
-import React, { useEffect } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
+import { Stage, Image, Text } from "react-konva";
+import { Box } from "@material-ui/core";
+import useImage from "use-image";
 import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import WebFontLoader from "webfontloader";
+import Konva from "konva";
+import { hexToRgb, measureText } from "../../../../Util";
 
-const useStyles = makeStyles(theme => ({
-  cardBox: {
-    padding: `${theme.spacing(1.5)}px 0 ${theme.spacing(3)}px 0`
-  },
+const useStyles = makeStyles(() => ({
   card: {
-    width: "100%",
     margin: "0px auto",
-    display: "table"
+    paddingBottom: "12px",
+    "& .konvajs-content": {
+      width: "100% !important",
+      height: "auto !important",
+      "& canvas": {
+        position: "relative !important",
+        width: "100% !important",
+        height: "auto !important"
+      }
+    }
   }
 }));
-
-const loadFonts = setFontReady => {
-  // Fetch necessary fonts.
-  WebFontLoader.load({
-    google: {
-      families: ["Open Sans:400,600,700", "Roboto", "Raleway"]
-    },
-    fontactive: () => {
-      setFontReady(true);
-    }
-  });
-};
-
-// Ensure all images are loaded before rendering the canvas itself.
-const loadImages = (
-  canvas,
-  temp,
-  troop,
-  sources,
-  callback,
-  setDownloadUrl,
-  canvasResult
-) => {
-  const images = {};
-  let loadedImages = 0;
-
-  sources.forEach((src, index) => {
-    images[index] = new Image();
-    images[index].onload = () => {
-      loadedImages += 1;
-      if (loadedImages >= sources.length) {
-        callback(canvas, temp, troop, images, setDownloadUrl, canvasResult);
-      }
-    };
-    images[index].src = src;
-  });
-};
 
 // https://gist.github.com/mrcoles/0dfaab93a1c899e5f46690676c8c29e5
 export const fillMixedText = (ctx, args, x, y) => {
@@ -115,61 +86,186 @@ export const writeLines = (
   }
 };
 
-const drawInactive = canvas => {
-  // Set the canvas size.
-  canvas.width = 491;
-  canvas.height = 727;
-
-  const ctx = canvas.getContext("2d");
-
-  const loadingImage = new Image();
-  loadingImage.onload = () => {
-    ctx.drawImage(loadingImage, 180, 308, 100, 100);
-  };
-  loadingImage.src = "./assets/graphics/troopcard/loading.png";
-};
-
-// Render a troop as a full-size card (like in the troop list).
-export const CardBase = ({
-  troop,
-  sources,
-  renderFunction,
-  setDownloadUrl,
-  canvasResult
+export const CardImage = ({
+  src,
+  x,
+  y,
+  width,
+  height,
+  color = null,
+  crop = {},
+  onLoad = null
 }) => {
-  const classes = useStyles();
-
-  const card = React.useRef(null);
-  const temp = React.useRef(null);
-
-  const [isFontReady, setFontReady] = React.useState(false);
-
+  const [image, status] = useImage(src);
+  const ref = useRef();
   useEffect(() => {
-    loadFonts(setFontReady);
-  }, []);
-
-  // Perform when troop changes.
-  useEffect(() => {
-    // Draw the canvas.
-    if (isFontReady) {
-      loadImages(
-        card.current,
-        temp.current,
-        troop,
-        sources,
-        renderFunction, // Pass a render function from the parent.
-        setDownloadUrl,
-        canvasResult.current
-      );
-    } else {
-      drawInactive(card.current);
+    if (ref.current !== undefined) {
+      ref.current.cache();
+      ref.current.getLayer().batchDraw();
+      if (status === "loaded" && onLoad != null) onLoad();
     }
-  }, [troop, isFontReady]);
+  }, [image, onLoad, status]);
+
+  if (src == null) return null;
 
   return (
-    <Box height={1} className={classes.cardBox}>
-      <canvas ref={card} className={classes.card} />
-      <canvas ref={temp} style={{ display: "none" }} />
+    <Image
+      ref={ref}
+      image={image}
+      x={x}
+      y={y}
+      filters={color !== null ? [Konva.Filters.RGB] : null}
+      red={color !== null ? hexToRgb(color).r : null}
+      green={color !== null ? hexToRgb(color).g : null}
+      blue={color !== null ? hexToRgb(color).b : null}
+      width={width}
+      height={height}
+      crop={crop}
+    />
+  );
+};
+
+/* Takes an array of lines; each line is an array of phrase objects.
+ * Sadly assumes horizontal and vertical centering. Too much work to make more general.
+ * Example: [
+ *   [
+ *     { text: "Deal ", weight: 600, size: 50, family: "Open Sans", color: "#333" },
+ *     { text: "83", weight: 600, size: 50, family: "Open Sans", color: "#433" },
+ *   ],
+ *   [
+ *     { text: "damage", weight: 600, size: 50, family: "Open Sans", color: "#333" },
+ *   ]
+ * ]
+ */
+export const CardMultiStyleText = ({ textArray, yCenter, xCenter }) => {
+  const textHeight = textArray.reduce(
+    (sum, textLine) => sum + Math.max(...textLine.map(phrase => phrase.size)),
+    0
+  );
+  let topYOffset = yCenter - textHeight / 2;
+  return textArray.map((textLine, textLineIndex) => {
+    const maxFontSize = Math.max(...textLine.map(phrase => phrase.size));
+    const yPos = topYOffset;
+    topYOffset += maxFontSize;
+    const lineWidth = textLine.reduce(
+      (sum, phrase) =>
+        sum +
+        measureText(phrase.text, phrase.weight, phrase.size, phrase.family),
+      0
+    );
+    let leftXOffset = xCenter - lineWidth / 2;
+
+    return textLine.map((phrase, phraseIndex) => {
+      const xPos = leftXOffset;
+      leftXOffset += measureText(
+        phrase.text,
+        phrase.weight,
+        phrase.size,
+        phrase.family
+      );
+      return (
+        <CardText
+          // eslint-disable-next-line react/no-array-index-key
+          key={`spellDesc${textLineIndex}-${phraseIndex}`}
+          x={xPos}
+          y={yPos}
+          text={phrase.text}
+          color={phrase.color}
+          fontFamily={phrase.family}
+          fontSize={phrase.size}
+          fontWeight={phrase.weight}
+        />
+      );
+    });
+  });
+};
+
+export const CardText = ({
+  text,
+  color = "#FFF",
+  fontSize,
+  fontFamily = "Open Sans",
+  fontWeight,
+  x = 0,
+  y = 0,
+  opacity = 1,
+  width = null,
+  height = null,
+  horizontalAlign = "center",
+  verticalAlign = "top",
+  shadowColor = null,
+  shadowOffset = 0
+}) => {
+  return (
+    <Text
+      text={text}
+      fill={color}
+      x={x}
+      y={y}
+      width={width}
+      opacity={opacity}
+      height={height}
+      fontSize={fontSize}
+      fontFamily={fontFamily}
+      fontStyle={fontWeight}
+      align={horizontalAlign}
+      verticalAlign={verticalAlign}
+      shadowColor={shadowColor}
+      shadowOffset={{ x: shadowOffset, y: shadowOffset }}
+    />
+  );
+};
+
+export const CardTextRef = forwardRef(
+  (
+    {
+      text,
+      color = "#FFF",
+      fontSize,
+      fontFamily = "Open Sans",
+      fontWeight,
+      x = 0,
+      y = 0,
+      opacity = 1,
+      width = null,
+      height = null,
+      horizontalAlign = "center",
+      verticalAlign = "top",
+      shadowColor = null,
+      shadowOffset = 0
+    },
+    ref
+  ) => {
+    return (
+      <Text
+        ref={ref}
+        text={text}
+        fill={color}
+        x={x}
+        y={y}
+        width={width}
+        opacity={opacity}
+        height={height}
+        fontSize={fontSize}
+        fontFamily={fontFamily}
+        fontStyle={fontWeight}
+        align={horizontalAlign}
+        verticalAlign={verticalAlign}
+        shadowColor={shadowColor}
+        shadowOffset={{ x: shadowOffset, y: shadowOffset }}
+      />
+    );
+  }
+);
+
+// Render a troop as a full-size card (like in the troop list).
+export const CardBase = ({ children, width, height }) => {
+  const classes = useStyles();
+  return (
+    <Box className={classes.card}>
+      <Stage scaleX={1} width={width} height={height}>
+        {children}
+      </Stage>
     </Box>
   );
 };

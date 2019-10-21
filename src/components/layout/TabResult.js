@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import {
   CardContent,
   Grid,
@@ -32,16 +32,7 @@ const useStyles = makeStyles(theme => ({
 const TabResult = memo(({ troop, canvasResult }) => {
   const classes = useStyles();
 
-  const [downloadUrl, setDownloadUrl] = React.useState("");
-
-  const updateDownloadURL = () => {
-    // Get the data URL of the canvas.
-    setDownloadUrl(canvasResult.current.toDataURL("image/png"));
-  };
-  // Perform when component first renders.
-  useEffect(updateDownloadURL, [canvasResult]);
-  // Perform when troop changes.
-  useEffect(updateDownloadURL, [troop]);
+  const [downloadUrl] = React.useState("");
 
   return (
     <Card className={classes.mainCard}>

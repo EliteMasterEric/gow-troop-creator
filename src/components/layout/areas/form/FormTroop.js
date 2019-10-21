@@ -200,7 +200,7 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
           {roles.map(option => (
             <MenuItem key={option} value={option}>
               <Image
-                source={`./assets/graphics/troopcard/roles/${option}.png`}
+                source={`./assets/graphics/roles/${option}.png`}
                 className={classes.fieldIcon}
               />
               {option}
@@ -245,7 +245,7 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
           {colors.map(option => (
             <MenuItem key={option.value} value={option.value}>
               <Image
-                source={`./assets/graphics/troopcard/colors/${option.value}.png`}
+                source={`./assets/graphics/colors/${option.value}.png`}
                 className={classes.fieldIcon}
               />
               {option.label}
@@ -305,7 +305,7 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <Image
-                  source="./assets/graphics/troopcard/attack.png"
+                  source="./assets/graphics/troop/attack.png"
                   className={classes.fieldIcon}
                 />
               </InputAdornment>
@@ -325,7 +325,7 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <Image
-                  source="./assets/graphics/troopcard/armor.png"
+                  source="./assets/graphics/troop/armor.png"
                   className={classes.fieldIcon}
                 />
               </InputAdornment>
@@ -345,7 +345,7 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <Image
-                  source="./assets/graphics/troopcard/life.png"
+                  source="./assets/graphics/troop/life.png"
                   className={classes.fieldIcon}
                 />
               </InputAdornment>

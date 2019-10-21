@@ -1,7 +1,8 @@
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import { Container, Toolbar, Tabs, Tab } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
+import WebFontLoader from "webfontloader";
 
 import NavBar from "./layout/NavBar";
 import TabResult from "./layout/TabResult";
@@ -12,8 +13,6 @@ import PreviewTroop from "./layout/areas/preview/PreviewTroop";
 import FormSpell from "./layout/areas/form/FormSpell";
 import FormTraits from "./layout/areas/form/FormTraits";
 import FormTroop from "./layout/areas/form/FormTroop";
-
-import { useDebounce } from "./Util";
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -61,8 +60,41 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+// Blank troop for creator, required to force an update on start.
+const troopBlank = {
+  name: "",
+  kingdom: "",
+  rarity: "",
+  level: "",
+  role: "",
+  cost: "",
+  colors: "",
+  type1: "",
+  type2: "",
+  attack: "",
+  armor: "",
+  life: "",
+  troopimage: null,
+  magic: "",
+  spellname: "",
+  spelldesc: "",
+  spellmult: "",
+  spellbase: "",
+  spellrange: false,
+  spellimage: null,
+  trait1name: "",
+  trait1desc: "",
+  trait1code: "",
+  trait2name: "",
+  trait2desc: "",
+  trait2code: "",
+  trait3name: "",
+  trait3desc: "",
+  trait3code: ""
+};
+
 // Default troop for the troop creator.
-const infernus = {
+const troopInfernus = {
   name: "Infernus",
   kingdom: "Broken Spire",
   rarity: "Mythic",
@@ -84,7 +116,7 @@ const infernus = {
 
   spellname: "Eruption",
   spelldesc:
-    "Deal {magic} damage to 2 random enemies, and half of that damage to adjacent enemies. Explode 5 random Gems.",
+    "Deal {magic} splash damage to 2 random enemies. Explode 5 random Gems.",
   spellmult: "1",
   spellbase: "10",
   spellrange: false,
@@ -128,20 +160,34 @@ const App = () => {
   const theme = useTheme();
 
   // State of troop info, stored in the forms.
-  const [troop, setTroop] = React.useState(infernus);
+  const [troop, setTroop] = React.useState(troopBlank);
 
   // Creates an onChange function by passing the setState function. Uses callbacks for performance.
-  const handleTroopChange = useCallback((field, value) =>
-    setTroop(oldState => ({ ...oldState, [field]: value }))
+  const handleTroopChange = useCallback(
+    (field, value) => setTroop(oldState => ({ ...oldState, [field]: value })),
+    [setTroop]
   );
-
-  // State of the troop, debounced by 300ms (used by the canvases).
-  const debouncedTroop = useDebounce(troop, 300);
 
   // State of the currently selected tab number.
   const [currentTab, setCurrentTab] = React.useState(1);
 
-  const canvasResult = React.createRef();
+  // Handle loading effects.
+  const layerTroopDisplay = React.createRef();
+  const layerSpellDisplay = React.createRef();
+  const layerTraitsDisplay = React.createRef();
+  const stageResult = React.createRef();
+  useEffect(() => {
+    // Fetch necessary fonts.
+    WebFontLoader.load({
+      google: {
+        families: ["Open Sans:400,600,700", "Roboto", "Raleway"]
+      },
+      fontactive: () => {
+        // Force an update.
+        setTroop(troopInfernus);
+      }
+    });
+  }, []);
 
   return (
     <div>
@@ -161,8 +207,8 @@ const App = () => {
               handleTroopChange={handleTroopChange}
             />
             <PreviewSpell
-              troop={debouncedTroop}
-              canvasResult={canvasResult}
+              troop={troop}
+              displayLayer={layerSpellDisplay}
               className={classes.previewGridItem}
             />
           </TabView>
@@ -173,8 +219,8 @@ const App = () => {
               handleTroopChange={handleTroopChange}
             />
             <PreviewTroop
-              troop={debouncedTroop}
-              canvasResult={canvasResult}
+              troop={troop}
+              displayLayer={layerTroopDisplay}
               className={classes.previewGridItem}
             />
           </TabView>
@@ -185,15 +231,15 @@ const App = () => {
               handleTroopChange={handleTroopChange}
             />
             <PreviewTraits
-              troop={debouncedTroop}
-              canvasResult={canvasResult}
+              troop={troop}
+              displayLayer={layerTraitsDisplay}
               className={classes.previewGridItem}
             />
           </TabView>
           <TabView value={currentTab} index={3} dir={theme.direction}>
             <TabResult
               className={classes.tabView}
-              canvasResult={canvasResult}
+              stage={stageResult}
               troop={troop}
             />
           </TabView>

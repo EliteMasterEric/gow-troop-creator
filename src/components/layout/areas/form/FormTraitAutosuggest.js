@@ -65,7 +65,7 @@ const renderSuggestion = (suggestion, { query, isHighlighted }) => {
     <MenuItem selected={isHighlighted} component="div">
       <div>
         <Image
-          source={`./assets/graphics/troopcard/traits/${suggestion.code}.png`}
+          source={`./assets/graphics/traiticons/${suggestion.code}.png`}
           style={{
             width: "auto",
             height: "24px",

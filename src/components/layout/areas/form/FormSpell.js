@@ -120,7 +120,7 @@ const FormSpell = memo(({ troop, handleTroopChange, className }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <Image
-                  source="./assets/graphics/troopcard/magic.png"
+                  source="./assets/graphics/troop/magic.png"
                   className={classes.fieldIcon}
                 />
               </InputAdornment>

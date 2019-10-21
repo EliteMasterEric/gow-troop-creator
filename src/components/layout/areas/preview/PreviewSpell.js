@@ -6,19 +6,13 @@ import CardSpell from "./cards/CardSpell";
 import PreviewPanel from "./PreviewBase";
 
 const PreviewSpell = memo(
-  ({ troop, canvasResult, className }) => {
-    const [downloadUrl, setDownloadUrl] = React.useState("");
-
+  ({ troop, loadingLayer, displayLayer, className }) => {
     return (
-      <PreviewPanel
-        troopName={troop.name}
-        downloadUrl={downloadUrl}
-        className={className}
-      >
+      <PreviewPanel troopName={troop.name} className={className}>
         <CardSpell
           troop={troop}
-          canvasResult={canvasResult}
-          setDownloadUrl={setDownloadUrl}
+          loadingLayer={loadingLayer}
+          displayLayer={displayLayer}
         />
       </PreviewPanel>
     );

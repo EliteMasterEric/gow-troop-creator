@@ -17,9 +17,12 @@ const useStyles = makeStyles(theme => ({
 const FormUploader = memo(({ handleTroopChange }) => {
   const classes = useStyles();
 
-  const handleChangeFiles = useCallback(files => {
-    handleTroopChange("files", files.length !== 0 ? files[0] : null);
-  });
+  const handleChangeFiles = useCallback(
+    files => {
+      handleTroopChange("files", files.length !== 0 ? files[0] : null);
+    },
+    [handleTroopChange]
+  );
 
   return (
     <GridCard

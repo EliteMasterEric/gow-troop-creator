@@ -11,6 +11,28 @@ import {
   CardContent
 } from "@material-ui/core";
 
+export const measureText = (text, fontWeight, fontSize, fontFamily) => {
+  // Create a singleton canvas or use an existing one.
+  const canvas =
+    measureText.canvas ||
+    (measureText.canvas = document.createElement("canvas"));
+
+  const context = canvas.getContext("2d");
+  context.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+  return context.measureText(text).width;
+};
+
+export const hexToRgb = hex => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      }
+    : null;
+};
+
 // Displays a NerdFonts font icon.
 export const Icon = memo(({ icon, className }) => {
   return (
@@ -171,7 +193,7 @@ export const FormCheckbox = memo(({ checked, fieldName, onChange, label }) => (
 ));
 
 export const GridCard = memo(
-  ({ gridClassName, cardClassName, children, xs, sm, md, lg, xl }) => (
+  ({ ref, gridClassName, cardClassName, children, xs, sm, md, lg, xl }) => (
     <Grid
       item
       className={gridClassName}
@@ -181,7 +203,7 @@ export const GridCard = memo(
       lg={lg}
       xl={xl}
     >
-      <Card className={cardClassName}>
+      <Card ref={ref} className={cardClassName}>
         <CardContent>{children}</CardContent>
       </Card>
     </Grid>
