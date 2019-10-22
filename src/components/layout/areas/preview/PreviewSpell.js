@@ -1,25 +1,14 @@
-import React, { memo } from "react";
-
-import isEqual from "lodash/isEqual";
+import React from "react";
 
 import CardSpell from "./cards/CardSpell";
-import PreviewPanel from "./PreviewBase";
+import PreviewBase from "./PreviewBase";
 
-const PreviewSpell = memo(
-  ({ troop, loadingLayer, displayLayer, className }) => {
-    return (
-      <PreviewPanel troopName={troop.name} className={className}>
-        <CardSpell
-          troop={troop}
-          loadingLayer={loadingLayer}
-          displayLayer={displayLayer}
-        />
-      </PreviewPanel>
-    );
-  },
-  (prevProps, nextProps) => {
-    return isEqual(prevProps.troop, nextProps.troop);
-  }
-);
+const PreviewSpell = ({ troop, displayLayer, className }) => {
+  return (
+    <PreviewBase troopName={troop.name} className={className}>
+      <CardSpell troop={troop} displayLayer={displayLayer} />
+    </PreviewBase>
+  );
+};
 
 export default PreviewSpell;

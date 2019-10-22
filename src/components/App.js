@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect } from "react";
 import { Container, Toolbar, Tabs, Tab } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Scrollbars } from "react-custom-scrollbars";
 import SwipeableViews from "react-swipeable-views";
 import WebFontLoader from "webfontloader";
 
@@ -17,7 +18,7 @@ import FormTroop from "./layout/areas/form/FormTroop";
 const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
-    maxHeight: `calc(100vh - 64px)`,
+    height: `calc(100vh - 64px)`,
     [theme.breakpoints.up("xs")]: {
       width: "100%"
     },
@@ -133,6 +134,16 @@ const troopInfernus = {
   trait3code: "molten"
 };
 
+export function renderThumb({ style }) {
+  const finalStyle = {
+    ...style,
+    cursor: "pointer",
+    borderRadius: "inherit",
+    backgroundColor: "rgba(255,255,255,.8)"
+  };
+  return <div style={finalStyle} />;
+}
+
 const TabList = memo(({ currentTab, setCurrentTab }) => {
   // Handle a change in tab.
   const handleTabEvent = (event, newValue) => {
@@ -155,6 +166,13 @@ const TabList = memo(({ currentTab, setCurrentTab }) => {
   );
 });
 
+const getMaxHeight = () => {
+  return Math.max(
+    document.documentElement.clientHeight,
+    window.innerHeight || 0
+  );
+};
+
 const App = () => {
   const classes = useStyles();
   const theme = useTheme();
@@ -175,7 +193,6 @@ const App = () => {
   const layerTroopDisplay = React.createRef();
   const layerSpellDisplay = React.createRef();
   const layerTraitsDisplay = React.createRef();
-  const stageResult = React.createRef();
   useEffect(() => {
     // Fetch necessary fonts.
     WebFontLoader.load({
@@ -195,55 +212,63 @@ const App = () => {
       <Toolbar />
       <Container maxWidth={false} className={classes.content}>
         <TabList currentTab={currentTab} setCurrentTab={setCurrentTab} />
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={currentTab}
-          onChangeIndex={setCurrentTab}
+        <Scrollbars
+          style={{ height: getMaxHeight() - 112 }}
+          renderThumbVertical={renderThumb}
         >
-          <TabView value={currentTab} index={0} dir={theme.direction}>
-            <FormSpell
-              troop={troop}
-              className={classes.formGridItem}
-              handleTroopChange={handleTroopChange}
-            />
-            <PreviewSpell
-              troop={troop}
-              displayLayer={layerSpellDisplay}
-              className={classes.previewGridItem}
-            />
-          </TabView>
-          <TabView value={currentTab} index={1} dir={theme.direction}>
-            <FormTroop
-              troop={troop}
-              className={classes.formGridItem}
-              handleTroopChange={handleTroopChange}
-            />
-            <PreviewTroop
-              troop={troop}
-              displayLayer={layerTroopDisplay}
-              className={classes.previewGridItem}
-            />
-          </TabView>
-          <TabView value={currentTab} index={2} dir={theme.direction}>
-            <FormTraits
-              troop={troop}
-              className={classes.formGridItem}
-              handleTroopChange={handleTroopChange}
-            />
-            <PreviewTraits
-              troop={troop}
-              displayLayer={layerTraitsDisplay}
-              className={classes.previewGridItem}
-            />
-          </TabView>
-          <TabView value={currentTab} index={3} dir={theme.direction}>
-            <TabResult
-              className={classes.tabView}
-              stage={stageResult}
-              troop={troop}
-            />
-          </TabView>
-        </SwipeableViews>
+          <SwipeableViews
+            className={classes.swipeableView}
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+            index={currentTab}
+            onChangeIndex={setCurrentTab}
+          >
+            <TabView value={currentTab} index={0} dir={theme.direction}>
+              <FormSpell
+                troop={troop}
+                className={classes.formGridItem}
+                handleTroopChange={handleTroopChange}
+              />
+              <PreviewSpell
+                troop={troop}
+                displayLayer={layerSpellDisplay}
+                className={classes.previewGridItem}
+              />
+            </TabView>
+            <TabView value={currentTab} index={1} dir={theme.direction}>
+              <FormTroop
+                troop={troop}
+                className={classes.formGridItem}
+                handleTroopChange={handleTroopChange}
+              />
+              <PreviewTroop
+                troop={troop}
+                displayLayer={layerTroopDisplay}
+                className={classes.previewGridItem}
+              />
+            </TabView>
+            <TabView value={currentTab} index={2} dir={theme.direction}>
+              <FormTraits
+                troop={troop}
+                className={classes.formGridItem}
+                handleTroopChange={handleTroopChange}
+              />
+              <PreviewTraits
+                troop={troop}
+                displayLayer={layerTraitsDisplay}
+                className={classes.previewGridItem}
+              />
+            </TabView>
+            <TabView value={currentTab} index={3} dir={theme.direction}>
+              <TabResult
+                className={classes.tabView}
+                spellLayer={layerSpellDisplay}
+                troopLayer={layerTroopDisplay}
+                traitsLayer={layerTraitsDisplay}
+                troop={troop}
+              />
+            </TabView>
+          </SwipeableViews>
+        </Scrollbars>
       </Container>
     </div>
   );

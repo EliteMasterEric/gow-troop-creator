@@ -3,18 +3,18 @@ import React, { memo } from "react";
 import isEqual from "lodash/isEqual";
 
 import CardTraits from "./cards/CardTraits";
-import PreviewPanel from "./PreviewBase";
+import PreviewBase from "./PreviewBase";
 
 const PreviewTraits = memo(
   ({ troop, loadingLayer, displayLayer, className }) => {
     return (
-      <PreviewPanel troopName={troop.name} className={className}>
+      <PreviewBase troopName={troop.name} className={className}>
         <CardTraits
           troop={troop}
           loadingLayer={loadingLayer}
           displayLayer={displayLayer}
         />
-      </PreviewPanel>
+      </PreviewBase>
     );
   },
   (prevProps, nextProps) => {

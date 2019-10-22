@@ -22,7 +22,7 @@ const CardTroop = ({ troop, displayLayer }) => {
     loadingLayer.current.show();
     displayLayer.current.hide();
     loadingLayer.current.draw();
-  }, [displayLayer, loadingLayer]);
+  }, []);
 
   const [typeTextWidth, setTypeTextWidth] = useState(0);
 
@@ -124,7 +124,7 @@ const CardTroop = ({ troop, displayLayer }) => {
               : null
           }
           x={45}
-          y={313}
+          y={308}
           color={rarities.Legendary.color}
           width={50}
           height={50}

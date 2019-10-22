@@ -126,7 +126,7 @@ export const traits = [
   {
     name: "Ancient Mysteries",
     code: "divineaura",
-    description:
+    desc:
       "25% chance to grant a random Positive Status Effect to a random Ally when my turn begins."
   },
   {
@@ -217,8 +217,7 @@ export const traits = [
   {
     name: "Assassinate",
     code: "assassinate",
-    description:
-      "10% Chance to assassinate the last enemy when I deal Skull damage."
+    desc: "10% Chance to assassinate the last enemy when I deal Skull damage."
   },
   {
     name: "Aura of Power",
@@ -253,8 +252,7 @@ export const traits = [
   {
     name: "Bardic Inspiration",
     code: "spikearmor",
-    description:
-      "All Yellow Allies gain 1 to all Stats at the start of each turn."
+    desc: "All Yellow Allies gain 1 to all Stats at the start of each turn."
   },
   {
     name: "Barkskin",
@@ -299,8 +297,7 @@ export const traits = [
   {
     name: "Blessing of Anu",
     code: "divineshield",
-    description:
-      "All Blue Allies gain 1 to all Stats at the start of each turn."
+    desc: "All Blue Allies gain 1 to all Stats at the start of each turn."
   },
   {
     name: "Blessing of Gaard",
@@ -330,8 +327,7 @@ export const traits = [
   {
     name: "Bloody Boughs",
     code: "dragonvines",
-    description:
-      "Entangle and inflict Bleed to a random Enemy when matching 4 or more Gems."
+    desc: "Entangle and inflict Bleed to a random Enemy when matching 4 or more Gems."
   },
   {
     name: "Boo!",
@@ -451,8 +447,7 @@ export const traits = [
   {
     name: "Chaos Wave",
     code: "inscribed",
-    description:
-      "All enemies lose 1 point on a random skill when I match Skulls."
+    desc: "All enemies lose 1 point on a random skill when I match Skulls."
   },
   {
     name: "Child of Sky",
@@ -732,44 +727,37 @@ export const traits = [
   {
     name: "Desert King",
     code: "kingswill",
-    description:
-      "All Brown Allies gain 1 to all Stats at the start of each turn."
+    desc: "All Brown Allies gain 1 to all Stats at the start of each turn."
   },
   {
     name: "Destiny of Darkness",
     code: "darkfall",
-    description:
-      "2% chance to Deathmark an enemy when matching Purple Gems, boosted by my ascensions."
+    desc: "2% chance to Deathmark an enemy when matching Purple Gems, boosted by my ascensions."
   },
   {
     name: "Destiny of Flame",
     code: "fierycloak",
-    description:
-      "2% chance to Deathmark an enemy when matching Red Gems, boosted by my ascensions."
+    desc: "2% chance to Deathmark an enemy when matching Red Gems, boosted by my ascensions."
   },
   {
     name: "Destiny of Ice",
     code: "frozensoul",
-    description:
-      "2% chance to Deathmark an enemy when matching Blue Gems, boosted by my ascensions."
+    desc: "2% chance to Deathmark an enemy when matching Blue Gems, boosted by my ascensions."
   },
   {
     name: "Destiny of Light",
     code: "sunshine",
-    description:
-      "2% chance to Deathmark an enemy when matching Yellow Gems, boosted by my ascensions."
+    desc: "2% chance to Deathmark an enemy when matching Yellow Gems, boosted by my ascensions."
   },
   {
     name: "Destiny of Nature",
     code: "seedling",
-    description:
-      "2% chance to Deathmark an enemy when matching Green Gems, boosted by my ascensions."
+    desc: "2% chance to Deathmark an enemy when matching Green Gems, boosted by my ascensions."
   },
   {
     name: "Destiny of Stone",
     code: "graniteskin",
-    description:
-      "2% chance to Deathmark an enemy when matching Brown Gems, boosted by my ascensions."
+    desc: "2% chance to Deathmark an enemy when matching Brown Gems, boosted by my ascensions."
   },
   {
     name: "Dexterous",
@@ -854,8 +842,7 @@ export const traits = [
   {
     name: "Dragon's Blessing",
     code: "divineaura",
-    description:
-      "Cause a random positive status effect on a random Ally on 4 or 5 Gem matches."
+    desc: "Cause a random positive status effect on a random Ally on 4 or 5 Gem matches."
   },
   {
     name: "Dragon's Grace",
@@ -900,8 +887,7 @@ export const traits = [
   {
     name: "Dwarven Mettle",
     code: "giantslayer",
-    description:
-      "All Dwarven allies gain 2 Life and Attack on 4 or 5 Gem matches."
+    desc: "All Dwarven allies gain 2 Life and Attack on 4 or 5 Gem matches."
   },
   {
     name: "Eagle Eye",
@@ -1025,8 +1011,7 @@ export const traits = [
   {
     name: "Fey Link",
     code: "spiritfire",
-    description:
-      "50% chance to Faerie Fire a random Enemy at the start of my Turn."
+    desc: "50% chance to Faerie Fire a random Enemy at the start of my Turn."
   },
   {
     name: "Fey Shield",
@@ -1111,8 +1096,7 @@ export const traits = [
   {
     name: "First Wargare",
     code: "nastyteeth",
-    description:
-      "Give 2 Attack and Magic to Allied Wargare when matching 4 or more Gems."
+    desc: "Give 2 Attack and Magic to Allied Wargare when matching 4 or more Gems."
   },
   {
     name: "Focus",
@@ -1122,8 +1106,7 @@ export const traits = [
   {
     name: "For The Herd",
     code: "taurosbond",
-    description:
-      "Give all Tauros 1 Attack, Armor and Life on 4 or 5 Gem matches."
+    desc: "Give all Tauros 1 Attack, Armor and Life on 4 or 5 Gem matches."
   },
   {
     name: "For the People",
@@ -1183,8 +1166,7 @@ export const traits = [
   {
     name: "Frostbite",
     code: "frozensoul",
-    description:
-      "25% chance to Freeze a random enemy when an ally casts a spell."
+    desc: "25% chance to Freeze a random enemy when an ally casts a spell."
   },
   {
     name: "Frozen Hatred",
@@ -1289,8 +1271,7 @@ export const traits = [
   {
     name: "Golem Protector",
     code: "taurosbond",
-    description:
-      "20% chance to summon an Ancient Golem when I take damage to Life."
+    desc: "20% chance to summon an Ancient Golem when I take damage to Life."
   },
   {
     name: "Granite Skin",
@@ -1507,8 +1488,7 @@ export const traits = [
   {
     name: "Invulnerable",
     code: "impervious",
-    description:
-      "Immune to all Status Effects, Devour,  Mana Drain, Transform, and Lethal Damage."
+    desc: "Immune to all Status Effects, Devour,  Mana Drain, Transform, and Lethal Damage."
   },
   {
     name: "Jaws",
@@ -1524,8 +1504,7 @@ export const traits = [
   {
     name: "King's Legion",
     code: "aspectofdeath",
-    description:
-      "All Undead Allies gain 1 Armor and Magic when matching 4 or more Gems."
+    desc: "All Undead Allies gain 1 Armor and Magic when matching 4 or more Gems."
   },
   {
     name: "King's Will",
@@ -1815,8 +1794,7 @@ export const traits = [
   {
     name: "Monstrous Kin",
     code: "manyheads",
-    description:
-      "Give all Monster Allies 2 to all Skill Points on 4 or 5 Gem matches."
+    desc: "Give all Monster Allies 2 to all Skill Points on 4 or 5 Gem matches."
   },
   {
     name: "Mutant Regeneration",
@@ -2107,8 +2085,7 @@ export const traits = [
   {
     name: "Pride Prowess",
     code: "lionstrength",
-    description:
-      "All ally Raksha gain 1 Attack and Magic at the start of every turn."
+    desc: "All ally Raksha gain 1 Attack and Magic at the start of every turn."
   },
   {
     name: "Protector",
@@ -2229,8 +2206,7 @@ export const traits = [
   {
     name: "Rising Shadows",
     code: "darkfall",
-    description:
-      "7% chance to assassinate the last enemy when another enemy dies."
+    desc: "7% chance to assassinate the last enemy when another enemy dies."
   },
   {
     name: "Rock Solid",
@@ -2501,8 +2477,7 @@ export const traits = [
   {
     name: "Stealthy",
     code: "stealthy",
-    description:
-      "Cannot be targeted by spells (unless there are no other targets)."
+    desc: "Cannot be targeted by spells (unless there are no other targets)."
   },
   {
     name: "Stone Aura",
@@ -2562,8 +2537,7 @@ export const traits = [
   {
     name: "Storm Flock",
     code: "fierycloak",
-    description:
-      "35% chance to summon a Harpy Mage when matching 4 or more Gems."
+    desc: "35% chance to summon a Harpy Mage when matching 4 or more Gems."
   },
   {
     name: "Storm Shield",
@@ -2604,8 +2578,7 @@ export const traits = [
   {
     name: "Succumb",
     code: "aspectofdeath",
-    description:
-      "Enemies lose 4 from a random Skill Point when an Ally casts a spell."
+    desc: "Enemies lose 4 from a random Skill Point when an Ally casts a spell."
   },
   {
     name: "Sudden Doom",
@@ -2954,8 +2927,7 @@ export const traits = [
   {
     name: "Wild Growth",
     code: "beastbond",
-    description:
-      "All Beast allies gain 2 Attack and Life on 4 or 5 Gem matches."
+    desc: "All Beast allies gain 2 Attack and Life on 4 or 5 Gem matches."
   },
   {
     name: "Wild Mana",

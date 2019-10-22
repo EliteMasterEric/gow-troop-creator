@@ -1,25 +1,23 @@
-import React, { memo } from "react";
-
-import isEqual from "lodash/isEqual";
+import React from "react";
 
 import CardTroop from "./cards/CardTroop";
-import PreviewPanel from "./PreviewBase";
+import PreviewBase from "./PreviewBase";
 
-const PreviewTroop = memo(
-  ({ troop, loadingLayer, displayLayer, className }) => {
-    return (
-      <PreviewPanel troopName={troop.name} className={className}>
-        <CardTroop
-          troop={troop}
-          loadingLayer={loadingLayer}
-          displayLayer={displayLayer}
-        />
-      </PreviewPanel>
-    );
-  },
-  (prevProps, nextProps) => {
-    return isEqual(prevProps.troop, nextProps.troop);
-  }
-);
+const PreviewTroop = ({ troop, displayLayer, className }) => {
+  return (
+    <PreviewBase
+      troopName={troop.name}
+      className={className}
+      downloadUrl={(() => {
+        console.log(displayLayer.current);
+        return displayLayer.current !== null
+          ? displayLayer.current.toDataURL()
+          : "";
+      })()}
+    >
+      <CardTroop troop={troop} displayLayer={displayLayer} />
+    </PreviewBase>
+  );
+};
 
 export default PreviewTroop;
