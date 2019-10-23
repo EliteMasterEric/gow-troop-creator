@@ -8,12 +8,7 @@ const PreviewTroop = ({ troop, displayLayer, className }) => {
     <PreviewBase
       troopName={troop.name}
       className={className}
-      downloadUrl={(() => {
-        console.log(displayLayer.current);
-        return displayLayer.current !== null
-          ? displayLayer.current.toDataURL()
-          : "";
-      })()}
+      displayLayer={displayLayer}
     >
       <CardTroop troop={troop} displayLayer={displayLayer} />
     </PreviewBase>

@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const PreviewButtonBar = memo(({ troopName, downloadUrl }) => {
+const PreviewButtonBar = ({ troopName, displayLayer }) => {
   const classes = useStyles();
 
   return (
@@ -27,14 +27,22 @@ const PreviewButtonBar = memo(({ troopName, downloadUrl }) => {
           variant="outlined"
           size="large"
           className={classes.button}
-          href={downloadUrl}
-          download={`${troopName}.png`}
+          onClick={() => {
+            if (displayLayer.current !== null) {
+              const link = document.createElement("a");
+              link.download = `${troopName}.png`;
+              link.href = displayLayer.current.toDataURL();
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
+          }}
         >
           <Icon className={classes.buttonIcon} icon="nf-mdi-download" />
         </Button>
       </Tooltip>
     </div>
   );
-});
+};
 
 export default PreviewButtonBar;

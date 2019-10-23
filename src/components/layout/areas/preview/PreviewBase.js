@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PreviewBase = memo(({ troopName, downloadUrl, children, className }) => {
+const PreviewBase = ({ troopName, displayLayer, children, className }) => {
   const classes = useStyles();
 
   return (
@@ -30,9 +30,9 @@ const PreviewBase = memo(({ troopName, downloadUrl, children, className }) => {
       xl={4}
     >
       {children}
-      <PreviewButtonBar troopName={troopName} downloadUrl={downloadUrl} />
+      <PreviewButtonBar troopName={troopName} displayLayer={displayLayer} />
     </GridCard>
   );
-});
+};
 
 export default PreviewBase;

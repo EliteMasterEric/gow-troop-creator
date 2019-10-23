@@ -15,7 +15,7 @@ const CardTraitDescText = ({
   color = "#000"
 }) => {
   // A reference to the hidden text display used for math.
-  const baseDisplayRef = useRef();
+  const baseDisplayRef = useRef(null);
 
   // Create a basic state that resets when the troop changes.
   const [state, setState] = useState({ stable: false, fontSize: baseFontSize });
@@ -25,7 +25,7 @@ const CardTraitDescText = ({
 
   // Modify the font size until it's right.
   useEffect(() => {
-    if (!state.stable && baseDisplayRef.current !== undefined) {
+    if (!state.stable && baseDisplayRef.current !== null) {
       if (baseDisplayRef.current.textArr.length * state.fontSize > height) {
         setState(oldState => ({
           ...oldState,
@@ -89,7 +89,15 @@ const CardTraitDescText = ({
 };
 
 const CardTraits = ({ troop, displayLayer }) => {
-  const loadingLayer = React.createRef();
+  const loadingLayer = useRef(null);
+
+  useEffect(() => {
+    // Hide while loading.
+    displayLayer.current.loaded = false;
+    loadingLayer.current.show();
+    displayLayer.current.hide();
+    loadingLayer.current.draw();
+  }, [displayLayer, loadingLayer]);
 
   return (
     <CardBase width={460} height={727}>
@@ -113,6 +121,7 @@ const CardTraits = ({ troop, displayLayer }) => {
           height={727}
           onLoad={() => {
             // Assume loading is finished.
+            displayLayer.current.loaded = true;
             if (loadingLayer.current != null) {
               loadingLayer.current.hide();
               displayLayer.current.show();

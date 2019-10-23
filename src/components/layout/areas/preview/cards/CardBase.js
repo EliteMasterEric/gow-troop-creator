@@ -86,6 +86,37 @@ export const writeLines = (
   }
 };
 
+// Copy an existing layer to the given coordinates.
+// This requires converting it to a data URL then converting it back.
+// Is there a simpler way?
+export const CardLayer = ({
+  layerRef,
+  x,
+  y,
+  width = 0,
+  height = 0,
+  loadingY = 0
+}) => {
+  // If the layer is valid, display it, otherwise display a loading icon.
+  return layerRef.current && layerRef.current.loaded ? (
+    <CardImage
+      src={layerRef.current.toDataURL()}
+      x={x}
+      y={y}
+      width={width || layerRef.current.canvas.width}
+      height={height || layerRef.current.canvas.height}
+    />
+  ) : (
+    <CardImage
+      src="./assets/graphics/troop/loading.png"
+      x={x + 195}
+      y={(loadingY || y) + 323}
+      width={100}
+      height={100}
+    />
+  );
+};
+
 export const CardImage = ({
   src,
   x,
@@ -97,9 +128,9 @@ export const CardImage = ({
   onLoad = null
 }) => {
   const [image, status] = useImage(src);
-  const ref = useRef();
+  const ref = useRef(null);
   useEffect(() => {
-    if (ref.current !== undefined) {
+    if (ref.current !== null) {
       ref.current.cache();
       ref.current.getLayer().batchDraw();
       if (status === "loaded" && onLoad != null) onLoad();

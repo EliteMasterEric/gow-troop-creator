@@ -26,7 +26,7 @@ const CardSpellNameText = ({
   fontWeight,
   baseFontSize
 }) => {
-  const textRef = useRef();
+  const textRef = useRef(null);
 
   // Create a basic state that resets when the troop changes.
   const [state, setState] = useState({ stable: false, fontSize: baseFontSize });
@@ -36,7 +36,7 @@ const CardSpellNameText = ({
 
   // Modify the font size until it's right.
   useEffect(() => {
-    if (!state.stable && textRef.current !== undefined) {
+    if (!state.stable && textRef.current !== null) {
       if (textRef.current.textArr.length > 1) {
         setState(oldState => ({
           ...oldState,
@@ -107,7 +107,7 @@ const CardSpellDescText = ({
   magicColor
 }) => {
   // A reference to the hidden text display used for math.
-  const baseDisplayRef = useRef();
+  const baseDisplayRef = useRef(null);
 
   // Create a basic state that resets when the troop changes.
   const [state, setState] = useState({ stable: false, fontSize: baseFontSize });
@@ -117,7 +117,7 @@ const CardSpellDescText = ({
 
   // Modify the font size until it's right.
   useEffect(() => {
-    if (!state.stable && baseDisplayRef.current !== undefined) {
+    if (!state.stable && baseDisplayRef.current !== null) {
       if (baseDisplayRef.current.textArr.length * state.fontSize > height) {
         setState(oldState => ({
           ...oldState,
@@ -243,10 +243,11 @@ const CardSpellDescText = ({
 };
 
 const CardSpell = ({ troop, displayLayer }) => {
-  const loadingLayer = React.createRef();
+  const loadingLayer = useRef(null);
 
   useEffect(() => {
     // Hide while loading.
+    displayLayer.current.loaded = false;
     loadingLayer.current.show();
     displayLayer.current.hide();
     loadingLayer.current.draw();
@@ -281,6 +282,7 @@ const CardSpell = ({ troop, displayLayer }) => {
           height={723}
           onLoad={() => {
             // Assume loading is finished.
+            displayLayer.current.loaded = true;
             if (loadingLayer.current != null) {
               loadingLayer.current.hide();
               displayLayer.current.show();

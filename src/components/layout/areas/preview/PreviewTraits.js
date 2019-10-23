@@ -1,25 +1,14 @@
-import React, { memo } from "react";
-
-import isEqual from "lodash/isEqual";
+import React from "react";
 
 import CardTraits from "./cards/CardTraits";
 import PreviewBase from "./PreviewBase";
 
-const PreviewTraits = memo(
-  ({ troop, loadingLayer, displayLayer, className }) => {
-    return (
-      <PreviewBase troopName={troop.name} className={className}>
-        <CardTraits
-          troop={troop}
-          loadingLayer={loadingLayer}
-          displayLayer={displayLayer}
-        />
-      </PreviewBase>
-    );
-  },
-  (prevProps, nextProps) => {
-    return isEqual(prevProps.troop, nextProps.troop);
-  }
-);
+const PreviewTraits = ({ troop, displayLayer, className }) => {
+  return (
+    <PreviewBase troopName={troop.name} className={className}>
+      <CardTraits troop={troop} displayLayer={displayLayer} />
+    </PreviewBase>
+  );
+};
 
 export default PreviewTraits;

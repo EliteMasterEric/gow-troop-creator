@@ -192,20 +192,20 @@ export const FormCheckbox = memo(({ checked, fieldName, onChange, label }) => (
   />
 ));
 
-export const GridCard = memo(
-  ({ ref, gridClassName, cardClassName, children, xs, sm, md, lg, xl }) => (
-    <Grid
-      item
-      className={gridClassName}
-      xs={xs}
-      sm={sm}
-      md={md}
-      lg={lg}
-      xl={xl}
-    >
-      <Card ref={ref} className={cardClassName}>
-        <CardContent>{children}</CardContent>
-      </Card>
-    </Grid>
-  )
+export const GridCard = ({
+  ref,
+  gridClassName,
+  cardClassName,
+  children,
+  xs,
+  sm,
+  md,
+  lg,
+  xl
+}) => (
+  <Grid item className={gridClassName} xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+    <Card ref={ref} className={cardClassName}>
+      <CardContent>{children}</CardContent>
+    </Card>
+  </Grid>
 );

@@ -1,29 +1,32 @@
-import React, { memo, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { Container, Toolbar, Tabs, Tab } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Scrollbars } from "react-custom-scrollbars";
 import SwipeableViews from "react-swipeable-views";
+import { AutoSizer } from "react-virtualized";
 import WebFontLoader from "webfontloader";
 
 import NavBar from "./layout/NavBar";
 import TabResult from "./layout/TabResult";
 import TabView from "./layout/TabBase";
-import PreviewSpell from "./layout/areas/preview/PreviewSpell";
-import PreviewTraits from "./layout/areas/preview/PreviewTraits";
-import PreviewTroop from "./layout/areas/preview/PreviewTroop";
 import FormSpell from "./layout/areas/form/FormSpell";
 import FormTraits from "./layout/areas/form/FormTraits";
 import FormTroop from "./layout/areas/form/FormTroop";
+import PreviewSpell from "./layout/areas/preview/PreviewSpell";
+import PreviewTraits from "./layout/areas/preview/PreviewTraits";
+import PreviewTroop from "./layout/areas/preview/PreviewTroop";
 
 const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     height: `calc(100vh - 64px)`,
     [theme.breakpoints.up("xs")]: {
-      width: "100%"
+      width: "100%",
+      height: "100%"
     },
     [theme.breakpoints.up("md")]: {
-      width: `calc(100vw - 240px)`
+      width: "calc(100vw - 240px)",
+      height: "calc(100vh - 112px)"
     }
   },
   previewGridItem: {
@@ -144,7 +147,7 @@ export function renderThumb({ style }) {
   return <div style={finalStyle} />;
 }
 
-const TabList = memo(({ currentTab, setCurrentTab }) => {
+const TabList = ({ currentTab, setCurrentTab }) => {
   // Handle a change in tab.
   const handleTabEvent = (event, newValue) => {
     setCurrentTab(newValue);
@@ -164,12 +167,17 @@ const TabList = memo(({ currentTab, setCurrentTab }) => {
       <Tab label="Result" id="tab-3" />
     </Tabs>
   );
-});
+};
 
-const getMaxHeight = () => {
-  return Math.max(
-    document.documentElement.clientHeight,
-    window.innerHeight || 0
+const ScrollingContainer = ({ children }) => {
+  return (
+    <AutoSizer>
+      {({ width, height }) => (
+        <Scrollbars style={{ width, height }} renderThumbVertical={renderThumb}>
+          {children}
+        </Scrollbars>
+      )}
+    </AutoSizer>
   );
 };
 
@@ -189,10 +197,10 @@ const App = () => {
   // State of the currently selected tab number.
   const [currentTab, setCurrentTab] = React.useState(1);
 
+  const layerSpellDisplay = useRef(null);
+  const layerTroopDisplay = useRef(null);
+  const layerTraitsDisplay = useRef(null);
   // Handle loading effects.
-  const layerTroopDisplay = React.createRef();
-  const layerSpellDisplay = React.createRef();
-  const layerTraitsDisplay = React.createRef();
   useEffect(() => {
     // Fetch necessary fonts.
     WebFontLoader.load({
@@ -212,10 +220,7 @@ const App = () => {
       <Toolbar />
       <Container maxWidth={false} className={classes.content}>
         <TabList currentTab={currentTab} setCurrentTab={setCurrentTab} />
-        <Scrollbars
-          style={{ height: getMaxHeight() - 112 }}
-          renderThumbVertical={renderThumb}
-        >
+        <ScrollingContainer>
           <SwipeableViews
             className={classes.swipeableView}
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -268,7 +273,7 @@ const App = () => {
               />
             </TabView>
           </SwipeableViews>
-        </Scrollbars>
+        </ScrollingContainer>
       </Container>
     </div>
   );

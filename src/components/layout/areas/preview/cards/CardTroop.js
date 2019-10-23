@@ -13,12 +13,13 @@ const getImageURL = troop => {
 
 // Render a spell as part of a full-size card (like in the troop list).
 const CardTroop = ({ troop, displayLayer }) => {
-  const loadingLayer = React.createRef();
+  const loadingLayer = useRef(null);
 
-  const typeRef = useRef();
+  const typeRef = useRef(null);
 
   useEffect(() => {
     // Hide while loading.
+    displayLayer.current.loaded = false;
     loadingLayer.current.show();
     displayLayer.current.hide();
     loadingLayer.current.draw();
@@ -66,6 +67,7 @@ const CardTroop = ({ troop, displayLayer }) => {
           height={739}
           onLoad={() => {
             // Assume loading is finished.
+            displayLayer.current.loaded = true;
             if (loadingLayer.current != null) {
               loadingLayer.current.hide();
               displayLayer.current.show();

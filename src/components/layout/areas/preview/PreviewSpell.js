@@ -5,7 +5,11 @@ import PreviewBase from "./PreviewBase";
 
 const PreviewSpell = ({ troop, displayLayer, className }) => {
   return (
-    <PreviewBase troopName={troop.name} className={className}>
+    <PreviewBase
+      troopName={troop.name}
+      className={className}
+      displayLayer={displayLayer}
+    >
       <CardSpell troop={troop} displayLayer={displayLayer} />
     </PreviewBase>
   );
