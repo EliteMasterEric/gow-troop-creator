@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { CardContent, Grid, Card, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Stage, Layer } from "react-konva";
@@ -31,8 +31,6 @@ const TabResult = ({ troop, spellLayer, troopLayer, traitsLayer }) => {
   const classes = useStyles();
 
   const resultStageRef = useRef();
-
-  const [downloadUrl] = useState("");
 
   return (
     <Card className={classes.mainCard}>

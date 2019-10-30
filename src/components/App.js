@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { Container, Toolbar, Tabs, Tab } from "@material-ui/core";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Container, Toolbar } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Scrollbars } from "react-custom-scrollbars";
 import SwipeableViews from "react-swipeable-views";
-import { AutoSizer } from "react-virtualized";
 import WebFontLoader from "webfontloader";
 
 import NavBar from "./layout/NavBar";
 import TabResult from "./layout/TabResult";
-import TabView from "./layout/TabBase";
+import { TabView, ScrollingContainer, TabList } from "./layout/TabBase";
 import FormSpell from "./layout/areas/form/FormSpell";
 import FormTraits from "./layout/areas/form/FormTraits";
 import FormTroop from "./layout/areas/form/FormTroop";
@@ -64,39 +62,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// Blank troop for creator, required to force an update on start.
-const troopBlank = {
-  name: "",
-  kingdom: "",
-  rarity: "",
-  level: "",
-  role: "",
-  cost: "",
-  colors: "",
-  type1: "",
-  type2: "",
-  attack: "",
-  armor: "",
-  life: "",
-  troopimage: null,
-  magic: "",
-  spellname: "",
-  spelldesc: "",
-  spellmult: "",
-  spellbase: "",
-  spellrange: false,
-  spellimage: null,
-  trait1name: "",
-  trait1desc: "",
-  trait1code: "",
-  trait2name: "",
-  trait2desc: "",
-  trait2code: "",
-  trait3name: "",
-  trait3desc: "",
-  trait3code: ""
-};
-
 // Default troop for the troop creator.
 const troopInfernus = {
   name: "Infernus",
@@ -137,56 +102,12 @@ const troopInfernus = {
   trait3code: "molten"
 };
 
-export function renderThumb({ style }) {
-  const finalStyle = {
-    ...style,
-    cursor: "pointer",
-    borderRadius: "inherit",
-    backgroundColor: "rgba(255,255,255,.8)"
-  };
-  return <div style={finalStyle} />;
-}
-
-const TabList = ({ currentTab, setCurrentTab }) => {
-  // Handle a change in tab.
-  const handleTabEvent = (event, newValue) => {
-    setCurrentTab(newValue);
-  };
-
-  return (
-    <Tabs
-      value={currentTab}
-      onChange={handleTabEvent}
-      indicatorColor="primary"
-      textColor="primary"
-      centered
-    >
-      <Tab label="Spell" id="tab-0" />
-      <Tab label="Troop" id="tab-1" />
-      <Tab label="Traits" id="tab-2" />
-      <Tab label="Result" id="tab-3" />
-    </Tabs>
-  );
-};
-
-const ScrollingContainer = ({ children }) => {
-  return (
-    <AutoSizer>
-      {({ width, height }) => (
-        <Scrollbars style={{ width, height }} renderThumbVertical={renderThumb}>
-          {children}
-        </Scrollbars>
-      )}
-    </AutoSizer>
-  );
-};
-
 const App = () => {
   const classes = useStyles();
   const theme = useTheme();
 
   // State of troop info, stored in the forms.
-  const [troop, setTroop] = React.useState(troopBlank);
+  const [troop, setTroop] = React.useState(troopInfernus);
 
   // Creates an onChange function by passing the setState function. Uses callbacks for performance.
   const handleTroopChange = useCallback(
@@ -195,11 +116,12 @@ const App = () => {
   );
 
   // State of the currently selected tab number.
-  const [currentTab, setCurrentTab] = React.useState(1);
+  const [currentTab, setCurrentTab] = useState(1);
 
   const layerSpellDisplay = useRef(null);
   const layerTroopDisplay = useRef(null);
   const layerTraitsDisplay = useRef(null);
+
   // Handle loading effects.
   useEffect(() => {
     // Fetch necessary fonts.
@@ -208,8 +130,12 @@ const App = () => {
         families: ["Open Sans:400,600,700", "Roboto", "Raleway"]
       },
       fontactive: () => {
-        // Force an update.
-        setTroop(troopInfernus);
+        setTimeout(() => {
+          console.log("Redraw");
+          layerSpellDisplay.current.draw();
+          layerTroopDisplay.current.draw();
+          layerTraitsDisplay.current.draw();
+        }, 4000);
       }
     });
   }, []);
@@ -228,11 +154,13 @@ const App = () => {
             onChangeIndex={setCurrentTab}
           >
             <TabView value={currentTab} index={0} dir={theme.direction}>
-              <FormSpell
-                troop={troop}
-                className={classes.formGridItem}
-                handleTroopChange={handleTroopChange}
-              />
+              {currentTab === 0 ? (
+                <FormSpell
+                  troop={troop}
+                  className={classes.formGridItem}
+                  handleTroopChange={handleTroopChange}
+                />
+              ) : null}
               <PreviewSpell
                 troop={troop}
                 displayLayer={layerSpellDisplay}
@@ -240,11 +168,13 @@ const App = () => {
               />
             </TabView>
             <TabView value={currentTab} index={1} dir={theme.direction}>
-              <FormTroop
-                troop={troop}
-                className={classes.formGridItem}
-                handleTroopChange={handleTroopChange}
-              />
+              {currentTab === 1 ? (
+                <FormTroop
+                  troop={troop}
+                  className={classes.formGridItem}
+                  handleTroopChange={handleTroopChange}
+                />
+              ) : null}
               <PreviewTroop
                 troop={troop}
                 displayLayer={layerTroopDisplay}
@@ -252,11 +182,13 @@ const App = () => {
               />
             </TabView>
             <TabView value={currentTab} index={2} dir={theme.direction}>
-              <FormTraits
-                troop={troop}
-                className={classes.formGridItem}
-                handleTroopChange={handleTroopChange}
-              />
+              {currentTab === 2 ? (
+                <FormTraits
+                  troop={troop}
+                  className={classes.formGridItem}
+                  handleTroopChange={handleTroopChange}
+                />
+              ) : null}
               <PreviewTraits
                 troop={troop}
                 displayLayer={layerTraitsDisplay}

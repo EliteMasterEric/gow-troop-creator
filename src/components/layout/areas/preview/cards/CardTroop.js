@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Layer } from "react-konva";
+import { Layer, Rect } from "react-konva";
 import { CardBase, CardImage, CardText, CardTextRef } from "./CardBase";
 import { rarities } from "../../../../Values";
 
@@ -15,23 +15,22 @@ const getImageURL = troop => {
 const CardTroop = ({ troop, displayLayer }) => {
   const loadingLayer = useRef(null);
 
-  const typeRef = useRef(null);
-
   useEffect(() => {
     // Hide while loading.
     displayLayer.current.loaded = false;
     loadingLayer.current.show();
     displayLayer.current.hide();
     loadingLayer.current.draw();
-  }, []);
+  }, [displayLayer]);
 
+  const typeRef = useRef(null);
   const [typeTextWidth, setTypeTextWidth] = useState(0);
 
   useEffect(() => {
     if (typeRef.current !== undefined) {
       setTypeTextWidth(typeRef.current.textWidth);
     }
-  }, [troop]);
+  }, [troop, typeRef]);
 
   const typeText =
     troop.type2 !== "" ? `${troop.type1} / ${troop.type2}` : troop.type1;
@@ -66,13 +65,10 @@ const CardTroop = ({ troop, displayLayer }) => {
           width={490}
           height={739}
           onLoad={() => {
-            // Assume loading is finished.
             displayLayer.current.loaded = true;
-            if (loadingLayer.current != null) {
-              loadingLayer.current.hide();
-              displayLayer.current.show();
-              displayLayer.current.draw();
-            }
+            loadingLayer.current.hide();
+            displayLayer.current.show();
+            displayLayer.current.draw();
           }}
         />
 
@@ -84,6 +80,8 @@ const CardTroop = ({ troop, displayLayer }) => {
           }
           width={100}
           height={100}
+          x={0}
+          y={0}
         />
         <CardText
           text={troop.cost}
@@ -201,7 +199,9 @@ const CardTroop = ({ troop, displayLayer }) => {
               ? `./assets/graphics/roles/${troop.role}.png`
               : null
           }
-          x={205 - typeTextWidth / 2}
+          x={
+            260 - 44 - 16 - (typeRef.current || { textWidth: 0 }).textWidth / 2
+          }
           y={692}
           color="#000000"
           width={44}
@@ -210,9 +210,10 @@ const CardTroop = ({ troop, displayLayer }) => {
         <CardTextRef
           ref={typeRef}
           text={typeText}
-          x={30}
+          x={40}
           y={700}
-          width={460}
+          horizontalAlign="center"
+          width={440}
           color="#000000"
           fontSize={30}
           fontWeight={600}
@@ -223,7 +224,7 @@ const CardTroop = ({ troop, displayLayer }) => {
               ? `./assets/graphics/roles/${troop.role}.png`
               : null
           }
-          x={270 + typeTextWidth / 2}
+          x={260 + 16 + (typeRef.current || { textWidth: 0 }).textWidth / 2}
           y={692}
           color="#000000"
           width={44}

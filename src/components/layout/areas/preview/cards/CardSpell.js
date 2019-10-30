@@ -251,7 +251,7 @@ const CardSpell = ({ troop, displayLayer }) => {
     loadingLayer.current.show();
     displayLayer.current.hide();
     loadingLayer.current.draw();
-  }, [displayLayer, loadingLayer]);
+  }, [displayLayer]);
 
   return (
     <CardBase width={460} height={723}>
@@ -281,13 +281,10 @@ const CardSpell = ({ troop, displayLayer }) => {
           width={460}
           height={723}
           onLoad={() => {
-            // Assume loading is finished.
             displayLayer.current.loaded = true;
-            if (loadingLayer.current != null) {
-              loadingLayer.current.hide();
-              displayLayer.current.show();
-              displayLayer.current.draw();
-            }
+            loadingLayer.current.hide();
+            displayLayer.current.show();
+            displayLayer.current.draw();
           }}
         />
         <CardSpellNameText

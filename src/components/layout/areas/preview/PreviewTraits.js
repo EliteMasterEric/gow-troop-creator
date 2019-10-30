@@ -5,7 +5,11 @@ import PreviewBase from "./PreviewBase";
 
 const PreviewTraits = ({ troop, displayLayer, className }) => {
   return (
-    <PreviewBase troopName={troop.name} className={className}>
+    <PreviewBase
+      troopName={troop.name}
+      className={className}
+      displayLayer={displayLayer}
+    >
       <CardTraits troop={troop} displayLayer={displayLayer} />
     </PreviewBase>
   );

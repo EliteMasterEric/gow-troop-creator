@@ -97,7 +97,7 @@ const CardTraits = ({ troop, displayLayer }) => {
     loadingLayer.current.show();
     displayLayer.current.hide();
     loadingLayer.current.draw();
-  }, [displayLayer, loadingLayer]);
+  }, [displayLayer]);
 
   return (
     <CardBase width={460} height={727}>
@@ -120,13 +120,10 @@ const CardTraits = ({ troop, displayLayer }) => {
           width={460}
           height={727}
           onLoad={() => {
-            // Assume loading is finished.
             displayLayer.current.loaded = true;
-            if (loadingLayer.current != null) {
-              loadingLayer.current.hide();
-              displayLayer.current.show();
-              displayLayer.current.draw();
-            }
+            loadingLayer.current.hide();
+            displayLayer.current.show();
+            displayLayer.current.draw();
           }}
         />
 

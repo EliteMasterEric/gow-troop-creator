@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import PreviewButtonBar from "./PreviewButtonBar";
