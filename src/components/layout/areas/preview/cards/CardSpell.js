@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Layer, Group } from "react-konva";
+import Konva from "konva";
 import {
   CardBase,
   CardImage,
   CardText,
   CardTextRef,
-  CardMultiStyleText
+  CardMultiStyleText,
+  CardImageRotating
 } from "./CardBase";
 
 const getImageURL = troop => {
@@ -24,7 +26,8 @@ const CardSpellNameText = ({
   y,
   horizontalAlign = "center",
   fontWeight,
-  baseFontSize
+  baseFontSize,
+  fontsLoaded
 }) => {
   const textRef = useRef(null);
 
@@ -62,6 +65,7 @@ const CardSpellNameText = ({
       text={text}
       fontWeight={fontWeight}
       fontSize={state.fontSize}
+      fontsLoaded={fontsLoaded}
     />
   ) : (
     <Group>
@@ -77,6 +81,7 @@ const CardSpellNameText = ({
         opacity={0}
         fontWeight={fontWeight}
         fontSize={state.fontSize}
+        fontsLoaded={fontsLoaded}
       />
       <CardImage
         src="./assets/graphics/troop/loading.png"
@@ -104,7 +109,8 @@ const CardSpellDescText = ({
   fontWeight = 600,
   color = "#000",
   magicFontWeight,
-  magicColor
+  magicColor,
+  fontsLoaded
 }) => {
   // A reference to the hidden text display used for math.
   const baseDisplayRef = useRef(null);
@@ -209,6 +215,7 @@ const CardSpellDescText = ({
       color={color}
       height={1000}
       opacity={0}
+      fontsLoaded={fontsLoaded}
       fontSize={state.fontSize}
       fontWeight={fontWeight}
       text={simpleDescSub()}
@@ -223,6 +230,7 @@ const CardSpellDescText = ({
     <Group>
       {baseDisplay}
       <CardMultiStyleText
+        fontsLoaded={fontsLoaded}
         textArray={splitSpellDesc()}
         yCenter={yCenter}
         xCenter={cardWidth / 2}
@@ -242,26 +250,45 @@ const CardSpellDescText = ({
   );
 };
 
-const CardSpell = ({ troop, displayLayer }) => {
+const CardSpell = ({ troop, displayLayer, fontsLoaded }) => {
   const loadingLayer = useRef(null);
 
+  // Hide while loading.
   useEffect(() => {
-    // Hide while loading.
     displayLayer.current.loaded = false;
     loadingLayer.current.show();
     displayLayer.current.hide();
     loadingLayer.current.draw();
-  }, [displayLayer]);
+  }, []);
+
+  // Show once loaded.
+  useEffect(() => {
+    if (fontsLoaded && displayLayer.current.loaded) {
+      loadingLayer.current.hide();
+      displayLayer.current.show();
+      displayLayer.current.draw();
+    }
+  }, [fontsLoaded, (displayLayer.current || { loaded: false }).loaded]);
+
+  // Loading animation.
+  useEffect(() => {
+    const anim = new Konva.Animation(frame => {
+      const angleDiff = (frame.timeDiff * 120) / 1000;
+      loadingLayer.current.rotate(angleDiff);
+    }, loadingLayer.current);
+    anim.start();
+  }, [loadingLayer]);
 
   return (
     <CardBase width={460} height={723}>
       <Layer ref={loadingLayer}>
-        <CardImage
+        <CardImageRotating
           src="./assets/graphics/troop/loading.png"
           x={195}
           y={323}
           width={100}
           height={100}
+          angularRate={90}
         />
       </Layer>
       <Layer ref={displayLayer}>
@@ -282,9 +309,6 @@ const CardSpell = ({ troop, displayLayer }) => {
           height={723}
           onLoad={() => {
             displayLayer.current.loaded = true;
-            loadingLayer.current.hide();
-            displayLayer.current.show();
-            displayLayer.current.draw();
           }}
         />
         <CardSpellNameText
@@ -295,6 +319,7 @@ const CardSpell = ({ troop, displayLayer }) => {
           text={troop.spellname}
           fontWeight={600}
           baseFontSize={50}
+          fontsLoaded={fontsLoaded}
         />
         <CardText
           x={235}
@@ -304,6 +329,7 @@ const CardSpell = ({ troop, displayLayer }) => {
           text={troop.magic}
           fontWeight={600}
           fontSize={40}
+          fontsLoaded={fontsLoaded}
         />
         <CardSpellDescText
           troop={troop}
@@ -316,6 +342,7 @@ const CardSpell = ({ troop, displayLayer }) => {
           color="#000"
           magicColor="#680b7c"
           magicFontWeight="800"
+          fontsLoaded={fontsLoaded}
         />
       </Layer>
     </CardBase>

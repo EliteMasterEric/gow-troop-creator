@@ -156,6 +156,58 @@ export const CardImage = ({
   );
 };
 
+export const CardImageRotating = ({
+  src,
+  x,
+  y,
+  width,
+  height,
+  color = null,
+  crop = {},
+  onLoad = null,
+  angularRate = 0
+}) => {
+  const [image, status] = useImage(src);
+  const ref = useRef(null);
+  useEffect(() => {
+    if (ref.current !== null) {
+      ref.current.cache();
+      ref.current.getLayer().batchDraw();
+      if (status === "loaded") {
+        if (onLoad != null) onLoad();
+
+        if (angularRate !== 0) {
+          // Animation.
+          const anim = new Konva.Animation(frame => {
+            const angleDiff = (frame.timeDiff * angularRate) / 1000;
+            ref.current.rotate(angleDiff);
+          }, ref.current);
+          anim.start();
+        }
+      }
+    }
+  }, [image, onLoad, status]);
+
+  if (src == null) return null;
+
+  return (
+    <Image
+      ref={ref}
+      image={image}
+      x={x + width / 2}
+      y={y + height / 2}
+      filters={color !== null ? [Konva.Filters.RGB] : null}
+      red={color !== null ? hexToRgb(color).r : null}
+      green={color !== null ? hexToRgb(color).g : null}
+      blue={color !== null ? hexToRgb(color).b : null}
+      width={width}
+      height={height}
+      crop={crop}
+      offset={{ x: width / 2, y: height / 2 }}
+    />
+  );
+};
+
 /* Takes an array of lines; each line is an array of phrase objects.
  * Sadly assumes horizontal and vertical centering. Too much work to make more general.
  * Example: [
@@ -168,7 +220,12 @@ export const CardImage = ({
  *   ]
  * ]
  */
-export const CardMultiStyleText = ({ textArray, yCenter, xCenter }) => {
+export const CardMultiStyleText = ({
+  textArray,
+  yCenter,
+  xCenter,
+  fontsLoaded
+}) => {
   const textHeight = textArray.reduce(
     (sum, textLine) => sum + Math.max(...textLine.map(phrase => phrase.size)),
     0
@@ -205,6 +262,7 @@ export const CardMultiStyleText = ({ textArray, yCenter, xCenter }) => {
           fontFamily={phrase.family}
           fontSize={phrase.size}
           fontWeight={phrase.weight}
+          fontsLoaded={fontsLoaded}
         />
       );
     });
@@ -225,7 +283,8 @@ export const CardText = ({
   horizontalAlign = "center",
   verticalAlign = "top",
   shadowColor = null,
-  shadowOffset = 0
+  shadowOffset = 0,
+  fontsLoaded
 }) => {
   return (
     <Text
@@ -237,7 +296,7 @@ export const CardText = ({
       opacity={opacity}
       height={height}
       fontSize={fontSize}
-      fontFamily={fontFamily}
+      fontFamily={fontsLoaded ? fontFamily : "Arial"}
       fontStyle={fontWeight}
       align={horizontalAlign}
       verticalAlign={verticalAlign}
@@ -263,7 +322,8 @@ export const CardTextRef = forwardRef(
       horizontalAlign = "center",
       verticalAlign = "top",
       shadowColor = null,
-      shadowOffset = 0
+      shadowOffset = 0,
+      fontsLoaded
     },
     ref
   ) => {
@@ -278,7 +338,7 @@ export const CardTextRef = forwardRef(
         opacity={opacity}
         height={height}
         fontSize={fontSize}
-        fontFamily={fontFamily}
+        fontFamily={fontsLoaded ? fontFamily : "sans-serif"}
         fontStyle={fontWeight}
         align={horizontalAlign}
         verticalAlign={verticalAlign}

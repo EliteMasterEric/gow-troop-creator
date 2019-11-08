@@ -13,6 +13,7 @@ import FormTroop from "./layout/areas/form/FormTroop";
 import PreviewSpell from "./layout/areas/preview/PreviewSpell";
 import PreviewTraits from "./layout/areas/preview/PreviewTraits";
 import PreviewTroop from "./layout/areas/preview/PreviewTroop";
+import { timeout } from "q";
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -122,6 +123,8 @@ const App = () => {
   const layerTroopDisplay = useRef(null);
   const layerTraitsDisplay = useRef(null);
 
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
   // Handle loading effects.
   useEffect(() => {
     // Fetch necessary fonts.
@@ -131,11 +134,8 @@ const App = () => {
       },
       fontactive: () => {
         setTimeout(() => {
-          console.log("Redraw");
-          layerSpellDisplay.current.draw();
-          layerTroopDisplay.current.draw();
-          layerTraitsDisplay.current.draw();
-        }, 4000);
+          setFontsLoaded(true);
+        }, 500);
       }
     });
   }, []);
@@ -164,6 +164,7 @@ const App = () => {
               <PreviewSpell
                 troop={troop}
                 displayLayer={layerSpellDisplay}
+                fontsLoaded={fontsLoaded}
                 className={classes.previewGridItem}
               />
             </TabView>
@@ -178,6 +179,7 @@ const App = () => {
               <PreviewTroop
                 troop={troop}
                 displayLayer={layerTroopDisplay}
+                fontsLoaded={fontsLoaded}
                 className={classes.previewGridItem}
               />
             </TabView>
@@ -192,6 +194,7 @@ const App = () => {
               <PreviewTraits
                 troop={troop}
                 displayLayer={layerTraitsDisplay}
+                fontsLoaded={fontsLoaded}
                 className={classes.previewGridItem}
               />
             </TabView>

@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
+import Konva from "konva";
 import { Layer, Group } from "react-konva";
-import { CardBase, CardImage, CardText, CardTextRef } from "./CardBase";
+import {
+  CardBase,
+  CardImage,
+  CardText,
+  CardTextRef,
+  CardImageRotating
+} from "./CardBase";
 import { rarities } from "../../../../Values";
 
 const CardTraitDescText = ({
@@ -12,7 +19,8 @@ const CardTraitDescText = ({
   baseFontSize,
   fontFamily = "Open Sans",
   fontWeight = 600,
-  color = "#000"
+  color = "#000",
+  fontsLoaded = false
 }) => {
   // A reference to the hidden text display used for math.
   const baseDisplayRef = useRef(null);
@@ -54,6 +62,7 @@ const CardTraitDescText = ({
       height={1000}
       fontSize={state.fontSize}
       fontWeight={fontWeight}
+      fontsLoaded={fontsLoaded}
     />
   );
 
@@ -72,6 +81,7 @@ const CardTraitDescText = ({
         height={height}
         verticalAlign="middle"
         horizontalAlign="center"
+        fontsLoaded={fontsLoaded}
       />
     </Group>
   ) : (
@@ -88,26 +98,45 @@ const CardTraitDescText = ({
   );
 };
 
-const CardTraits = ({ troop, displayLayer }) => {
+const CardTraits = ({ troop, displayLayer, fontsLoaded }) => {
   const loadingLayer = useRef(null);
 
+  // Hide while loading.
   useEffect(() => {
-    // Hide while loading.
     displayLayer.current.loaded = false;
     loadingLayer.current.show();
     displayLayer.current.hide();
     loadingLayer.current.draw();
-  }, [displayLayer]);
+  }, []);
+
+  // Show once loaded.
+  useEffect(() => {
+    if (fontsLoaded && displayLayer.current.loaded) {
+      loadingLayer.current.hide();
+      displayLayer.current.show();
+      displayLayer.current.draw();
+    }
+  }, [fontsLoaded, (displayLayer.current || { loaded: false }).loaded]);
+
+  // Loading animation.
+  useEffect(() => {
+    const anim = new Konva.Animation(frame => {
+      const angleDiff = (frame.timeDiff * 120) / 1000;
+      loadingLayer.current.rotate(angleDiff);
+    }, loadingLayer.current);
+    anim.start();
+  }, [loadingLayer]);
 
   return (
     <CardBase width={460} height={727}>
       <Layer ref={loadingLayer}>
-        <CardImage
+        <CardImageRotating
           src="./assets/graphics/troop/loading.png"
           x={195}
           y={323}
           width={100}
           height={100}
+          angularRate={90}
         />
       </Layer>
       <Layer ref={displayLayer}>
@@ -121,9 +150,6 @@ const CardTraits = ({ troop, displayLayer }) => {
           height={727}
           onLoad={() => {
             displayLayer.current.loaded = true;
-            loadingLayer.current.hide();
-            displayLayer.current.show();
-            displayLayer.current.draw();
           }}
         />
 
@@ -173,6 +199,7 @@ const CardTraits = ({ troop, displayLayer }) => {
           horizontalAlign="left"
           fontSize={32}
           fontWeight={600}
+          fontsLoaded={fontsLoaded}
         />
 
         <CardTraitDescText
@@ -183,6 +210,7 @@ const CardTraits = ({ troop, displayLayer }) => {
           text={troop.trait1desc}
           fontWeight={600}
           baseFontSize={32}
+          fontsLoaded={fontsLoaded}
         />
 
         <CardText
@@ -194,6 +222,7 @@ const CardTraits = ({ troop, displayLayer }) => {
           horizontalAlign="left"
           fontSize={32}
           fontWeight={600}
+          fontsLoaded={fontsLoaded}
         />
 
         <CardTraitDescText
@@ -204,6 +233,7 @@ const CardTraits = ({ troop, displayLayer }) => {
           text={troop.trait2desc}
           fontWeight={600}
           baseFontSize={32}
+          fontsLoaded={fontsLoaded}
         />
 
         <CardText
@@ -215,6 +245,7 @@ const CardTraits = ({ troop, displayLayer }) => {
           horizontalAlign="left"
           fontSize={32}
           fontWeight={600}
+          fontsLoaded={fontsLoaded}
         />
 
         <CardTraitDescText
@@ -225,6 +256,7 @@ const CardTraits = ({ troop, displayLayer }) => {
           text={troop.trait3desc}
           fontWeight={600}
           baseFontSize={32}
+          fontsLoaded={fontsLoaded}
         />
       </Layer>
     </CardBase>

@@ -1,6 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Layer, Rect } from "react-konva";
-import { CardBase, CardImage, CardText, CardTextRef } from "./CardBase";
+import React, { useEffect, useRef } from "react";
+import { Layer } from "react-konva";
+import {
+  CardBase,
+  CardImage,
+  CardText,
+  CardTextRef,
+  CardImageRotating
+} from "./CardBase";
 import { rarities } from "../../../../Values";
 
 const getImageURL = troop => {
@@ -12,7 +18,7 @@ const getImageURL = troop => {
 };
 
 // Render a spell as part of a full-size card (like in the troop list).
-const CardTroop = ({ troop, displayLayer }) => {
+const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
   const loadingLayer = useRef(null);
 
   useEffect(() => {
@@ -21,16 +27,18 @@ const CardTroop = ({ troop, displayLayer }) => {
     loadingLayer.current.show();
     displayLayer.current.hide();
     loadingLayer.current.draw();
-  }, [displayLayer]);
+  }, []);
+
+  // Show once loaded.
+  useEffect(() => {
+    if (fontsLoaded && displayLayer.current.loaded) {
+      loadingLayer.current.hide();
+      displayLayer.current.show();
+      displayLayer.current.draw();
+    }
+  }, [fontsLoaded, (displayLayer.current || { loaded: false }).loaded]);
 
   const typeRef = useRef(null);
-  const [typeTextWidth, setTypeTextWidth] = useState(0);
-
-  useEffect(() => {
-    if (typeRef.current !== undefined) {
-      setTypeTextWidth(typeRef.current.textWidth);
-    }
-  }, [troop, typeRef]);
 
   const typeText =
     troop.type2 !== "" ? `${troop.type1} / ${troop.type2}` : troop.type1;
@@ -38,12 +46,13 @@ const CardTroop = ({ troop, displayLayer }) => {
   return (
     <CardBase width={490} height={739}>
       <Layer ref={loadingLayer}>
-        <CardImage
+        <CardImageRotating
           src="./assets/graphics/troop/loading.png"
           x={195}
           y={323}
           width={100}
           height={100}
+          angularRate={90}
         />
       </Layer>
       <Layer ref={displayLayer}>
@@ -66,9 +75,6 @@ const CardTroop = ({ troop, displayLayer }) => {
           height={739}
           onLoad={() => {
             displayLayer.current.loaded = true;
-            loadingLayer.current.hide();
-            displayLayer.current.show();
-            displayLayer.current.draw();
           }}
         />
 
@@ -93,6 +99,7 @@ const CardTroop = ({ troop, displayLayer }) => {
           shadowColor="black"
           horizontalAlign="center"
           shadowOffset={2}
+          fontsLoaded={fontsLoaded}
         />
 
         <CardText
@@ -103,6 +110,7 @@ const CardTroop = ({ troop, displayLayer }) => {
           horizontalAlign="right"
           fontSize={50}
           fontWeight={600}
+          fontsLoaded={fontsLoaded}
         />
 
         <CardImage
@@ -153,6 +161,7 @@ const CardTroop = ({ troop, displayLayer }) => {
           verticalAlign="bottom"
           fontSize={57}
           fontWeight={500}
+          fontsLoaded={fontsLoaded}
         />
         <CardText
           text={troop.kingdom}
@@ -163,6 +172,7 @@ const CardTroop = ({ troop, displayLayer }) => {
           color="#CCCCCC"
           fontSize={30}
           fontWeight={600}
+          fontsLoaded={fontsLoaded}
         />
 
         <CardText
@@ -173,6 +183,7 @@ const CardTroop = ({ troop, displayLayer }) => {
           horizontalAlign="left"
           fontSize={45}
           fontWeight={600}
+          fontsLoaded={fontsLoaded}
         />
         <CardText
           text={troop.armor}
@@ -182,6 +193,7 @@ const CardTroop = ({ troop, displayLayer }) => {
           horizontalAlign="left"
           fontSize={45}
           fontWeight={600}
+          fontsLoaded={fontsLoaded}
         />
         <CardText
           text={troop.life}
@@ -191,6 +203,7 @@ const CardTroop = ({ troop, displayLayer }) => {
           horizontalAlign="left"
           fontSize={45}
           fontWeight={600}
+          fontsLoaded={fontsLoaded}
         />
 
         <CardImage
@@ -217,6 +230,7 @@ const CardTroop = ({ troop, displayLayer }) => {
           color="#000000"
           fontSize={30}
           fontWeight={600}
+          fontsLoaded={fontsLoaded}
         />
         <CardImage
           src={
