@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import PreviewButtonBar from "./PreviewButtonBar";
 
-import { GridCard } from "../../../Util";
+import { GridCard } from "../../Util";
 
 const useStyles = makeStyles(theme => ({
   card: {

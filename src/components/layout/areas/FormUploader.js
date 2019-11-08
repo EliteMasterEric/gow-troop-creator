@@ -14,24 +14,33 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const FormUploaderTroop = ({ handleTroopChange }) => {
+export const FormUploaderTroop = ({ handleTroopChange, dimensions }) => {
   return (
-    <FormUploader key="troopImage" handleTroopChange={handleTroopChange} />
+    <FormUploader
+      fieldKey="troopimage"
+      handleTroopChange={handleTroopChange}
+      dimensions={dimensions}
+    />
   );
 };
 
-export const FormUploaderSpell = ({ handleTroopChange }) => {
+export const FormUploaderSpell = ({ handleTroopChange, dimensions }) => {
   return (
-    <FormUploader key="spellImage" handleTroopChange={handleTroopChange} />
+    <FormUploader
+      fieldKey="spellimage"
+      handleTroopChange={handleTroopChange}
+      dimensions={dimensions}
+    />
   );
 };
 
-export const FormUploader = ({ handleTroopChange, key }) => {
+export const FormUploader = ({ handleTroopChange, fieldKey, dimensions }) => {
   const classes = useStyles();
 
   const handleChangeFiles = useCallback(
     files => {
-      handleTroopChange(key, files.length !== 0 ? files[0] : null);
+      console.log(files);
+      handleTroopChange(fieldKey, files.length !== 0 ? files[0] : null);
     },
     [handleTroopChange]
   );
@@ -48,7 +57,7 @@ export const FormUploader = ({ handleTroopChange, key }) => {
     >
       <Typography variant="h4">Image</Typography>
       <Typography variant="subtitle2" gutterBottom>
-        Preferred Size: 460x652
+        Preferred Size: {dimensions || ""}
       </Typography>
       <DropzoneArea
         dropzoneClass={classes.dropzone}

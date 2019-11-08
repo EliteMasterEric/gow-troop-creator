@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Icon } from "../../../Util";
+import { Icon } from "../../Util";
 
 const useStyles = makeStyles(() => ({
   buttonGrid: {

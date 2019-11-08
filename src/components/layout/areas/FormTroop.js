@@ -9,7 +9,7 @@ import {
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import { colors, roles, rarities } from "../../Values";
-import FormUploader from "./FormUploader";
+import { FormUploaderTroop } from "./FormUploader";
 
 import {
   Image,
@@ -353,7 +353,10 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
           }}
         />
       </GridCard>
-      <FormUploader handleTroopChange={handleTroopChange} />
+      <FormUploaderTroop
+        handleTroopChange={handleTroopChange}
+        dimensions="460x640"
+      />
     </Grid>
   );
 });

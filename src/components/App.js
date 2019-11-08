@@ -7,12 +7,12 @@ import WebFontLoader from "webfontloader";
 import NavBar from "./layout/NavBar";
 import TabResult from "./layout/TabResult";
 import { TabView, ScrollingContainer, TabList } from "./layout/TabBase";
-import FormSpell from "./layout/areas/form/FormSpell";
-import FormTraits from "./layout/areas/form/FormTraits";
-import FormTroop from "./layout/areas/form/FormTroop";
-import PreviewSpell from "./layout/areas/preview/PreviewSpell";
-import PreviewTraits from "./layout/areas/preview/PreviewTraits";
-import PreviewTroop from "./layout/areas/preview/PreviewTroop";
+import FormSpell from "./layout/areas/FormSpell";
+import FormTraits from "./layout/areas/FormTraits";
+import FormTroop from "./layout/areas/FormTroop";
+import PreviewSpell from "./layout/areas/PreviewSpell";
+import PreviewTraits from "./layout/areas/PreviewTraits";
+import PreviewTroop from "./layout/areas/PreviewTroop";
 
 const useStyles = makeStyles(theme => ({
   content: {

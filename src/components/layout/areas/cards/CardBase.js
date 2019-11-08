@@ -4,7 +4,7 @@ import { Box } from "@material-ui/core";
 import useImage from "use-image";
 import { makeStyles } from "@material-ui/core/styles";
 import Konva from "konva";
-import { hexToRgb, measureText } from "../../../../Util";
+import { hexToRgb, measureText } from "../../../Util";
 
 const useStyles = makeStyles(() => ({
   card: {

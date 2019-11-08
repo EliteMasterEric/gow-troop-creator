@@ -2,9 +2,9 @@ import React, { useRef } from "react";
 import { CardContent, Grid, Card, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Stage, Layer } from "react-konva";
-import { CardLayer } from "./areas/preview/cards/CardBase";
+import { CardLayer } from "./areas/cards/CardBase";
 
-import PreviewButtonBar from "./areas/preview/PreviewButtonBar";
+import PreviewButtonBar from "./areas/PreviewButtonBar";
 
 const useStyles = makeStyles(theme => ({
   buttonIcon: {

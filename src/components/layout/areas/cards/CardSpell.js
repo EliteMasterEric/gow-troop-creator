@@ -10,13 +10,10 @@ import {
   CardImageRotating
 } from "./CardBase";
 
-const getImageURL = troop => {
-  if (troop.troopimage !== null) {
-    return URL.createObjectURL(troop.troopimage);
-  }
-  // Else, use the default.
-  return `./assets/graphics/troop/eruption.png`;
-};
+const getImageURL = troop =>
+  troop.spellimage !== null
+    ? URL.createObjectURL(troop.spellimage)
+    : "./assets/graphics/troop/eruption.png";
 
 // Create a text element that scales to always be one line.
 const CardSpellNameText = ({

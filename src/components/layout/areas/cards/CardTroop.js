@@ -7,15 +7,12 @@ import {
   CardTextRef,
   CardImageRotating
 } from "./CardBase";
-import { rarities } from "../../../../Values";
+import { rarities } from "../../../Values";
 
-const getImageURL = troop => {
-  if (troop.troopimage !== null) {
-    return URL.createObjectURL(troop.troopimage);
-  }
-  // Else, use the default.
-  return `./assets/graphics/troop/infernus.png`;
-};
+const getImageURL = troop =>
+  troop.troopimage !== null
+    ? URL.createObjectURL(troop.troopimage)
+    : "./assets/graphics/troop/infernus.png";
 
 // Render a spell as part of a full-size card (like in the troop list).
 const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {

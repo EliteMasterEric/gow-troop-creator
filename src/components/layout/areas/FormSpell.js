@@ -14,7 +14,7 @@ import {
   GridCard,
   validateFieldLength
 } from "../../Util";
-import FormUploader from "./FormUploader";
+import { FormUploaderSpell } from "./FormUploader";
 
 const useStyles = makeStyles(theme => {
   return {
@@ -163,7 +163,10 @@ const FormSpell = memo(({ troop, handleTroopChange, className }) => {
           label="Range?"
         />
       </GridCard>
-      <FormUploader troop={troop} handleTroopChange={handleTroopChange} />
+      <FormUploaderSpell
+        handleTroopChange={handleTroopChange}
+        dimensions="460x340"
+      />
     </Grid>
   );
 });

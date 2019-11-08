@@ -8,7 +8,7 @@ import {
   CardTextRef,
   CardImageRotating
 } from "./CardBase";
-import { rarities } from "../../../../Values";
+import { rarities } from "../../../Values";
 
 const CardTraitDescText = ({
   text,
