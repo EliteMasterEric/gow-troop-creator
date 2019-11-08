@@ -13,7 +13,7 @@ import {
   FormCheckbox,
   GridCard,
   validateFieldLength
-} from "../../../Util";
+} from "../../Util";
 import FormUploader from "./FormUploader";
 
 const useStyles = makeStyles(theme => {

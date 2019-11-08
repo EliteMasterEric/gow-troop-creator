@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
-import { colors, roles, rarities } from "../../../Values";
+import { colors, roles, rarities } from "../../Values";
 import FormUploader from "./FormUploader";
 
 import {
@@ -17,7 +17,7 @@ import {
   FormSelect,
   validateFieldLength,
   GridCard
-} from "../../../Util";
+} from "../../Util";
 
 const useStyles = makeStyles(theme => {
   return {

@@ -1,9 +1,9 @@
-import React, { memo, useCallback } from "react";
+import React, { useCallback } from "react";
 import { DropzoneArea } from "material-ui-dropzone";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { GridCard } from "../../../Util";
+import { GridCard } from "../../Util";
 
 const useStyles = makeStyles(theme => ({
   formElement: {
@@ -14,12 +14,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const FormUploader = memo(({ handleTroopChange }) => {
+export const FormUploaderTroop = ({ handleTroopChange }) => {
+  return (
+    <FormUploader key="troopImage" handleTroopChange={handleTroopChange} />
+  );
+};
+
+export const FormUploaderSpell = ({ handleTroopChange }) => {
+  return (
+    <FormUploader key="spellImage" handleTroopChange={handleTroopChange} />
+  );
+};
+
+export const FormUploader = ({ handleTroopChange, key }) => {
   const classes = useStyles();
 
   const handleChangeFiles = useCallback(
     files => {
-      handleTroopChange("files", files.length !== 0 ? files[0] : null);
+      handleTroopChange(key, files.length !== 0 ? files[0] : null);
     },
     [handleTroopChange]
   );
@@ -47,6 +59,4 @@ const FormUploader = memo(({ handleTroopChange }) => {
       />
     </GridCard>
   );
-});
-
-export default FormUploader;
+};

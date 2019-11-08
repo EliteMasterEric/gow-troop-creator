@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import FormTraitAutosuggest from "./FormTraitAutosuggest";
 
-import { Image, FormText, validateFieldLength, GridCard } from "../../../Util";
+import { Image, FormText, validateFieldLength, GridCard } from "../../Util";
 
 const useStyles = makeStyles(theme => {
   return {

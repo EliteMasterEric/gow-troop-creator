@@ -8,9 +8,9 @@ import { CssBaseline } from "@material-ui/core";
 import App from "./components/App";
 
 // CSS
-import (/* webpackPrefetch: true */ "./css/style.css");
-import (/* webpackPrefetch: true */ "./css/google-fonts.css");
-import (/* webpackPrefetch: true */ "./css/nerd-fonts.min.css");
+import "./css/style.css";
+import "./css/google-fonts.css";
+import "./css/nerd-fonts.min.css";
 
 const theme = createMuiTheme({
   palette: {

@@ -327,7 +327,8 @@ export const traits = [
   {
     name: "Bloody Boughs",
     code: "dragonvines",
-    desc: "Entangle and inflict Bleed to a random Enemy when matching 4 or more Gems."
+    desc:
+      "Entangle and inflict Bleed to a random Enemy when matching 4 or more Gems."
   },
   {
     name: "Boo!",
@@ -732,32 +733,38 @@ export const traits = [
   {
     name: "Destiny of Darkness",
     code: "darkfall",
-    desc: "2% chance to Deathmark an enemy when matching Purple Gems, boosted by my ascensions."
+    desc:
+      "2% chance to Deathmark an enemy when matching Purple Gems, boosted by my ascensions."
   },
   {
     name: "Destiny of Flame",
     code: "fierycloak",
-    desc: "2% chance to Deathmark an enemy when matching Red Gems, boosted by my ascensions."
+    desc:
+      "2% chance to Deathmark an enemy when matching Red Gems, boosted by my ascensions."
   },
   {
     name: "Destiny of Ice",
     code: "frozensoul",
-    desc: "2% chance to Deathmark an enemy when matching Blue Gems, boosted by my ascensions."
+    desc:
+      "2% chance to Deathmark an enemy when matching Blue Gems, boosted by my ascensions."
   },
   {
     name: "Destiny of Light",
     code: "sunshine",
-    desc: "2% chance to Deathmark an enemy when matching Yellow Gems, boosted by my ascensions."
+    desc:
+      "2% chance to Deathmark an enemy when matching Yellow Gems, boosted by my ascensions."
   },
   {
     name: "Destiny of Nature",
     code: "seedling",
-    desc: "2% chance to Deathmark an enemy when matching Green Gems, boosted by my ascensions."
+    desc:
+      "2% chance to Deathmark an enemy when matching Green Gems, boosted by my ascensions."
   },
   {
     name: "Destiny of Stone",
     code: "graniteskin",
-    desc: "2% chance to Deathmark an enemy when matching Brown Gems, boosted by my ascensions."
+    desc:
+      "2% chance to Deathmark an enemy when matching Brown Gems, boosted by my ascensions."
   },
   {
     name: "Dexterous",
@@ -842,7 +849,8 @@ export const traits = [
   {
     name: "Dragon's Blessing",
     code: "divineaura",
-    desc: "Cause a random positive status effect on a random Ally on 4 or 5 Gem matches."
+    desc:
+      "Cause a random positive status effect on a random Ally on 4 or 5 Gem matches."
   },
   {
     name: "Dragon's Grace",
@@ -1096,7 +1104,8 @@ export const traits = [
   {
     name: "First Wargare",
     code: "nastyteeth",
-    desc: "Give 2 Attack and Magic to Allied Wargare when matching 4 or more Gems."
+    desc:
+      "Give 2 Attack and Magic to Allied Wargare when matching 4 or more Gems."
   },
   {
     name: "Focus",
@@ -1488,7 +1497,8 @@ export const traits = [
   {
     name: "Invulnerable",
     code: "impervious",
-    desc: "Immune to all Status Effects, Devour,  Mana Drain, Transform, and Lethal Damage."
+    desc:
+      "Immune to all Status Effects, Devour,  Mana Drain, Transform, and Lethal Damage."
   },
   {
     name: "Jaws",
@@ -1504,7 +1514,8 @@ export const traits = [
   {
     name: "King's Legion",
     code: "aspectofdeath",
-    desc: "All Undead Allies gain 1 Armor and Magic when matching 4 or more Gems."
+    desc:
+      "All Undead Allies gain 1 Armor and Magic when matching 4 or more Gems."
   },
   {
     name: "King's Will",

@@ -9,8 +9,8 @@ import deburr from "lodash/deburr";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 
-import { Image } from "../../../Util";
-import { traits } from "../../../Values";
+import { Image } from "../../Util";
+import { traits } from "../../Values";
 
 const getSuggestions = value => {
   const inputValue = deburr(value.trim()).toLowerCase();
