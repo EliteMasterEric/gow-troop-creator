@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/gow-troop-creator/precache-manifest.2863f02ee7abb277c30f014faeecd5f4.js"
+  "/gow-troop-creator/precache-manifest.7bf8c0b9828fa46e21a4a9ccf6f72d8c.js"
 );
 
 self.addEventListener('message', (event) => {
