@@ -16,13 +16,23 @@ const useStyles = makeStyles(theme => ({
     display: "table"
   },
   card: {
-    paddingBottom: "12px"
+    margin: "0px auto",
+    paddingBottom: "12px",
+    "& .konvajs-content": {
+      width: "100% !important",
+      height: "auto !important",
+      "& canvas": {
+        position: "relative !important",
+        width: "100% !important",
+        height: "auto !important"
+      }
+    }
   },
   cardBox: {
     padding: `${theme.spacing(1.5)}px 0 ${theme.spacing(3)}px 0`
   },
   mainCard: {
-    margin: `${theme.spacing(3)}px 0 0 0`,
+    margin: `${theme.spacing(3)}px auto`,
     padding: 0
   }
 }));
@@ -39,16 +49,18 @@ const TabResult = ({ troop, spellLayer, troopLayer, traitsLayer }) => {
           <Grid item container justify="center" xs={12}>
             <Grid item>
               <Box className={classes.card}>
-                <Stage width={1470} height={744}>
+                <Stage scaleX={1} width={1470} height={744}>
                   <Layer ref={resultStageRef}>
                     <CardLayer
                       height={709}
+                      width={460}
                       x={5}
                       y={30}
                       layerRef={spellLayer}
                     />
                     <CardLayer
                       height={739}
+                      width={490}
                       x={475}
                       y={0}
                       loadingY={30}
@@ -56,6 +68,7 @@ const TabResult = ({ troop, spellLayer, troopLayer, traitsLayer }) => {
                     />
                     <CardLayer
                       height={709}
+                      width={460}
                       x={1005}
                       y={30}
                       layerRef={traitsLayer}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Layer } from "react-konva";
 import {
   CardBase,
@@ -38,10 +38,17 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
     }
   }, [fontsLoaded, (displayLayer.current || { loaded: false }).loaded]);
 
+  // Reference to the troop type line, so width can be accessed.
   const typeRef = useRef(null);
-
+  // Troop type text to display.
   const typeText =
     troop.type2 !== "" ? `${troop.type1} / ${troop.type2}` : troop.type1;
+
+  // Logic for positioning the role icons.
+  const [typeTextWidth, setTypeTextWidth] = useState(0);
+  useEffect(() => {
+    if (typeRef.current) setTypeTextWidth(typeRef.current.textWidth);
+  }, [typeRef.current, fontsLoaded]);
 
   return (
     <CardBase width={490} height={739}>
@@ -208,13 +215,11 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
 
         <CardImage
           src={
-            troop.rarity !== ""
+            troop.rarity !== "" && fontsLoaded
               ? `./assets/graphics/roles/${troop.role}.png`
               : null
           }
-          x={
-            260 - 44 - 16 - (typeRef.current || { textWidth: 0 }).textWidth / 2
-          }
+          x={260 - 44 - 8 - typeTextWidth / 2}
           y={692}
           color="#000000"
           width={44}
@@ -234,11 +239,11 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
         />
         <CardImage
           src={
-            troop.rarity !== ""
+            troop.rarity !== "" && fontsLoaded
               ? `./assets/graphics/roles/${troop.role}.png`
               : null
           }
-          x={260 + 16 + (typeRef.current || { textWidth: 0 }).textWidth / 2}
+          x={260 + 8 + typeTextWidth / 2}
           y={692}
           color="#000000"
           width={44}

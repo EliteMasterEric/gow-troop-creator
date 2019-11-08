@@ -13,17 +13,23 @@ import FormTroop from "./layout/areas/form/FormTroop";
 import PreviewSpell from "./layout/areas/preview/PreviewSpell";
 import PreviewTraits from "./layout/areas/preview/PreviewTraits";
 import PreviewTroop from "./layout/areas/preview/PreviewTroop";
-import { timeout } from "q";
 
 const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     height: `calc(100vh - 64px)`,
     [theme.breakpoints.up("xs")]: {
-      width: "100%",
-      height: "100%"
+      width: "100%"
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: "calc(100vw - 64px)",
+      height: "calc(100vh - 112px)"
     },
     [theme.breakpoints.up("md")]: {
+      width: "calc(100vw - 64px)",
+      height: "calc(100vh - 112px)"
+    },
+    [theme.breakpoints.up("lg")]: {
       width: "calc(100vw - 240px)",
       height: "calc(100vh - 112px)"
     }
@@ -36,12 +42,15 @@ const useStyles = makeStyles(theme => ({
       margin: 0,
       marginBottom: theme.spacing(1.5)
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       order: 1,
-      padding: theme.spacing(1.5)
+      padding: theme.spacing(1.5),
+      margin: "0 auto"
+    },
+    [theme.breakpoints.up("md")]: {
+      order: 2
     },
     [theme.breakpoints.up("lg")]: {
-      order: 2,
       padding: theme.spacing(3)
     },
     width: `calc(75vh)`
@@ -51,7 +60,7 @@ const useStyles = makeStyles(theme => ({
       order: 2,
       margin: "0"
     },
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up("md")]: {
       order: 1
     }
   },

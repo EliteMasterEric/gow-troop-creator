@@ -50,7 +50,7 @@ const FormSpell = memo(({ troop, handleTroopChange, className }) => {
   return (
     <Grid
       xs={12}
-      lg={8}
+      md={8}
       container
       item
       spacing={mediaQueryLg ? 3 : 0}
