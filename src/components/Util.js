@@ -42,7 +42,7 @@ export const Icon = memo(({ icon, className }) => {
   );
 });
 
-// Displays an image file from its source.
+// Displays an image file from its source URL.
 export const Image = memo(({ source, className, style }) => {
   return (
     <img

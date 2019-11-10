@@ -39,7 +39,6 @@ export const FormUploader = ({ handleTroopChange, fieldKey, dimensions }) => {
 
   const handleChangeFiles = useCallback(
     files => {
-      console.log(files);
       handleTroopChange(fieldKey, files.length !== 0 ? files[0] : null);
     },
     [handleTroopChange]

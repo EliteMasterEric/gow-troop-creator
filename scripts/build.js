@@ -1,5 +1,3 @@
-"use strict";
-
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = "production";
 process.env.NODE_ENV = "production";
@@ -14,20 +12,24 @@ process.on("unhandledRejection", err => {
 // Ensure environment variables are read.
 require("../config/env");
 
-const path = require("path");
 const chalk = require("react-dev-utils/chalk");
+const checkRequiredFiles = require("react-dev-utils/checkRequiredFiles");
+const FileSizeReporter = require("react-dev-utils/FileSizeReporter");
+const formatWebpackMessages = require("react-dev-utils/formatWebpackMessages");
 const fs = require("fs-extra");
+const path = require("path");
+const printBuildError = require("react-dev-utils/printBuildError");
+const printHostingInstructions = require("react-dev-utils/printHostingInstructions");
 const webpack = require("webpack");
-const paths = require('../config/paths');
-const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
-const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
-const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
-const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
-const printBuildError = require('react-dev-utils/printBuildError');
+const { checkBrowsers } = require("react-dev-utils/browsersHelper");
 
-const measureFileSizesBeforeBuild =
-  FileSizeReporter.measureFileSizesBeforeBuild;
-const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
+// We require that you explicitly set browsers and do not fall back to
+// browserslist defaults.
+const configFactory = require("../config/webpack.config");
+const paths = require("../config/paths");
+
+const { measureFileSizesBeforeBuild } = FileSizeReporter;
+const { printFileSizesAfterBuild } = FileSizeReporter;
 const useYarn = fs.existsSync(paths.yarnLockFile);
 
 // These sizes are pretty large. We'll warn for bundles exceeding them.
@@ -42,12 +44,8 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 }
 
 // Generate configuration
-const config = configFactory('production');
+const config = configFactory("production");
 
-// We require that you explicitly set browsers and do not fall back to
-// browserslist defaults.
-const { checkBrowsers } = require('react-dev-utils/browsersHelper');
-const configFactory = require('../config/webpack.config');
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // First, read the current file sizes in build directory.
@@ -69,14 +67,14 @@ checkBrowsers(paths.appPath, isInteractive)
         console.log(chalk.yellow("Compiled with warnings.\n"));
         console.log(warnings.join("\n\n"));
         console.log(
-          "\nSearch for the " +
-            chalk.underline(chalk.yellow("keywords")) +
-            " to learn more about each warning."
+          `\nSearch for the ${chalk.underline(
+            chalk.yellow("keywords")
+          )} to learn more about each warning.`
         );
         console.log(
-          "To ignore, add " +
-            chalk.cyan("// eslint-disable-next-line") +
-            " to the line before.\n"
+          `To ignore, add ${chalk.cyan(
+            "// eslint-disable-next-line"
+          )} to the line before.\n`
         );
       } else {
         console.log(chalk.green("Compiled successfully.\n"));
@@ -93,8 +91,8 @@ checkBrowsers(paths.appPath, isInteractive)
       console.log();
 
       const appPackage = require(paths.appPackageJson);
-      const {publicUrl} = paths;
-      const {publicPath} = config.output;
+      const { publicUrl } = paths;
+      const { publicPath } = config.output;
       const buildFolder = path.relative(process.cwd(), paths.appBuild);
       printHostingInstructions(
         appPackage,
