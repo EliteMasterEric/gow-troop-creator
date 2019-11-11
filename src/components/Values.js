@@ -1,356 +1,76 @@
 export const colors = [
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/Blue.png"
-    ),
-    label: "Blue"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/Green.png"
-    ),
-    label: "Green"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/Red.png"
-    ),
-    label: "Red"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/Yellow.png"
-    ),
-    label: "Yellow"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/Purple.png"
-    ),
-    label: "Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/Orange.png"
-    ),
-    label: "Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueGreen.png"
-    ),
-    label: "Blue / Green"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueRed.png"
-    ),
-    label: "Blue / Red"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueYellow.png"
-    ),
-    label: "Blue / Yellow"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BluePurple.png"
-    ),
-    label: "Blue / Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueOrange.png"
-    ),
-    label: "Blue / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/GreenRed.png"
-    ),
-    label: "Green / Red"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/GreenYellow.png"
-    ),
-    label: "Green / Yellow"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/GreenPurple.png"
-    ),
-    label: "Green / Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/GreenOrange.png"
-    ),
-    label: "Green / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/RedYellow.png"
-    ),
-    label: "Red / Yellow"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/RedPurple.png"
-    ),
-    label: "Red / Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/RedOrange.png"
-    ),
-    label: "Red / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/YellowPurple.png"
-    ),
-    label: "Yellow / Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/YellowOrange.png"
-    ),
-    label: "Yellow / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/PurpleOrange.png"
-    ),
-    label: "Purple / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueGreenRed.png"
-    ),
-    label: "Blue / Green / Red"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueGreenYellow.png"
-    ),
-    label: "Blue / Green / Yellow"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueGreenPurple.png"
-    ),
-    label: "Blue / Green / Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueGreenOrange.png"
-    ),
-    label: "Blue / Green / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueRedYellow.png"
-    ),
-    label: "Blue / Red / Yellow"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueRedPurple.png"
-    ),
-    label: "Blue / Red / Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueRedOrange.png"
-    ),
-    label: "Blue / Red / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueYellowPurple.png"
-    ),
-    label: "Blue / Yellow / Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BlueYellowOrange.png"
-    ),
-    label: "Blue / Yellow / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/BluePurpleOrange.png"
-    ),
-    label: "Blue / Purple / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/GreenRedYellow.png"
-    ),
-    label: "Green / Red / Yellow"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/GreenRedPurple.png"
-    ),
-    label: "Green / Red / Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/GreenRedOrange.png"
-    ),
-    label: "Green / Red / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/GreenYellowPurple.png"
-    ),
-    label: "Green / Yellow / Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/GreenYellowOrange.png"
-    ),
-    label: "Green / Yellow / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/GreenPurpleOrange.png"
-    ),
-    label: "Green / Purple / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/RedYellowPurple.png"
-    ),
-    label: "Red / Yellow / Purple"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/RedYellowOrange.png"
-    ),
-    label: "Red / Yellow / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/RedPurpleOrange.png"
-    ),
-    label: "Red / Purple / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/YellowPurpleOrange.png"
-    ),
-    label: "Yellow / Purple / Brown"
-  },
-  {
-    image: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/colors/All.png"
-    ),
-    label: "All"
-  }
+  { value: "Blue", label: "Blue" },
+  { value: "Green", label: "Green" },
+  { value: "Red", label: "Red" },
+  { value: "Yellow", label: "Yellow" },
+  { value: "Purple", label: "Purple" },
+  { value: "Orange", label: "Brown" },
+  { value: "BlueGreen", label: "Blue / Green" },
+  { value: "BlueRed", label: "Blue / Red" },
+  { value: "BlueYellow", label: "Blue / Yellow" },
+  { value: "BluePurple", label: "Blue / Purple" },
+  { value: "BlueOrange", label: "Blue / Brown" },
+  { value: "GreenRed", label: "Green / Red" },
+  { value: "GreenYellow", label: "Green / Yellow" },
+  { value: "GreenPurple", label: "Green / Purple" },
+  { value: "GreenOrange", label: "Green / Brown" },
+  { value: "RedYellow", label: "Red / Yellow" },
+  { value: "RedPurple", label: "Red / Purple" },
+  { value: "RedOrange", label: "Red / Brown" },
+  { value: "YellowPurple", label: "Yellow / Purple" },
+  { value: "YellowOrange", label: "Yellow / Brown" },
+  { value: "PurpleOrange", label: "Purple / Brown" },
+  { value: "BlueGreenRed", label: "Blue / Green / Red" },
+  { value: "BlueGreenYellow", label: "Blue / Green / Yellow" },
+  { value: "BlueGreenPurple", label: "Blue / Green / Purple" },
+  { value: "BlueGreenOrange", label: "Blue / Green / Brown" },
+  { value: "BlueRedYellow", label: "Blue / Red / Yellow" },
+  { value: "BlueRedPurple", label: "Blue / Red / Purple" },
+  { value: "BlueRedOrange", label: "Blue / Red / Brown" },
+  { value: "BlueYellowPurple", label: "Blue / Yellow / Purple" },
+  { value: "BlueYellowOrange", label: "Blue / Yellow / Brown" },
+  { value: "BluePurpleOrange", label: "Blue / Purple / Brown" },
+  { value: "GreenRedYellow", label: "Green / Red / Yellow" },
+  { value: "GreenRedPurple", label: "Green / Red / Purple" },
+  { value: "GreenRedOrange", label: "Green / Red / Brown" },
+  { value: "GreenYellowPurple", label: "Green / Yellow / Purple" },
+  { value: "GreenYellowOrange", label: "Green / Yellow / Brown" },
+  { value: "GreenPurpleOrange", label: "Green / Purple / Brown" },
+  { value: "RedYellowPurple", label: "Red / Yellow / Purple" },
+  { value: "RedYellowOrange", label: "Red / Yellow / Brown" },
+  { value: "RedPurpleOrange", label: "Red / Purple / Brown" },
+  { value: "YellowPurpleOrange", label: "Yellow / Purple / Brown" },
+  { value: "All", label: "All" }
 ];
 
 export const rarities = {
   Common: {
     color: "#FEFEFE",
-    pips: 1,
-    troopimage: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/troopcard/Common.png"
-    )
+    pips: 1
   },
   Rare: {
     color: "#54A721",
-    pips: 2,
-    troopimage: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/troopcard/Common.png"
-    )
+    pips: 2
   },
   "Ultra-Rare": {
     color: "#1D71FF",
-    pips: 3,
-    troopimage: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/troopcard/Common.png"
-    )
+    pips: 3
   },
   Epic: {
     color: "#9635E7",
-    pips: 4,
-    troopimage: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/troopcard/Common.png"
-    )
+    pips: 4
   },
   Legendary: {
     color: "#F3A120",
-    pips: 5,
-    troopimage: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/troopcard/Common.png"
-    )
+    pips: 5
   },
   Mythic: {
     color: "#13E3F6",
-    pips: 6,
-    troopimage: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/troopcard/Common.png"
-    )
+    pips: 6
   },
   Doomed: {
     color: "#B90000",
-    pips: 6,
-    troopimage: import(
-      /* webpackPrefetch: true */
-      "../assets/graphics/troopcard/Common.png"
-    )
+    pips: 6
   }
 };
 

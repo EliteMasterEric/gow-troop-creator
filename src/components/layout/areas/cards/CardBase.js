@@ -4,7 +4,7 @@ import { Box } from "@material-ui/core";
 import useImage from "use-image";
 import { makeStyles } from "@material-ui/core/styles";
 import Konva from "konva";
-import { hexToRgb, measureText } from "../../../Util";
+import { hexToRgb, measureText, hasWebP } from "../../../Util";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -99,16 +99,16 @@ export const CardLayer = ({
 }) => {
   // If the layer is valid, display it, otherwise display a loading icon.
   return layerRef.current && layerRef.current.loaded ? (
-    <CardImage
-      src={layerRef.current.toDataURL()}
+    <Image
+      src={layerRef.current}
       x={x}
       y={y}
       width={width || layerRef.current.canvas.width}
       height={height || layerRef.current.canvas.height}
     />
   ) : (
-    <CardImage
-      src="./assets/graphics/troop/loading.png"
+    <CardImageRotating
+      base="./graphics/troop/loading"
       x={x + 195}
       y={(loadingY || y) + 323}
       width={100}
@@ -118,7 +118,8 @@ export const CardLayer = ({
 };
 
 export const CardImage = ({
-  src,
+  url = null,
+  base = null,
   x,
   y,
   width,
@@ -127,6 +128,9 @@ export const CardImage = ({
   crop = {},
   onLoad = null
 }) => {
+  // Full URL, fallback to base + extension.
+  console.log(`WEBP2? ${hasWebP()}`);
+  const src = url || `${base}.${hasWebP() ? "webp" : "png"}`;
   const [image, status] = useImage(src);
   const ref = useRef(null);
   useEffect(() => {
@@ -157,7 +161,7 @@ export const CardImage = ({
 };
 
 export const CardImageRotating = ({
-  src,
+  base,
   x,
   y,
   width,
@@ -167,6 +171,7 @@ export const CardImageRotating = ({
   onLoad = null,
   angularRate = 0
 }) => {
+  const src = `${base}.${hasWebP() ? "webp" : "png"}`;
   const [image, status] = useImage(src);
   const ref = useRef(null);
   useEffect(() => {

@@ -54,7 +54,6 @@ export const TabView = ({ children, value, index, dir }) => (
     role="tabpanel"
     hidden={value !== index}
     id={`full-width-tabpanel-${index}`}
-    aria-labelledby={`full-width-tab-${index}`}
     dir={dir}
   >
     <Grid container direction="row">

@@ -40,7 +40,7 @@ const NavBar = memo(() => {
   return (
     <AppBar color="primary" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
-        <Image source="./logo256.png" className={classes.image} />
+        <Image base="./logo36" className={classes.image} />
         <Typography className={classes.appbarText} variant="h4" color="inherit">
           {mediaQueryLg ? "Gems of War Troop Creator" : "Troop Creator"}
         </Typography>

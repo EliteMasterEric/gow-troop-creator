@@ -87,8 +87,8 @@ const CardTraitDescText = ({
   ) : (
     <Group>
       {baseDisplay}
-      <CardImage
-        src="./assets/graphics/troop/loading.png"
+      <CardImageRotating
+        base="./graphics/troop/loading"
         x={195}
         y={323}
         width={100}
@@ -131,7 +131,7 @@ const CardTraits = ({ troop, displayLayer, fontsLoaded }) => {
     <CardBase width={460} height={727}>
       <Layer ref={loadingLayer}>
         <CardImageRotating
-          src="./assets/graphics/troop/loading.png"
+          base="./graphics/troop/loading"
           x={195}
           y={323}
           width={100}
@@ -141,10 +141,8 @@ const CardTraits = ({ troop, displayLayer, fontsLoaded }) => {
       </Layer>
       <Layer ref={displayLayer}>
         <CardImage
-          src={
-            troop.rarity !== ""
-              ? `./assets/graphics/traitscard/${troop.rarity}.png`
-              : null
+          base={
+            troop.rarity !== "" ? `./graphics/traitscard/${troop.rarity}` : null
           }
           width={460}
           height={727}
@@ -154,9 +152,9 @@ const CardTraits = ({ troop, displayLayer, fontsLoaded }) => {
         />
 
         <CardImage
-          src={
+          base={
             troop.trait1code !== ""
-              ? `./assets/graphics/traiticons/${troop.trait1code}.png`
+              ? `./graphics/traiticons/${troop.trait1code}`
               : null
           }
           x={400}
@@ -166,9 +164,9 @@ const CardTraits = ({ troop, displayLayer, fontsLoaded }) => {
           height={44}
         />
         <CardImage
-          src={
+          base={
             troop.trait2code !== ""
-              ? `./assets/graphics/traiticons/${troop.trait2code}.png`
+              ? `./graphics/traiticons/${troop.trait2code}`
               : null
           }
           x={400}
@@ -178,9 +176,9 @@ const CardTraits = ({ troop, displayLayer, fontsLoaded }) => {
           height={44}
         />
         <CardImage
-          src={
+          base={
             troop.trait3code !== ""
-              ? `./assets/graphics/traiticons/${troop.trait3code}.png`
+              ? `./graphics/traiticons/${troop.trait3code}`
               : null
           }
           x={400}

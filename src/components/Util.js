@@ -11,6 +11,21 @@ import {
   CardContent
 } from "@material-ui/core";
 
+export const hasWebP = async () => {
+  // If the browser doesn't has the method createImageBitmap, you can't display webp format
+  if (!window.createImageBitmap) return false;
+
+  // Base64 representation of a white point image
+  const webpData =
+    "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoCAAEAAQAcJaQAA3AA/v3AgAA=";
+
+  // Retrieve the Image in Blob Format
+  const blob = await fetch(webpData).then(r => r.blob());
+
+  // If the createImageBitmap method succeeds, return true, otherwise false
+  return createImageBitmap(blob).then(() => true, () => false);
+};
+
 export const measureText = (text, fontWeight, fontSize, fontFamily) => {
   // Create a singleton canvas or use an existing one.
   const canvas =
@@ -43,11 +58,11 @@ export const Icon = memo(({ icon, className }) => {
 });
 
 // Displays an image file from its source URL.
-export const Image = memo(({ source, className, style }) => {
+export const Image = memo(({ base, className, style }) => {
   return (
     <img
       alt=""
-      src={source}
+      src={`${base}.${hasWebP() ? "webp" : "png"}`}
       className={className || null}
       style={style || null}
     />

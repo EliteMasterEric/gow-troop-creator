@@ -200,7 +200,7 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
           {roles.map(option => (
             <MenuItem key={option} value={option}>
               <Image
-                source={`./assets/graphics/roles/${option}.png`}
+                base={`./graphics/roles/${option}`}
                 className={classes.fieldIcon}
               />
               {option}
@@ -245,7 +245,7 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
           {colors.map(option => (
             <MenuItem key={option.value} value={option.value}>
               <Image
-                source={`./assets/graphics/colors/${option.value}.png`}
+                base={`./graphics/colors/${option.value}`}
                 className={classes.fieldIcon}
               />
               {option.label}
@@ -305,7 +305,7 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <Image
-                  source="./assets/graphics/troop/attack.png"
+                  base="./graphics/troop/attack"
                   className={classes.fieldIcon}
                 />
               </InputAdornment>
@@ -325,7 +325,7 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <Image
-                  source="./assets/graphics/troop/armor.png"
+                  base="./graphics/troop/armor"
                   className={classes.fieldIcon}
                 />
               </InputAdornment>
@@ -345,7 +345,7 @@ const FormTroop = memo(({ troop, handleTroopChange, className }) => {
             startAdornment: (
               <InputAdornment position="start">
                 <Image
-                  source="./assets/graphics/troop/life.png"
+                  base="./graphics/troop/life"
                   className={classes.fieldIcon}
                 />
               </InputAdornment>

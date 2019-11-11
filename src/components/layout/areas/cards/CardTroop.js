@@ -9,11 +9,6 @@ import {
 } from "./CardBase";
 import { rarities } from "../../../Values";
 
-const getImageURL = troop =>
-  troop.troopimage !== null
-    ? URL.createObjectURL(troop.troopimage)
-    : "./assets/graphics/troop/infernus.png";
-
 // Render a spell as part of a full-size card (like in the troop list).
 const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
   const loadingLayer = useRef(null);
@@ -51,7 +46,7 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
     <CardBase width={490} height={739}>
       <Layer ref={loadingLayer}>
         <CardImageRotating
-          src="./assets/graphics/troop/loading.png"
+          base="./graphics/troop/loading"
           x={195}
           y={323}
           width={100}
@@ -61,7 +56,8 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
       </Layer>
       <Layer ref={displayLayer}>
         <CardImage
-          src={getImageURL(troop)}
+          url={troop.troopimage}
+          base="./graphics/troop/infernus"
           x={30}
           y={37 + 9}
           width={461}
@@ -70,10 +66,8 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
         />
 
         <CardImage
-          src={
-            troop.rarity !== ""
-              ? `./assets/graphics/troopcard/${troop.rarity}.png`
-              : null
+          base={
+            troop.rarity !== "" ? `./graphics/troopcard/${troop.rarity}` : null
           }
           width={490}
           height={739}
@@ -83,10 +77,8 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
         />
 
         <CardImage
-          src={
-            troop.rarity !== ""
-              ? `./assets/graphics/colors/${troop.colors}.png`
-              : null
+          base={
+            troop.rarity !== "" ? `./graphics/colors/${troop.colors}` : null
           }
           width={100}
           height={100}
@@ -118,9 +110,9 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
         />
 
         <CardImage
-          src={
+          base={
             troop.trait1code !== ""
-              ? `./assets/graphics/traiticons/${troop.trait1code}.png`
+              ? `./graphics/traiticons/${troop.trait1code}`
               : null
           }
           x={45}
@@ -130,9 +122,9 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
           height={50}
         />
         <CardImage
-          src={
+          base={
             troop.trait2code !== ""
-              ? `./assets/graphics/traiticons/${troop.trait2code}.png`
+              ? `./graphics/traiticons/${troop.trait2code}`
               : null
           }
           x={45}
@@ -142,9 +134,9 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
           height={50}
         />
         <CardImage
-          src={
+          base={
             troop.trait3code !== ""
-              ? `./assets/graphics/traiticons/${troop.trait3code}.png`
+              ? `./graphics/traiticons/${troop.trait3code}`
               : null
           }
           x={45}
@@ -211,9 +203,9 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
         />
 
         <CardImage
-          src={
+          base={
             troop.rarity !== "" && fontsLoaded
-              ? `./assets/graphics/roles/${troop.role}.png`
+              ? `./graphics/roles/${troop.role}`
               : null
           }
           x={260 - 44 - 8 - typeTextWidth / 2}
@@ -235,9 +227,9 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
           fontsLoaded={fontsLoaded}
         />
         <CardImage
-          src={
+          base={
             troop.rarity !== "" && fontsLoaded
-              ? `./assets/graphics/roles/${troop.role}.png`
+              ? `./graphics/roles/${troop.role}`
               : null
           }
           x={260 + 8 + typeTextWidth / 2}

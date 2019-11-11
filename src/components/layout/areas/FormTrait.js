@@ -55,9 +55,9 @@ const FormTrait = memo(({ index, troop, handleTroopChange }) => {
       <div className={classes.iconSelector}>
         <Image
           className={classes.traitIcon}
-          source={
+          base={
             troop[`trait${index}code`] !== null
-              ? `./assets/graphics/traiticons/${troop[`trait${index}code`]}.png`
+              ? `./graphics/traiticons/${troop[`trait${index}code`]}`
               : null
           }
         />

@@ -5,7 +5,7 @@ const ForkTsCheckerWebpackPlugin = require("react-dev-utils/ForkTsCheckerWebpack
 const fs = require("fs");
 const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ImageminWebpWebpackPlugin= require("imagemin-webp-webpack-plugin");
+const ImageminPlugin = require("imagemin-webpack");
 const InlineChunkHtmlPlugin = require("react-dev-utils/InlineChunkHtmlPlugin");
 const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 const isWsl = require("is-wsl");
@@ -344,7 +344,7 @@ module.exports = webpackEnv => {
             // smaller than specified limit in bytes as data URLs to avoid requests.
             // A missing `test` is equivalent to a match.
             {
-              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.webp$/],
               loader: require.resolve("url-loader"),
               options: {
                 limit: imageInlineSizeLimit,
@@ -626,7 +626,18 @@ module.exports = webpackEnv => {
           // The formatter is invoked directly in WebpackDevServerUtils during development
           formatter: isEnvProduction ? typescriptFormatter : undefined
         }),
-      new ImageminWebpWebpackPlugin()
+      new ImageminPlugin({
+        bail: false,
+        cache: true,
+        imageminOptions: {
+          plugins: [
+            ["gifsicle", { interlaced: true }],
+            ["mozjpeg", { progressive: true }],
+            ["pngquant"],
+            ["webp", { quality: 90 }]
+          ]
+        }
+      })
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.

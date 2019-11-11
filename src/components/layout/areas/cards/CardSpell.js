@@ -10,11 +10,6 @@ import {
   CardImageRotating
 } from "./CardBase";
 
-const getImageURL = troop =>
-  troop.spellimage !== null
-    ? URL.createObjectURL(troop.spellimage)
-    : "./assets/graphics/troop/eruption.png";
-
 // Create a text element that scales to always be one line.
 const CardSpellNameText = ({
   text,
@@ -80,8 +75,8 @@ const CardSpellNameText = ({
         fontSize={state.fontSize}
         fontsLoaded={fontsLoaded}
       />
-      <CardImage
-        src="./assets/graphics/troop/loading.png"
+      <CardImageRotating
+        base="./graphics/troop/loading"
         x={195}
         y={323}
         width={100}
@@ -236,8 +231,8 @@ const CardSpellDescText = ({
   ) : (
     <Group>
       {baseDisplay}
-      <CardImage
-        src="./assets/graphics/troop/loading.png"
+      <CardImageRotating
+        src="./graphics/troop/loading"
         x={195}
         y={323}
         width={100}
@@ -280,7 +275,7 @@ const CardSpell = ({ troop, displayLayer, fontsLoaded }) => {
     <CardBase width={460} height={723}>
       <Layer ref={loadingLayer}>
         <CardImageRotating
-          src="./assets/graphics/troop/loading.png"
+          src="./graphics/troop/loading"
           x={195}
           y={323}
           width={100}
@@ -290,17 +285,16 @@ const CardSpell = ({ troop, displayLayer, fontsLoaded }) => {
       </Layer>
       <Layer ref={displayLayer}>
         <CardImage
-          src={getImageURL(troop)}
+          url={troop.spellimage}
+          base="./graphics/troop/eruption"
           x={0}
           y={87}
           width={460}
           height={340}
         />
         <CardImage
-          src={
-            troop.rarity !== ""
-              ? `./assets/graphics/spellcard/${troop.rarity}.png`
-              : null
+          base={
+            troop.rarity !== "" ? `./graphics/spellcard/${troop.rarity}` : null
           }
           width={460}
           height={723}
