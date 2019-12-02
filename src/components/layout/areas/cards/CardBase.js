@@ -1,4 +1,5 @@
-import React, { forwardRef, useEffect, useRef } from "react";
+/* eslint-disable no-underscore-dangle */
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { Stage, Image, Text } from "react-konva";
 import { Box } from "@material-ui/core";
 import useImage from "use-image";
@@ -97,10 +98,13 @@ export const CardLayer = ({
   height = 0,
   loadingY = 0
 }) => {
+  useEffect(() => {
+    console.log(layerRef.current.canvas._canvas);
+  }, [layerRef.current.canvas._canvas]);
   // If the layer is valid, display it, otherwise display a loading icon.
   return layerRef.current && layerRef.current.loaded ? (
     <Image
-      src={layerRef.current}
+      image={layerRef.current.canvas._canvas}
       x={x}
       y={y}
       width={width || layerRef.current.canvas.width}
@@ -129,10 +133,17 @@ export const CardImage = ({
   onLoad = null
 }) => {
   // Full URL, fallback to base + extension.
-  console.log(`WEBP2? ${hasWebP()}`);
-  const src = url || `${base}.${hasWebP() ? "webp" : "png"}`;
+  const [src, setSrc] = useState(url);
   const [image, status] = useImage(src);
   const ref = useRef(null);
+
+  useEffect(() => {
+    // hasWebP is asynchronous.
+    hasWebP().then(webp => {
+      setSrc(url || `${base}.${webp ? "webp" : "png"}`);
+    });
+  }, [url, base]);
+
   useEffect(() => {
     if (ref.current !== null) {
       ref.current.cache();
