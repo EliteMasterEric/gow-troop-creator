@@ -96,9 +96,6 @@ export const writeLines = (
  */
 export const CardLayer = debounceRender(
   ({ layerRef, x, y, width = 0, height = 0, loadingY = 0 }) => {
-    useEffect(() => {
-      console.log(layerRef.current.canvas._canvas);
-    }, [layerRef.current.canvas._canvas]);
     // If the layer is valid, display it, otherwise display a loading icon.
     return layerRef.current && layerRef.current.loaded ? (
       <CardImage
@@ -133,26 +130,41 @@ export const CardImage = ({
   onLoad = null
 }) => {
   // Full URL, fallback to base + extension.
-  const [src, setSrc] = useState(url);
-  const [image, status] = useImage(src);
+  const [src, setSrc] = useState(null);
+  const [image, setImage] = useState(null);
   const ref = useRef(null);
 
   useEffect(() => {
     // hasWebP is asynchronous.
     hasWebP().then(webp => {
-      setSrc(url || `${base}.${webp ? "webp" : "png"}`);
+      if (url !== null) {
+        setSrc(url);
+      } else if (base !== null) {
+        setSrc(`${base}.${webp ? "webp" : "png"}`);
+      } else {
+        setSrc(null);
+      }
     });
   }, [url, base]);
 
   useEffect(() => {
-    if (ref.current !== null) {
-      ref.current.cache();
-      ref.current.getLayer().batchDraw();
-      if (status === "loaded" && onLoad != null) onLoad();
-    }
-  }, [image, onLoad, status]);
+    if (!src) return;
+    const img = document.createElement("img");
 
-  if (src == null) return null;
+    const onload = () => {
+      if (ref.current !== null) {
+        ref.current.cache();
+        ref.current.getLayer().batchDraw();
+        if (onLoad != null) onLoad();
+      }
+    };
+
+    img.addEventListener("load", onload);
+    img.src = src;
+    setImage(img);
+  }, [src]);
+
+  if (!src) return null;
 
   return (
     <Image
