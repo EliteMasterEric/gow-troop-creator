@@ -8,9 +8,10 @@ import {
   CardImageRotating
 } from "./CardBase";
 import { rarities } from "../../../Values";
+import debounceRender from "react-debounce-render";
 
 // Render a spell as part of a full-size card (like in the troop list).
-const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
+const CardTroop = debounceRender(({ troop, displayLayer, fontsLoaded }) => {
   const loadingLayer = useRef(null);
 
   useEffect(() => {
@@ -241,6 +242,6 @@ const CardTroop = ({ troop, displayLayer, fontsLoaded }) => {
       </Layer>
     </CardBase>
   );
-};
+}, 300);
 
 export default CardTroop;

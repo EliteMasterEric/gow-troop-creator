@@ -5,6 +5,8 @@ import { Box } from "@material-ui/core";
 import useImage from "use-image";
 import { makeStyles } from "@material-ui/core/styles";
 import Konva from "konva";
+import debounceRender from "react-debounce-render";
+
 import { hexToRgb, measureText, hasWebP } from "../../../Util";
 
 const useStyles = makeStyles(() => ({
@@ -87,39 +89,37 @@ export const writeLines = (
   }
 };
 
-// Copy an existing layer to the given coordinates.
-// This requires converting it to a data URL then converting it back.
-// Is there a simpler way?
-export const CardLayer = ({
-  layerRef,
-  x,
-  y,
-  width = 0,
-  height = 0,
-  loadingY = 0
-}) => {
-  useEffect(() => {
-    console.log(layerRef.current.canvas._canvas);
-  }, [layerRef.current.canvas._canvas]);
-  // If the layer is valid, display it, otherwise display a loading icon.
-  return layerRef.current && layerRef.current.loaded ? (
-    <Image
-      image={layerRef.current.canvas._canvas}
-      x={x}
-      y={y}
-      width={width || layerRef.current.canvas.width}
-      height={height || layerRef.current.canvas.height}
-    />
-  ) : (
-    <CardImageRotating
-      base="./graphics/troop/loading"
-      x={x + 195}
-      y={(loadingY || y) + 323}
-      width={100}
-      height={100}
-    />
-  );
-};
+/*
+ * Copy an existing layer to the given coordinates.
+ * This requires converting it to a data URL then converting it back.
+ * Is there a simpler way?
+ */
+export const CardLayer = debounceRender(
+  ({ layerRef, x, y, width = 0, height = 0, loadingY = 0 }) => {
+    useEffect(() => {
+      console.log(layerRef.current.canvas._canvas);
+    }, [layerRef.current.canvas._canvas]);
+    // If the layer is valid, display it, otherwise display a loading icon.
+    return layerRef.current && layerRef.current.loaded ? (
+      <CardImage
+        url={layerRef.current.toDataURL()}
+        x={x}
+        y={y}
+        width={width || layerRef.current.canvas.width}
+        height={height || layerRef.current.canvas.height}
+      />
+    ) : (
+      <CardImageRotating
+        base="./graphics/troop/loading"
+        x={x + 195}
+        y={(loadingY || y) + 323}
+        width={100}
+        height={100}
+      />
+    );
+  },
+  300
+);
 
 export const CardImage = ({
   url = null,
@@ -224,7 +224,8 @@ export const CardImageRotating = ({
   );
 };
 
-/* Takes an array of lines; each line is an array of phrase objects.
+/*
+ * Takes an array of lines; each line is an array of phrase objects.
  * Sadly assumes horizontal and vertical centering. Too much work to make more general.
  * Example: [
  *   [

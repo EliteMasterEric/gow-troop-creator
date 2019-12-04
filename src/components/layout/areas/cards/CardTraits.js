@@ -9,6 +9,7 @@ import {
   CardImageRotating
 } from "./CardBase";
 import { rarities } from "../../../Values";
+import debounceRender from "react-debounce-render";
 
 const CardTraitDescText = ({
   text,
@@ -98,7 +99,7 @@ const CardTraitDescText = ({
   );
 };
 
-const CardTraits = ({ troop, displayLayer, fontsLoaded }) => {
+const CardTraits = debounceRender(({ troop, displayLayer, fontsLoaded }) => {
   const loadingLayer = useRef(null);
 
   // Hide while loading.
@@ -259,6 +260,6 @@ const CardTraits = ({ troop, displayLayer, fontsLoaded }) => {
       </Layer>
     </CardBase>
   );
-};
+}, 300);
 
 export default CardTraits;

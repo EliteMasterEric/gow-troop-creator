@@ -9,6 +9,7 @@ import {
   CardMultiStyleText,
   CardImageRotating
 } from "./CardBase";
+import debounceRender from "react-debounce-render";
 
 // Create a text element that scales to always be one line.
 const CardSpellNameText = ({
@@ -242,7 +243,7 @@ const CardSpellDescText = ({
   );
 };
 
-const CardSpell = ({ troop, displayLayer, fontsLoaded }) => {
+const CardSpell = debounceRender(({ troop, displayLayer, fontsLoaded }) => {
   const loadingLayer = useRef(null);
 
   // Hide while loading.
@@ -338,6 +339,6 @@ const CardSpell = ({ troop, displayLayer, fontsLoaded }) => {
       </Layer>
     </CardBase>
   );
-};
+}, 300);
 
 export default CardSpell;
