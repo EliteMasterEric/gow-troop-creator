@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import Konva from "konva";
 import { Layer, Group } from "react-konva";
+
+import debounceRender from "react-debounce-render";
 import {
   CardBase,
   CardImage,
@@ -9,7 +11,6 @@ import {
   CardImageRotating
 } from "./CardBase";
 import { rarities } from "../../../Values";
-import debounceRender from "react-debounce-render";
 
 const CardTraitDescText = ({
   text,

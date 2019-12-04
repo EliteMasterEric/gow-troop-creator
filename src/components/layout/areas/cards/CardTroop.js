@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Layer } from "react-konva";
+import debounceRender from "react-debounce-render";
+
+import { rarities } from "../../../Values";
+
 import {
   CardBase,
   CardImage,

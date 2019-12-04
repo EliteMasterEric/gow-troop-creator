@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Layer, Group } from "react-konva";
 import Konva from "konva";
+import debounceRender from "react-debounce-render";
+
 import {
   CardBase,
   CardImage,
@@ -9,7 +11,6 @@ import {
   CardMultiStyleText,
   CardImageRotating
 } from "./CardBase";
-import debounceRender from "react-debounce-render";
 
 // Create a text element that scales to always be one line.
 const CardSpellNameText = ({
@@ -89,8 +90,10 @@ const CardSpellNameText = ({
   return result;
 };
 
-// BEWARE, ALL YE WHO ENTER HERE
-// This creates multiple text elements in order to create multi-styled text.
+/*
+ * BEWARE, ALL YE WHO ENTER HERE
+ * This creates multiple text elements in order to create multi-styled text.
+ */
 const CardSpellDescText = ({
   troop,
   yCenter,
@@ -152,8 +155,8 @@ const CardSpellDescText = ({
           : {
               ...phrase,
               color: magicColor,
-              weight: magicFontWeight,
-              text: word
+              text: word,
+              weight: magicFontWeight
             };
       });
 
@@ -217,8 +220,10 @@ const CardSpellDescText = ({
     />
   );
 
-  // If stable, display multi-styled text.
-  // Else, display a loading image.
+  /*
+   * If stable, display multi-styled text.
+   * Else, display a loading image.
+   */
   return state.stable ? (
     <Group>
       {baseDisplay}
