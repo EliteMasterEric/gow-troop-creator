@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Konva from "konva";
 import { Layer } from "react-konva";
 import debounceRender from "react-debounce-render";
 
@@ -11,8 +12,6 @@ import {
   CardTextRef,
   CardImageRotating
 } from "./CardBase";
-import { rarities } from "../../../Values";
-import debounceRender from "react-debounce-render";
 
 // Render a spell as part of a full-size card (like in the troop list).
 const CardTroop = debounceRender(({ troop, displayLayer, fontsLoaded }) => {
@@ -35,17 +34,20 @@ const CardTroop = debounceRender(({ troop, displayLayer, fontsLoaded }) => {
     }
   }, [fontsLoaded, (displayLayer.current || { loaded: false }).loaded]);
 
-  // Reference to the troop type line, so width can be accessed.
-  const typeRef = useRef(null);
   // Troop type text to display.
   const typeText =
     troop.type2 !== "" ? `${troop.type1} / ${troop.type2}` : troop.type1;
 
-  // Logic for positioning the role icons.
-  const [typeTextWidth, setTypeTextWidth] = useState(0);
-  useEffect(() => {
-    if (typeRef.current) setTypeTextWidth(typeRef.current.textWidth);
-  }, [typeRef.current, fontsLoaded]);
+  // Logic for positioning role icons.
+  const measureTypeText = () => {
+    const measure = new Konva.Text({
+      fontFamily: "Open Sans",
+      fontSize: 30,
+      fontWeight: 600,
+      text: typeText
+    });
+    return measure.width();
+  };
 
   return (
     <CardBase width={490} height={739}>
@@ -67,9 +69,7 @@ const CardTroop = debounceRender(({ troop, displayLayer, fontsLoaded }) => {
           y={37 + 9}
           width={461}
           height={643}
-          crop={{ x: 0, y: 9, width: 460, height: 643 }}
         />
-
         <CardImage
           base={
             troop.rarity !== "" ? `./graphics/troopcard/${troop.rarity}` : null
@@ -213,14 +213,13 @@ const CardTroop = debounceRender(({ troop, displayLayer, fontsLoaded }) => {
               ? `./graphics/roles/${troop.role}`
               : null
           }
-          x={260 - 44 - 8 - typeTextWidth / 2}
+          x={260 - 44 - 8 - measureTypeText() / 2}
           y={692}
           color="#000000"
           width={44}
           height={44}
         />
         <CardTextRef
-          ref={typeRef}
           text={typeText}
           x={40}
           y={700}
@@ -237,7 +236,7 @@ const CardTroop = debounceRender(({ troop, displayLayer, fontsLoaded }) => {
               ? `./graphics/roles/${troop.role}`
               : null
           }
-          x={260 + 8 + typeTextWidth / 2}
+          x={260 + 8 + measureTypeText() / 2}
           y={692}
           color="#000000"
           width={44}
