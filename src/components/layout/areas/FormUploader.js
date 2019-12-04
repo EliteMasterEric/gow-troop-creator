@@ -39,7 +39,16 @@ export const FormUploader = ({ handleTroopChange, fieldKey, dimensions }) => {
 
   const handleChangeFiles = useCallback(
     files => {
-      handleTroopChange(fieldKey, files.length !== 0 ? files[0] : null);
+      if (files.length !== 0) {
+        const reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = () => {
+          handleTroopChange(fieldKey, reader.result);
+        };
+        reader.onerror = error => {
+          console.log(error);
+        };
+      }
     },
     [handleTroopChange]
   );
